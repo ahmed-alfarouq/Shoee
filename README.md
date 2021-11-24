@@ -17,7 +17,7 @@
   - SASS
 
 ## Live Demo
-[Live-demo](https://freeeze.pages.dev/)
+[Live-demo](https://shoeeecommercesite.pages.dev/)
 
 ### Prerequisites
   - #### Knowledge of these technologies
@@ -32,7 +32,7 @@
 
 ### Setup
   * Open your command
-  * Type "git clone https://github.com/ahmed-al-farouq/freeeze.git"
+  * Type "git clone https://github.com/ahmed-al-farouq/Shoee.git"
   * npm i
   * npm run start
 
