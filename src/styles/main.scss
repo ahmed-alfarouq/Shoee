@@ -1,0 +1,25 @@
+// Base styles
+@import 'base/variables';
+@import 'base/animations';
+@import 'base/reset';
+@import 'base/globals';
+
+// Utilities
+@import 'utilities/helpers';
+
+// Components
+@import "./components/navbar";
+// @import "./spinner";
+// @import "./slide";
+// @import "./top_selling";
+// @import "./single_section";
+
+// Pages
+// @import "./products.scss";
+// @import "./singleProduct/single-product.scss";
+// @import "./singleProduct/related-products.scss";
+// @import "./check-out.scss";
+// @import "./contact-us/contact-us.scss";
+// @import "./log-in/login.scss";
+// @import "./signup/signup.scss";
+// @import "./footer.scss";
