@@ -11,6 +11,7 @@ import { BsTrashFill, BsExclamationCircleFill } from "react-icons/bs";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../app/features/products/productsSlice";
+import SearchForm from "../components/SearchForm";
 
 const Navbar = () => {
   // Redux
@@ -21,7 +22,6 @@ const Navbar = () => {
   const menuRef = useRef(null);
   const btnRef = useRef(null);
   const searchBoxRef = useRef(null);
-  const inputRef = useRef(null);
   const cartRef = useRef(null);
   const overlayRef = useRef(null);
   const closeIconRef = useRef(null);
@@ -46,13 +46,15 @@ const Navbar = () => {
     closeIconRef.current.classList.toggle("hidden");
     overlayRef.current.classList.toggle("hidden");
     searchBoxRef.current.classList.toggle("open");
-    inputRef.current.focus();
   };
   const switchCart = (_) => {
     cartRef.current.classList.toggle("open");
+    overlayRef.current.classList.toggle("hidden");
   };
   return (
     <header>
+      <div className="bg-overlay hidden" ref={overlayRef}></div>{" "}
+      {/* Used for searchbox and cart */}
       <Link to="/" className="logo">
         Shoee
       </Link>
@@ -162,75 +164,28 @@ const Navbar = () => {
         </nav>
         <div className="icons">
           <div className="search-container">
-            <div className="bg-overlay hidden" ref={overlayRef}></div>
+            <IoIosSearch onClick={switchSearchBox} />
             <IoMdClose
               className="close hidden"
               onClick={switchSearchBox}
               ref={closeIconRef}
             />
-            <IoIosSearch onClick={switchSearchBox} />
-            <form name="search-form" ref={searchBoxRef}>
-              <label className="sr-only" htmlFor="product">
-                Search
-              </label>
-              <input
-                list="products"
-                name="products"
-                id="product"
-                ref={inputRef}
-              />
-              <datalist id="products" title="products">
-                {
-                  // products.map((product) => (
-                  //   <option value={product.name} key={product.id} />
-                  // ))
-                }
-                <option value="value 1" />
-                <option value="value 2" />
-                <option value="value 3" />
-                <option value="value 4" />
-              </datalist>
-            </form>
+            <SearchForm
+              className="hidden"
+              ref={searchBoxRef}
+              options={products}
+            />
           </div>
-          <div className="cart-icon" onClick={switchCart}>
-            <span>{cartCount}</span>
-            <IoIosCart />
+
+          <div className="cart-container">
+            <div className="cart-icon" onClick={switchCart}>
+              <span>{cartCount}</span>
+              <IoIosCart />
+            </div>
+            
           </div>
         </div>
 
-        <div className="cart" ref={cartRef}>
-          {cart.length
-            ? cart.map((el) => {
-                return (
-                  <div key={el.id}>
-                    <div>
-                      <img src={el.image} alt={el.name} />
-                      <span className="items-number">{el.qty}</span>
-                    </div>
-                    <h2>{el.name}</h2>
-                    <BsTrashFill
-                      className="trash-icon"
-                      onClick={() => dispatch(removeFromCart(el.id))}
-                    />
-                    <h3>Total Price: {el.qty * el.price} $</h3>
-                  </div>
-                );
-              })
-            : null}
-          {cart.length === 0 ? (
-            <div className="no-products">
-              <BsExclamationCircleFill />
-              <h2>There is no products yet. Choice some.</h2>
-              <Link to="/products" onClick={switchCart}>
-                Products
-              </Link>
-            </div>
-          ) : (
-            <Link to="/checkout" onClick={switchCart}>
-              check out
-            </Link>
-          )}
-        </div>
         <button
           className="menu-icons"
           aria-label="close"
