@@ -30,18 +30,16 @@ function App() {
 
   useEffect(() => {
     if (loading) {
-      // dispatch(fetchProduts());
-    } else {
-      console.log(products);
+      dispatch(fetchProduts());
     }
   }, [loading, dispatch]);
 
-  return !loading ? (
+  return loading ? (
     <Spinner />
   ) : (
     <BrowserRouter>
       <Navbar />
-      {/* <PersistGate loading={<Spinner />} persistor={persistor}>
+      <PersistGate loading={<Spinner />} persistor={persistor}>
         <Routes>
           <Route
             exact
@@ -61,7 +59,7 @@ function App() {
             }
           />
         </Routes>
-      </PersistGate> */}
+      </PersistGate>
       <Footer />
     </BrowserRouter>
   );

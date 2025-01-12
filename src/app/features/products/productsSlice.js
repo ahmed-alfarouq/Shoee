@@ -41,7 +41,6 @@ export const productsSlice = createSlice({
       })
       .addCase(fetchProduts.fulfilled, (state, action) => {
         if (action.payload) {
-          // const filteredProducts
           state.products = action.payload;
           state.error = "";
         } else {

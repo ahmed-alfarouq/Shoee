@@ -1,4 +1,4 @@
-import React, { useRef, useState, forwardRef } from "react";
+import React, { useState, forwardRef } from "react";
 
 const SearchForm = forwardRef(({ options }, ref) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -43,8 +43,8 @@ const SearchForm = forwardRef(({ options }, ref) => {
         onBlur={handleBlur}
         placeholder="Search..."
         style={{
-          "border-bottom-right-radius": showOptions ? 0 : 3,
-          "border-bottom-left-radius": showOptions ? 0 : 3,
+          borderBottomRightRadius: showOptions ? 0 : 3,
+          borderBottomLeftRadius: showOptions ? 0 : 3,
         }}
       />
       {showOptions && (
