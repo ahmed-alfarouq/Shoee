@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 //import Icons
 import {
   IoIosArrowDown,
@@ -7,17 +8,19 @@ import {
   IoIosCart,
   IoMdClose,
 } from "react-icons/io";
-import { BsTrashFill, BsExclamationCircleFill } from "react-icons/bs";
+
 // Redux
-import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../app/features/products/productsSlice";
+import { useSelector } from "react-redux";
+
+// Components
 import SearchForm from "../components/SearchForm";
+import Cart from "./Cart";
 
 const Navbar = () => {
   // Redux
   let products = useSelector((state) => state.products.products);
   let cart = useSelector((state) => state.products.cart);
-  const dispatch = useDispatch();
+
   // Refs
   const menuRef = useRef(null);
   const btnRef = useRef(null);
@@ -53,8 +56,8 @@ const Navbar = () => {
   };
   return (
     <header>
-      <div className="bg-overlay hidden" ref={overlayRef}></div>{" "}
       {/* Used for searchbox and cart */}
+      <div className="bg-overlay hidden" ref={overlayRef}></div>
       <Link to="/" className="logo">
         Shoee
       </Link>
@@ -182,7 +185,7 @@ const Navbar = () => {
               <span>{cartCount}</span>
               <IoIosCart />
             </div>
-            
+            <Cart ref={cartRef} switchCart={switchCart} />
           </div>
         </div>
 

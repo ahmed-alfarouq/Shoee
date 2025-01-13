@@ -1,72 +1,76 @@
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .text-left {
-    text-align: left;
+  text-align: left;
 }
 
 .text-right {
-    text-align: right;
+  text-align: right;
 }
 
-.hidden,
 .sr-only {
-    display: none !important;
+  display: none !important;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .visible {
-    display: block !important;
+  opacity: 1;
+  visibility: visible;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .flex-center {
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .flex-between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .flex-wrap {
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .overflow-hidden {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .overflow-scroll {
-    overflow: auto;
+  overflow: auto;
 }
 
-
 @for $i from 0 through 10 {
-    .mx-#{$i} {
-        margin-left: $i * 4px;
-        margin-right: $i * 4px;
-    }
+  .mx-#{$i} {
+    margin-left: $i * 4px;
+    margin-right: $i * 4px;
+  }
 
-    .my-#{$i} {
-        margin-top: $i * 4px;
-        margin-bottom: $i * 4px;
-    }
+  .my-#{$i} {
+    margin-top: $i * 4px;
+    margin-bottom: $i * 4px;
+  }
 
-    .px-#{$i} {
-        padding-left: $i * 4px;
-        padding-right: $i * 4px;
-    }
+  .px-#{$i} {
+    padding-left: $i * 4px;
+    padding-right: $i * 4px;
+  }
 
-    .py-#{$i} {
-        padding-top: $i * 4px;
-        padding-bottom: $i * 4px;
-    }
+  .py-#{$i} {
+    padding-top: $i * 4px;
+    padding-bottom: $i * 4px;
+  }
 
-    .gap-#{$i} {
-        gap: $i * 4px;
-    }
+  .gap-#{$i} {
+    gap: $i * 4px;
+  }
 }

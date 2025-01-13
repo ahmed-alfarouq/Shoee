@@ -1,19 +1,30 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../../app/features/products/productsSlice";
+
+// Assets
+import { IoCloseCircleOutline   } from "react-icons/io5";
 
 const CartItem = ({ item }) => {
+  const dispatch = useDispatch();
+  console.log(item);
   return (
-    <div className="cart-item">
+    <li className="cart-item">
       <div>
-        <img src={item.image} alt={item.name} />
-        <span className="items-number">{item.qty}</span>
+        <img src={item.image} alt={item.title} />
       </div>
-      <h2>{item.name}</h2>
-      <BsTrashFill
-        className="trash-icon"
+      <span className="title">{item.title}</span>
+      <div className="price">
+        <bdi>
+          <span className="currency-symbol">$</span>
+          {item.qty || 1 * item.price}
+        </bdi>
+      </div>
+      <IoCloseCircleOutline 
+        className="remove"
         onClick={() => dispatch(removeFromCart(item.id))}
       />
-      <h3>Total Price: {item.qty * item.price} $</h3>
-    </div>
+    </li>
   );
 };
 

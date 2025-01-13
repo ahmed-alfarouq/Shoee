@@ -26,13 +26,16 @@ const initialState = {
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducer: {
+  reducers: {
     increaseNumOfItems: (state) => state.numOfItems++,
     decreaseNumOfItems: (state) => state.numOfItems--,
     fetchProduct: (state, action) => {},
     addItemToCart: (state, action) => {},
     removeFromCart: (state, action) => {},
     changeSectionClass: (state, action) => {},
+    updateLoadingState: (state) => {
+      state.loading = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -62,5 +65,6 @@ export const {
   addItemToCart,
   removeFromCart,
   changeSectionClass,
+  updateLoadingState,
 } = productsSlice.actions;
 export default productsSlice.reducer;

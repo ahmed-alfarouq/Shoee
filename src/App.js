@@ -18,7 +18,10 @@ import Spinner from "./features/Spinner";
 import Navbar from "./features/Navbar";
 import Footer from "./features/Footer";
 // Redux
-import { fetchProduts } from "./app/features/products/productsSlice";
+import {
+  fetchProduts,
+  updateLoadingState,
+} from "./app/features/products/productsSlice";
 import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -29,10 +32,12 @@ function App() {
   const error = useSelector((state) => state.products.error);
 
   useEffect(() => {
-    if (loading) {
+    if (loading && !products.length) {
       dispatch(fetchProduts());
+    } else {
+      dispatch(updateLoadingState());
     }
-  }, [loading, dispatch]);
+  }, [products, loading, dispatch]);
 
   return loading ? (
     <Spinner />

@@ -1,25 +1,30 @@
 import React, { forwardRef } from "react";
-import CartItem from "../components/Cart/CartItem";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Cart = forwardRef(({ cartItems }, ref) => {
+// Components
+import CartItem from "../components/cart/CartItem";
+import Empty from "../components/cart/Empty";
+
+// Icons
+import { IoMdClose } from "react-icons/io";
+
+const Cart = forwardRef(({ switchCart }, ref) => {
+  const cartItems = useSelector((state) => state.products.products);
   return (
     <div className="cart" ref={ref}>
-      {cartItems.length ? (
-        cartItems.map((item) => <CartItem key={item.id} item={item} />)
+      <div className="cart-header">
+        <span>Shopping Cart</span>
+        <IoMdClose onClick={switchCart} />
+      </div>
+      {cartItems && cartItems.length ? (
+        <ul className="cart-items">
+          {cartItems.map((item) => (
+            <CartItem key={item.id} item={item} />
+          ))}
+        </ul>
       ) : (
-        <div className="no-products">
-          <BsExclamationCircleFill />
-          <h2>There is no products yet.</h2>
-        </div>
-      )}
-      {cartItems.length ? (
-        <Link to="/checkout" onClick={switchCart}>
-          check out
-        </Link>
-      ) : (
-        <Link to="/products" onClick={switchCart}>
-          Products
-        </Link>
+        <Empty switchCart={switchCart} />
       )}
     </div>
   );
