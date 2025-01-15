@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: $primary-font;
+  line-height: 1.6;
+  color: $primary-font-color;
+  background-color: $primary-color;
+  overflow-x: hidden;
+}
+
+
 ul,
 ol {
   list-style: none;
@@ -32,10 +41,7 @@ button {
   cursor: pointer;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: $primary-font-color;
-  background-color: $primary-color;
-  overflow-x: hidden;
+h1,
+h1 a {
+  font-family: $secondary-font;
 }

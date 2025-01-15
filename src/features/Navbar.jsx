@@ -8,6 +8,7 @@ import {
   IoIosCart,
   IoMdClose,
 } from "react-icons/io";
+import { CiMenuBurger } from "react-icons/ci";
 
 // Redux
 import { useSelector } from "react-redux";
@@ -23,7 +24,7 @@ const Navbar = () => {
 
   // Refs
   const menuRef = useRef(null);
-  const btnRef = useRef(null);
+  const toggleBtnRef = useRef(null);
   const searchBoxRef = useRef(null);
   const cartRef = useRef(null);
   const overlayRef = useRef(null);
@@ -41,9 +42,10 @@ const Navbar = () => {
     setCartCount(count);
   }, [cart, cartCount]);
 
-  const menuTragger = () => {
+  const toggleMenu = () => {
     menuRef.current.classList.toggle("open");
-    return btnRef.current.classList.toggle("open");
+    overlayRef.current.classList.toggle("hidden");
+    return toggleBtnRef.current.classList.toggle("open");
   };
   const switchSearchBox = () => {
     closeIconRef.current.classList.toggle("hidden");
@@ -61,15 +63,24 @@ const Navbar = () => {
       <Link to="/" className="logo">
         Shoee
       </Link>
-      <div className="nav-right-side">
-        <nav ref={menuRef} className="menu-collapse">
-          <ul className="flex flex-center gap-3 menu">
+      <div ref={menuRef} className="nav-right-side">
+        <nav className="menu-collapse">
+          <button
+            type="button"
+            className="close-menu"
+            title="close menu"
+            onClick={toggleMenu}
+          >
+            <span className="sr-only">close menu</span>
+            <IoMdClose />
+          </button>
+          <ul className="flex flex-center menu">
             <li>
               <Link
                 to="/"
                 onClick={() =>
                   menuRef.current.className.includes("open")
-                    ? menuTragger()
+                    ? toggleMenu()
                     : cartRef.current.className.includes("open")
                     ? switchCart()
                     : searchBoxRef.current.className.includes("open")
@@ -86,7 +97,7 @@ const Navbar = () => {
                 to="/products"
                 onClick={() =>
                   menuRef.current.className.includes("open")
-                    ? menuTragger()
+                    ? toggleMenu()
                     : cartRef.current.className.includes("open")
                     ? switchCart()
                     : searchBoxRef.current.className.includes("open")
@@ -103,7 +114,7 @@ const Navbar = () => {
                 to="/checkout"
                 onClick={() =>
                   menuRef.current.className.includes("open")
-                    ? menuTragger()
+                    ? toggleMenu()
                     : cartRef.current.className.includes("open")
                     ? switchCart()
                     : searchBoxRef.current.className.includes("open")
@@ -120,7 +131,7 @@ const Navbar = () => {
                 to="/contactus"
                 onClick={() =>
                   menuRef.current.className.includes("open")
-                    ? menuTragger()
+                    ? toggleMenu()
                     : cartRef.current.className.includes("open")
                     ? switchCart()
                     : searchBoxRef.current.className.includes("open")
@@ -149,7 +160,7 @@ const Navbar = () => {
                     to="/cart"
                     onClick={() =>
                       menuRef.current.className.includes("open")
-                        ? menuTragger()
+                        ? toggleMenu()
                         : cartRef.current.className.includes("open")
                         ? switchCart()
                         : searchBoxRef.current.className.includes("open")
@@ -188,18 +199,16 @@ const Navbar = () => {
             <Cart ref={cartRef} switchCart={switchCart} />
           </div>
         </div>
-
-        <button
-          className="menu-icons"
-          aria-label="close"
-          onClick={menuTragger}
-          ref={btnRef}
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
       </div>
+      <button
+        type="button"
+        className="toggle-icon"
+        aria-label="toggle menu"
+        onClick={toggleMenu}
+        ref={toggleBtnRef}
+      >
+        <CiMenuBurger />
+      </button>
     </header>
   );
 };

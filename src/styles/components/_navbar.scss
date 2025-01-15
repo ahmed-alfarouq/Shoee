@@ -8,6 +8,7 @@ header {
   margin-left: auto;
   padding-left: 35px;
   padding-right: 35px;
+  font-weight: 500;
 
   .logo {
     color: $secondary-color;
@@ -34,7 +35,7 @@ header {
           right: 35px;
           color: #ffffff;
           font-size: 35px;
-          z-index: 900;
+          z-index: 1100;
           cursor: pointer;
 
           &:hover {
@@ -54,7 +55,7 @@ header {
           display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 900;
+          z-index: 1100;
 
           &.open {
             width: 60%;
@@ -159,7 +160,6 @@ header {
         right: 0;
         transform: translate(100%, 0);
         width: 35%;
-        max-width: 450px;
         background-color: #ffffff;
         z-index: 100000;
         display: flex;
@@ -171,11 +171,11 @@ header {
           justify-content: space-between;
           align-items: center;
           border-bottom: 1px solid $primary-border-color;
-          padding: 21px;
+          padding: 21.5px;
           line-height: 1;
 
           span {
-            font-size: 16px;
+            font-size: 17px;
           }
 
           svg {
@@ -187,6 +187,7 @@ header {
         .cart-items {
           padding: 21px;
           overflow: auto;
+
           .cart-item {
             &:not(:first-child) {
               border-top: 1px solid $primary-border-color;
@@ -202,23 +203,31 @@ header {
               left: 0;
               top: 50%;
               transform: translateY(-50%);
-              width: 64px;
-              height: 64px;
+              width: 70px;
+              height: 70px;
               margin: 0 0 8px 0;
             }
 
             .title,
             .price {
-              font-size: 16px;
+              font-size: 17px;
               line-height: normal;
               color: $secondary-font-color;
+            }
+
+            .price {
+              position: absolute;
+              bottom: 25px;
+              right: 0;
+              left: auto;
+              margin: 0 10px;
             }
 
             .remove {
               position: absolute;
               left: auto;
               right: 0;
-              top: 17px;
+              top: 25px;
               color: $secondary-font-color;
               opacity: 0.7;
               transition: all 0.2s linear;
@@ -249,31 +258,59 @@ header {
         &.open {
           transform: translate(0, 0);
         }
+
+        .cart-footer {
+          background-color: #ffffff;
+
+          p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 23px;
+            border-top: 1px solid $primary-border-color;
+            border-bottom: 1px solid $primary-border-color;
+            font-size: 17px;
+            color: $primary-font-color;
+
+            strong {
+              font-weight: 500;
+              padding-right: 8.5px;
+            }
+
+            .amount {
+              color: $secondary-font-color;
+            }
+          }
+
+          .buttons {
+            padding: 22.78px;
+
+            .btn {
+              margin-top: 10px;
+              color: $secondary-font-color;
+
+              &:first-child {
+                margin-bottom: 5px;
+              }
+
+              &:hover {
+                color: $primary-font-color;
+              }
+            }
+          }
+        }
       }
     }
   }
 
-  .menu-icons {
-    display: none;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    margin: 0 0 1px;
-
-    span {
-      display: block;
-      width: 50px;
-      height: 6px;
-      border-radius: 5px;
-      background-color: $primary-color;
-      margin: 5px 0;
-      transition: 0.4s;
-    }
-  }
-
   .menu-collapse {
-    ul.menu {
+    .close-menu {
+      display: none;
+    }
+
+    .menu {
       flex-wrap: wrap;
+      gap: 12px;
 
       li {
         position: relative;
@@ -347,120 +384,90 @@ header {
     }
   }
 
-  // Start Media
-  // @media only screen and (max-width: 1199.99px) {
-  //     width: 100%;
-  //     text-align: left;
-  //     justify-content: space-around;
-  //     position: relative;
-  //     overflow: visible;
+  .toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    font-size: 23px;
+    padding: 8px;
+    background-color: $third-color;
+    color: #ffffff;
+    border: none;
+  }
+}
 
-  //     .menu-icons {
-  //         display: block;
-  //         cursor: pointer;
+// Start Media
+@media screen and (max-width: 921px) {
+  header {
+    justify-content: space-between;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
 
-  //         &.open {
-  //             span:nth-child(1) {
-  //                 -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-  //                 transform: rotate(-45deg) translate(-9px, 6px);
-  //             }
+    .nav-right-side {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: -100%;
+      width: 90%;
+      z-index: 1000;
+      background-color: #ffffff;
+      box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1);
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transition: all 0.2s linear;
 
-  //             span:nth-child(2) {
-  //                 opacity: 0;
-  //             }
+      &.open {
+        right: 0;
+      }
 
-  //             span:nth-child(3) {
-  //                 -webkit-transform: rotate(45deg) translate(-8px, -8px);
-  //                 transform: rotate(45deg) translate(-8px, -8px);
-  //             }
-  //         }
-  //     }
+      .menu-collapse {
+        width: 100%;
 
-  //     .menu-collapse {
-  //         flex-direction: column;
-  //         width: 0;
-  //         height: 0;
-  //         transition: width ease-in-out .8s;
-  //         position: absolute;
-  //         top: 57px;
-  //         left: 0;
+        .close-menu {
+          display: block;
+          margin-left: auto;
+          padding: 19px;
 
-  //         ul.menu {
-  //             display: none;
-  //             width: 100%;
-  //             flex-direction: column;
-  //         }
+          svg {
+            width: 17px;
+            height: 17px;
+          }
+        }
 
-  //         form {
-  //             width: 0;
-  //             overflow: hidden;
-  //         }
-  //     }
+        .menu {
+          flex-direction: column;
+          gap: 0;
 
-  //     .menu-collapse.open {
-  //         width: 100%;
-  //         height: 100vh;
-  //         display: block;
-  //         position: fixed;
-  //         top: 55px;
-  //         left: 0;
-  //         background: rgb(255, 255, 255);
-  //         z-index: 10;
+          li {
+            background-color: $primary-color;
+            width: 100%;
+            border-bottom: 1px solid $primary-border-color;
 
-  //         ul.menu {
-  //             display: block;
-  //             margin: 20px auto;
+            &:first-child {
+              border-top: 1px solid $primary-border-color;
+            }
+          }
+        }
+      }
 
-  //             li {
-  //                 background-color: $primary-color;
-  //                 border-bottom: 1px solid $primary-border-color;
-  //             }
-  //         }
-  //     }
-
-  //     form[name="search-form"] {
-  //         right: 50%;
-  //         top: 58px;
-  //         transform: translateX(15%);
-  //     }
-
-  //     form[name="search-form"]::before {
-  //         right: 29px;
-  //     }
-  // }
-
-  @media only screen and (max-width: 576px) {
-    padding: 10px 2px;
-
-    .logo {
-      padding: 0;
-      margin: 0;
-      font-size: 30px;
-    }
-
-    li {
-      a {
-        padding-top: 7px;
-        padding-bottom: 7px;
-        padding-left: 15px;
-        padding-right: 15px;
+      .icons {
+        margin-top: 10px;
       }
     }
+  }
+}
 
-    .menu-icons {
-      span::before,
-      span::after {
-        padding: 3px 25px;
-      }
-    }
-
-    form[name="search-form"]::before {
-      right: 60px;
-    }
-
-    form[name="search-form"] {
-      top: 58px;
-      transform: translateX(5%);
-    }
+@media screen and (max-width: 544px) {
+  header {
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 }

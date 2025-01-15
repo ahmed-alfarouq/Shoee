@@ -1,16 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { fetchData } from "../../../utils/api";
 
 export const fetchProduts = createAsyncThunk(
   "products/fetchProduts",
-  async (_, thunkAPI) => {
-    try {
-      const res = await axios.get(process.env.REACT_APP_API_URL);
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.message });
-    }
-  }
+  async (_, thunkAPI) => fetchData(thunkAPI)
 );
 
 const initialState = {
@@ -29,6 +22,26 @@ export const productsSlice = createSlice({
   reducers: {
     increaseNumOfItems: (state) => state.numOfItems++,
     decreaseNumOfItems: (state) => state.numOfItems--,
+    incrementCartItem: (state, action) => {
+      const newCart = state.cart.map((product) => {
+        if (product.id == action.payload) {
+          product.qty += 1;
+        }
+        return product;
+      });
+      state.cart = newCart;
+    },
+    decrementCartItem: (state, action) => {
+      const newCart = state.cart
+        .map((product) => {
+          if (product.id == action.payload) {
+            product.qty -= 1;
+          }
+          return product;
+        })
+        .filter((product) => product.qty > 0);
+      state.cart = newCart;
+    },
     fetchProduct: (state, action) => {},
     addItemToCart: (state, action) => {},
     removeFromCart: (state, action) => {},
@@ -61,6 +74,8 @@ export const productsSlice = createSlice({
 export const {
   increaseNumOfItems,
   decreaseNumOfItems,
+  incrementCartItem,
+  decrementCartItem,
   fetchProduct,
   addItemToCart,
   removeFromCart,
