@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 // Components
 import SearchForm from "../components/SearchForm";
 import Cart from "./Cart";
+import BGOverlay from "../components/BGOverlay";
 
 const Navbar = () => {
   // Redux
@@ -24,11 +25,9 @@ const Navbar = () => {
 
   // Refs
   const menuRef = useRef(null);
-  const toggleBtnRef = useRef(null);
   const searchBoxRef = useRef(null);
   const cartRef = useRef(null);
   const overlayRef = useRef(null);
-  const closeIconRef = useRef(null);
 
   // State
   const [cartCount, setCartCount] = useState(0);
@@ -45,21 +44,38 @@ const Navbar = () => {
   const toggleMenu = () => {
     menuRef.current.classList.toggle("open");
     overlayRef.current.classList.toggle("hidden");
-    return toggleBtnRef.current.classList.toggle("open");
   };
+
+  const toggleDropdownMenu = (e) => {
+    // open class is set only for screens smaller than 921px
+    e.currentTarget.classList.toggle("open");
+  };
+
   const switchSearchBox = () => {
-    closeIconRef.current.classList.toggle("hidden");
-    overlayRef.current.classList.toggle("hidden");
     searchBoxRef.current.classList.toggle("open");
-  };
-  const switchCart = (_) => {
-    cartRef.current.classList.toggle("open");
     overlayRef.current.classList.toggle("hidden");
   };
+
+  const switchCart = () => {
+    if (menuRef.current.classList.contains("open")) {
+      menuRef.current.classList.toggle("open");
+      cartRef.current.classList.toggle("open");
+    } else {
+      cartRef.current.classList.toggle("open");
+      overlayRef.current.classList.toggle("hidden");
+    }
+  };
+
+  const resetClasses = () => {
+    cartRef.current.classList.remove("open");
+    menuRef.current.classList.remove("open");
+    searchBoxRef.current.classList.remove("open");
+    overlayRef.current.classList.add("hidden");
+  };
+
   return (
     <header>
-      {/* Used for searchbox and cart */}
-      <div className="bg-overlay hidden" ref={overlayRef}></div>
+      <BGOverlay reset={resetClasses} ref={overlayRef} />
       <Link to="/" className="logo">
         Shoee
       </Link>
@@ -144,7 +160,7 @@ const Navbar = () => {
               </Link>
             </li>
 
-            <li className="dropdown">
+            <li className="dropdown" onClick={toggleDropdownMenu}>
               <div className="dropdown-btn">
                 <span>account</span>
                 <IoIosArrowDown />
@@ -179,16 +195,10 @@ const Navbar = () => {
         <div className="icons">
           <div className="search-container">
             <IoIosSearch onClick={switchSearchBox} />
-            <IoMdClose
-              className="close hidden"
-              onClick={switchSearchBox}
-              ref={closeIconRef}
-            />
-            <SearchForm
-              className="hidden"
-              ref={searchBoxRef}
-              options={products}
-            />
+            <div className="search-box" ref={searchBoxRef}>
+              <IoMdClose className="close" onClick={switchSearchBox} />
+              <SearchForm className="hidden" options={products} />
+            </div>
           </div>
 
           <div className="cart-container">
@@ -205,7 +215,6 @@ const Navbar = () => {
         className="toggle-icon"
         aria-label="toggle menu"
         onClick={toggleMenu}
-        ref={toggleBtnRef}
       >
         <CiMenuBurger />
       </button>
