@@ -10,8 +10,8 @@ const Menu = ({ items, style }) => {
           flexDirection: style === "vertical" ? "column" : "row",
         }}
       >
-        {items.map((item) => (
-          <li className="menu-item">
+        {items.map((item, i) => (
+          <li className="menu-item" key={i}>
             <Link to={item.to} className="menu-link">
               {item.name}
               {item.icon ? <span className="menu-icon">{item.icon}</span> : ""}
