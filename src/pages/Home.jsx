@@ -1,21 +1,16 @@
 import React from "react";
+import Banner from "../features/home/Banner";
+import FeaturedProducts from "../features/home/FeaturedProducts";
 // import Slide from "./Slide";
 // import TopSelling from "./TopSelling";
 // import SingleSection from "./SingleSection";
 
 const Home = () => {
   return (
-    <React.Fragment>
-      {/* <Slide />
-      <TopSelling />
-      <SingleSection type="shirt" sectionName="Men" loadMore="/products" />
-      <SingleSection
-        type="headphones"
-        sectionName="HeadPhones"
-        loadMore="/products"
-      />
-      <SingleSection type="shoes" sectionName="Shoes" loadMore="/products" /> */}
-    </React.Fragment>
+    <main>
+      <Banner />
+      <FeaturedProducts />
+    </main>
   );
 };
 

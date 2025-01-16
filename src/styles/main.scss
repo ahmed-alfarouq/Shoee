@@ -10,6 +10,8 @@
 
 // Components
 @import "./components/navbar";
+@import "./components/banner";
+@import "./components/card";
 @import "./components/footer";
 // @import "./spinner";
 // @import "./slide";
@@ -17,6 +19,7 @@
 // @import "./single_section";
 
 // Pages
+@import "./pages/home.scss";
 // @import "./products.scss";
 // @import "./singleProduct/single-product.scss";
 // @import "./singleProduct/related-products.scss";

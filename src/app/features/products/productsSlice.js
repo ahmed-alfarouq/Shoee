@@ -57,7 +57,11 @@ export const productsSlice = createSlice({
       })
       .addCase(fetchProduts.fulfilled, (state, action) => {
         if (action.payload) {
-          state.products = action.payload;
+          state.products = [
+            ...action.payload.shirts,
+            ...action.payload.watches,
+            ...action.payload.shoes,
+          ];
           state.error = "";
         } else {
           state.error = "Something went wrong after fullfilling the request!";

@@ -20,7 +20,7 @@ const CartItem = ({ item }) => {
   return (
     <li className="cart-item">
       <div>
-        <img src={item.image} alt={item.title} />
+        <img src={item.images[0]} alt={item.title} />
         <div>
           <span className="title">{truncate(item.title, 4)}</span>
           <IncrementDecrementCounter
