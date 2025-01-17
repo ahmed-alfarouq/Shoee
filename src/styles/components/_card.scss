@@ -57,22 +57,10 @@
             color: $primary-font-color;
         }
 
-        .discount {
-            position: absolute;
+        .onsale {
             top: -6px;
             right: -6px;
             left: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-width: 40px;
-            min-height: 40px;
-            background-color: $third-color;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 500;
-            border-radius: 50%;
-            z-index: 9;
         }
 
         .review-rating {

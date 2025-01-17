@@ -19,13 +19,13 @@ const Card = ({ item }) => {
       </div>
       <div className="card-content">
         {Math.round(item.discountPercentage) >= 10 && (
-          <span className="discount">Sale!</span>
+          <span className="onsale">Sale!</span>
         )}
         <span className="category">{formatCategory(item.category)}</span>
         <h2 className="title">
           <Link to={`products/${item.id}`}>{item.title}</Link>
         </h2>
-        <ReviewRating rating={item.rating} />
+        {/* <ReviewRating rating={item.rating} /> */}
         <div className="price">
           {Math.round(item.discountPercentage) >= 10 && (
             <>

@@ -6,7 +6,7 @@
   right: 0;
   left: 0;
   transition: all 0.3s ease-in-out;
-  z-index: 1000;
+  z-index: 999;
   cursor: default;
 }
 
@@ -57,4 +57,18 @@
       cursor: not-allowed;
     }
   }
+}
+
+.sale {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  min-width: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: $third-color;
+  color: #ffffff;
+  border-radius: 50%;
 }
