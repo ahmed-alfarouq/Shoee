@@ -1,33 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 // Components
 import Card from "../../components/Card";
 import formatCategory from "../../utils/formatCategory";
 import QuickView from "../../components/QuickView";
+import filterProductsByCategory from "../../utils/filterProductsByCategory";
 
 const FeaturedProducts = () => {
   const products = useSelector((state) => state.products.products);
   const [tabProducts, setTabProducts] = useState(products);
+  const [modelItem, setModelItem] = useState({});
+  const [isModelHidden, setIsModelHidden] = useState(true);
+  const [activeTab, setActiveTab] = useState("mens-shirts");
+
+  const modelRef = useRef(null);
+
   const catList = ["mens-shirts", "mens-shoes", "mens-watches"];
 
-  const changeTab = (e, cat) => {
-    const buttons = document.querySelectorAll(".tab-btn");
-    buttons.forEach((button) => button.classList.remove("active"));
+  const changeTab = (cat) => {
+    setActiveTab(cat);
+    setTabProducts(filterProductsByCategory(cat));
+  };
 
-    e.currentTarget.classList.add("active");
+  const productMap = useMemo(() => {
+    return products.reduce((map, product) => {
+      map[product.id] = product;
+      return map;
+    }, {});
+  }, [products]);
 
-    const filteredProducts = products.filter(
-      (product) => product.category === cat
-    );
+  const openModel = (id) => {
+    setModelItem(productMap[id] || {});
+    setIsModelHidden(false);
+  };
 
-    setTabProducts(filteredProducts);
+  const closeModel = () => {
+    setModelItem({});
+    setIsModelHidden(true);
   };
 
   useEffect(() => {
-    setTabProducts(
-      products.filter((product) => product.category === "mens-shirts")
-    );
+    setTabProducts(filterProductsByCategory("mens-shirts"));
   }, [products]);
 
   return (
@@ -40,8 +54,8 @@ const FeaturedProducts = () => {
             <button
               type="button"
               key={cat}
-              className={`tab-btn ${cat === "mens-shirts" && "active"}`}
-              onClick={(e) => changeTab(e, cat)}
+              className={`tab-btn ${activeTab === cat ? "active" : ""}`}
+              onClick={() => changeTab(cat)}
             >
               {formatCategory(cat)}
             </button>
@@ -49,11 +63,16 @@ const FeaturedProducts = () => {
         </div>
         <div className="cards-container tab-content">
           {tabProducts.map((product) => (
-            <Card key={product.id} item={product} />
+            <Card key={product.id} item={product} quickView={openModel} />
           ))}
         </div>
       </div>
-      <QuickView item={products[4]} />
+      <QuickView
+        hidden={isModelHidden}
+        close={closeModel}
+        item={modelItem}
+        ref={modelRef}
+      />
     </section>
   );
 };

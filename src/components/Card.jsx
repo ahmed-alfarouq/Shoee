@@ -6,14 +6,18 @@ import calcOriginalPrice from "../utils/calcOriginalPrice";
 import formatCategory from "../utils/formatCategory";
 import ReviewRating from "./ReviewRating";
 
-const Card = ({ item }) => {
+const Card = ({ item, quickView }) => {
   return (
     <div className="card">
       <div className="card-thumbnail">
         <Link to={`/products/${item.id}`}>
           <img src={item.thumbnail} alt={item.title} />
         </Link>
-        <button type="button" className="quick-view">
+        <button
+          type="button"
+          className="quick-view"
+          onClick={() => quickView(item.id)}
+        >
           quick view
         </button>
       </div>
@@ -25,7 +29,7 @@ const Card = ({ item }) => {
         <h2 className="title">
           <Link to={`products/${item.id}`}>{item.title}</Link>
         </h2>
-        {/* <ReviewRating rating={item.rating} /> */}
+        <ReviewRating rating={item.rating} />
         <div className="price">
           {Math.round(item.discountPercentage) >= 10 && (
             <>
