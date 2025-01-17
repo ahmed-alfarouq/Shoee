@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Utils
-import calcOriginalPrice from "../../utils/calcOriginalPrice";
-import formatCategory from "../../utils/formatCategory";
+import calcOriginalPrice from "../utils/calcOriginalPrice";
+import formatCategory from "../utils/formatCategory";
+import ReviewRating from "./ReviewRating";
 
 const Card = ({ item }) => {
   return (
@@ -24,11 +25,11 @@ const Card = ({ item }) => {
         <h2 className="title">
           <Link to={`products/${item.id}`}>{item.title}</Link>
         </h2>
-        <div className="rating"></div>
+        <ReviewRating rating={item.rating} />
         <div className="price">
           {Math.round(item.discountPercentage) >= 10 && (
             <>
-              <span class="sr-only">
+              <span className="sr-only">
                 Original price was: $
                 {calcOriginalPrice(item.price, item.discountPercentage)}.
               </span>
@@ -37,7 +38,7 @@ const Card = ({ item }) => {
               </del>
             </>
           )}
-          <span class="sr-only">Current price is: ${item.price}.</span>
+          <span className="sr-only">Current price is: ${item.price}.</span>
           <ins aria-hidden="true" className="current-price">
             ${item.price}
           </ins>

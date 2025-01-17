@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 // Components
-import Card from "../../components/card/Card";
+import Card from "../../components/Card";
 import formatCategory from "../../utils/formatCategory";
 import QuickView from "../../components/QuickView";
 
@@ -10,7 +10,7 @@ const FeaturedProducts = () => {
   const products = useSelector((state) => state.products.products);
   const [tabProducts, setTabProducts] = useState(products);
   const catList = ["mens-shirts", "mens-shoes", "mens-watches"];
-  
+
   const changeTab = (e, cat) => {
     const buttons = document.querySelectorAll(".tab-btn");
     buttons.forEach((button) => button.classList.remove("active"));
@@ -39,6 +39,7 @@ const FeaturedProducts = () => {
           {catList.map((cat) => (
             <button
               type="button"
+              key={cat}
               className={`tab-btn ${cat == "mens-shirts" && "active"}`}
               onClick={(e) => changeTab(e, cat)}
             >
@@ -52,7 +53,7 @@ const FeaturedProducts = () => {
           ))}
         </div>
       </div>
-      <QuickView item={products[4]}/>
+      <QuickView item={products[4]} />
     </section>
   );
 };

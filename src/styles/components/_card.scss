@@ -55,7 +55,6 @@
             font-size: 16px;
             line-height: 2;
             color: $primary-font-color;
-            margin-bottom: 8.5px;
         }
 
         .discount {
@@ -76,14 +75,29 @@
             z-index: 9;
         }
 
+        .review-rating {
+            color: $secondary-font-color;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+
+            .full,
+            .half {
+                fill: $primary-font-color;
+            }
+        }
+
         .price {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
+            font-weight: 500;
 
             .original-price {
                 color: $secondary-font-color;
+                opacity: 0.5;
             }
 
             .current-price {
