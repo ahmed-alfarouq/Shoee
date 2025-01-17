@@ -18,7 +18,7 @@ const FeaturedProducts = () => {
     e.currentTarget.classList.add("active");
 
     const filteredProducts = products.filter(
-      (product) => product.category == cat
+      (product) => product.category === cat
     );
 
     setTabProducts(filteredProducts);
@@ -26,9 +26,9 @@ const FeaturedProducts = () => {
 
   useEffect(() => {
     setTabProducts(
-      products.filter((product) => product.category == "mens-shirts")
+      products.filter((product) => product.category === "mens-shirts")
     );
-  }, []);
+  }, [products]);
 
   return (
     <section className="featured-products">
@@ -40,7 +40,7 @@ const FeaturedProducts = () => {
             <button
               type="button"
               key={cat}
-              className={`tab-btn ${cat == "mens-shirts" && "active"}`}
+              className={`tab-btn ${cat === "mens-shirts" && "active"}`}
               onClick={(e) => changeTab(e, cat)}
             >
               {formatCategory(cat)}
