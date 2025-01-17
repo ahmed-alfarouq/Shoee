@@ -3,19 +3,19 @@ import React from "react";
 // Assets
 import { IoIosStarOutline, IoIosStarHalf, IoIosStar } from "react-icons/io";
 
-const ReviewRating = ({ rating }) => {
-  const stars = [];
-  for (let i = 1; i <= 5; i++) {
-    if (i < rating) {
-      stars.push(<IoIosStar className="full" key={i} />);
-    } else if (i > rating && i - 1 < rating) {
-      stars.push(<IoIosStarHalf className="half" key={i} />);
+const ReviewRating = ({ rating, maxRating = 5, className }) => {
+  const stars = Array.from({ length: maxRating }, (_, i) => {
+    const starIndex = i + 1;
+    if (starIndex <= rating) {
+      return <IoIosStar className="full" key={`full-${starIndex}`} />;
+    } else if (starIndex - 0.5 <= rating) {
+      return <IoIosStarHalf className="half" key={`half-${starIndex}`} />;
     } else {
-      stars.push(<IoIosStarOutline key={i} />);
+      return <IoIosStarOutline key={`outline-${starIndex}`} />;
     }
-  }
+  });
 
-  return <div className="review-rating">{stars}</div>;
+  return <div className={`review-rating ${className}`}>{stars}</div>;
 };
 
 export default ReviewRating;
