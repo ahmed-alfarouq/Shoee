@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CartFooter = () => {
+const CartFooter = ({ subtotal }) => {
   return (
     <div className="cart-footer">
       <p className="total">
         <strong>Subtotal:</strong>
         <span className="amount">
           <bdi>
-            <span className="currency-symbol">£</span>
-            19.00
+            <span className="currency-symbol">$</span>
+            {subtotal.toFixed(2)}
           </bdi>
         </span>
       </p>

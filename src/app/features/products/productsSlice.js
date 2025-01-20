@@ -31,30 +31,9 @@ export const productsSlice = createSlice({
     updateLoadingState: (state, action) => {
       state.loading = action.payload;
     },
-    incrementCartItem: (state, action) => {
-      const newCart = state.cart.map((product) => {
-        if (product.id === action.payload) {
-          product.qty += 1;
-        }
-        return product;
-      });
-      state.cart = newCart;
-    },
-    decrementCartItem: (state, action) => {
-      const newCart = state.cart
-        .map((product) => {
-          if (product.id === action.payload) {
-            product.qty -= 1;
-          }
-          return product;
-        })
-        .filter((product) => product.qty > 0);
-      state.cart = newCart;
-    },
     fetchProduct: (state, action) => {},
     addItemToCart: (state, action) => {
       const { id, quantity } = action.payload;
-      console.log(action)
       if (quantity <= 0) {
         return;
       }
@@ -75,7 +54,28 @@ export const productsSlice = createSlice({
         state.cart.push({ ...product, qty: quantity });
       }
     },
-    removeFromCart: (state, action) => {},
+    incrementCartItem: (state, action) => {
+      state.cart = state.cart.map((product) => {
+        if (product.id === action.payload) {
+          product.qty += 1;
+        }
+        return product;
+      });
+    },
+    decrementCartItem: (state, action) => {
+      state.cart = state.cart
+        .map((product) => {
+          if (product.id === action.payload) {
+            product.qty -= 1;
+          }
+          return product;
+        })
+        .filter((product) => product.qty > 0);
+    },
+    removeFromCart: (state, action) => {
+      const ID = action.payload;
+      state.cart = state.cart.filter((product) => product.id !== ID);
+    },
     changeSectionClass: (state, action) => {},
   },
   extraReducers: (builder) => {

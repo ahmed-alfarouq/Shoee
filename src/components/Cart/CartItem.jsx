@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   decrementCartItem,
@@ -18,28 +18,27 @@ import truncate from "../../utils/truncate";
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
 
-  const increment = (id) => dispatch(incrementCartItem(id));
-  const decrement = (id) => dispatch(decrementCartItem(id));
+  const increment = () => dispatch(incrementCartItem(item.id));
+  const decrement = () => dispatch(decrementCartItem(item.id));
 
   return (
     <li className="cart-item">
-      <div>
-        <img src={item.thumbnail} alt={item.title} />
-        <div>
-          <span className="title">{truncate(item.title, 4)}</span>
-          <IncrementDecrementCounter
-            count={item.qty}
-            increment={increment}
-            decrement={decrement}
-          />
+      <img src={item.thumbnail} alt={item.title} />
+      <div className="content">
+        <span className="title">{truncate(item.title, 4)}</span>
+        <IncrementDecrementCounter
+          count={item.qty}
+          increment={increment}
+          decrement={decrement}
+        />
+        <div className="price">
+          <bdi>
+            <span className="currency-symbol">$</span>
+            {(item.qty * item.price).toFixed(2)}
+          </bdi>
         </div>
       </div>
-      <div className="price">
-        <bdi>
-          <span className="currency-symbol">$</span>
-          {item.qty || 1 * item.price}
-        </bdi>
-      </div>
+
       <IoCloseCircleOutline
         className="remove"
         onClick={() => dispatch(removeFromCart(item.id))}

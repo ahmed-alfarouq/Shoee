@@ -11,6 +11,11 @@ import { IoMdClose } from "react-icons/io";
 
 const Cart = forwardRef(({ switchCart }, ref) => {
   const cartItems = useSelector((state) => state.products.cart);
+
+  const subtotal = cartItems.reduce((accumulator, product) => {
+    return accumulator + product.price * product.qty;
+  }, 0);
+
   return (
     <div className="cart" ref={ref}>
       <div className="cart-header">
@@ -24,7 +29,7 @@ const Cart = forwardRef(({ switchCart }, ref) => {
               <CartItem key={item.id} item={item} />
             ))}
           </ul>
-          <CartFooter />
+          <CartFooter subtotal={subtotal} />
         </>
       ) : (
         <Empty switchCart={switchCart} />
