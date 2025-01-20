@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef } from "react";
 import { Link } from "react-router-dom";
 
 // Components
@@ -14,7 +14,6 @@ import formatCategory from "../utils/formatCategory";
 import { IoMdArrowDroprightCircle, IoMdClose } from "react-icons/io";
 
 const QuickView = forwardRef(({ item, hidden, close }, ref) => {
-  const BGoverlayRef = useRef(null);
   const onSale = Math.round(item.discountPercentage) >= 10;
 
   return (
@@ -23,7 +22,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
       ref={ref}
       aria-hidden={hidden}
     >
-      <BGOverlay reset={close} ref={BGoverlayRef} />
+      <BGOverlay reset={close} hidden={hidden} />
       <div className="model-container">
         <IoMdClose className="close" onClick={close} />
         <div className="image">

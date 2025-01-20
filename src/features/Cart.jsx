@@ -11,7 +11,7 @@ import { IoMdClose } from "react-icons/io";
 
 const Cart = forwardRef(({ switchCart }, ref) => {
   const cartItems = useSelector((state) => state.products.products);
-  console.log(cartItems);
+  
   return (
     <div className="cart" ref={ref}>
       <div className="cart-header">

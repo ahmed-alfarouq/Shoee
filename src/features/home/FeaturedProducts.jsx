@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 // Components
@@ -13,8 +13,6 @@ const FeaturedProducts = () => {
   const [modelItem, setModelItem] = useState({});
   const [isModelHidden, setIsModelHidden] = useState(true);
   const [activeTab, setActiveTab] = useState("mens-shirts");
-
-  const modelRef = useRef(null);
 
   const catList = ["mens-shirts", "mens-shoes", "mens-watches"];
 
@@ -41,7 +39,6 @@ const FeaturedProducts = () => {
   };
 
   useEffect(() => {
-    console.log(products);
     setTabProducts(filterProductsByCategory(products, "mens-shirts"));
   }, [products]);
 
@@ -72,7 +69,6 @@ const FeaturedProducts = () => {
         hidden={isModelHidden}
         close={closeModel}
         item={modelItem}
-        ref={modelRef}
       />
     </section>
   );

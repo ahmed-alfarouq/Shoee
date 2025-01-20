@@ -27,10 +27,10 @@ const Navbar = () => {
   const menuRef = useRef(null);
   const searchBoxRef = useRef(null);
   const cartRef = useRef(null);
-  const overlayRef = useRef(null);
 
   // State
   const [cartCount, setCartCount] = useState(0);
+  const [overlayHidden, setOverlayHidden] = useState(true);
 
   useEffect(() => {
     let count = 0;
@@ -43,7 +43,7 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     menuRef.current.classList.toggle("open");
-    overlayRef.current.classList.toggle("hidden");
+    setOverlayHidden(!overlayHidden);
   };
 
   const toggleDropdownMenu = (e) => {
@@ -53,7 +53,7 @@ const Navbar = () => {
 
   const switchSearchBox = () => {
     searchBoxRef.current.classList.toggle("open");
-    overlayRef.current.classList.toggle("hidden");
+    setOverlayHidden(!overlayHidden);
   };
 
   const switchCart = () => {
@@ -62,7 +62,7 @@ const Navbar = () => {
       cartRef.current.classList.toggle("open");
     } else {
       cartRef.current.classList.toggle("open");
-      overlayRef.current.classList.toggle("hidden");
+      setOverlayHidden(!overlayHidden);
     }
   };
 
@@ -70,12 +70,12 @@ const Navbar = () => {
     cartRef.current.classList.remove("open");
     menuRef.current.classList.remove("open");
     searchBoxRef.current.classList.remove("open");
-    overlayRef.current.classList.add("hidden");
+    setOverlayHidden(!overlayHidden);
   };
 
   return (
     <header>
-      <BGOverlay reset={resetClasses} ref={overlayRef} />
+      <BGOverlay reset={resetClasses} hidden={overlayHidden} />
       <Link to="/" className="logo">
         Shoee
       </Link>
