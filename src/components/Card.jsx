@@ -25,7 +25,9 @@ const Card = ({ item, quickView }) => {
         {Math.round(item.discountPercentage) >= 10 && (
           <span className="onsale">Sale!</span>
         )}
-        <span className="category">{formatCategory(item.category)}</span>
+        <Link to={`/products/category/${item.category}`} className="category">
+          {formatCategory(item.category)}
+        </Link>
         <h2 className="title">
           <Link to={`products/${item.id}`}>{item.title}</Link>
         </h2>

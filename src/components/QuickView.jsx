@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
@@ -14,8 +14,12 @@ import formatCategory from "../utils/formatCategory";
 import { IoMdArrowDroprightCircle, IoMdClose } from "react-icons/io";
 
 const QuickView = forwardRef(({ item, hidden, close }, ref) => {
+  const contentFooterRef = useRef(null);
+  const [contentPaddingBottom, setContentPaddingBottom] = useState(72);
   const onSale = Math.round(item.discountPercentage) >= 10;
-
+  useEffect(() => {
+    setContentPaddingBottom(contentFooterRef.current.clientHeight + 2);
+  }, []);
   return (
     <div
       className={`quick-view-model ${hidden ? "hidden" : ""}`}
@@ -30,7 +34,10 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
           {onSale && <span className="onsale">Sale!</span>}
         </div>
         <div className="model-content">
-          <div className="content-body">
+          <div
+            className="content-body"
+            style={{ paddingBottom: contentPaddingBottom }}
+          >
             <Link to={`/products/${item.id}`}>
               <h1 className="title">{item.title}</h1>
             </Link>
@@ -54,7 +61,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
             <p className="description">{item.description}</p>
             <p className="category">
               Category:
-              <Link to={`/products/${item.category}`}>
+              <Link to={`/products/category/${item.category}`}>
                 {formatCategory(item.category)}
               </Link>
             </p>
@@ -71,7 +78,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
               </li>
             </ul>
           </div>
-          <div className="content-footer">
+          <div className="content-footer" ref={contentFooterRef}>
             <IncrementDecrementCounter
               increment={() => {
                 console.log("increase");
