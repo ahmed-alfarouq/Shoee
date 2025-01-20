@@ -14,6 +14,7 @@ export const fetchProduts = createAsyncThunk(
 const initialState = {
   loading: true,
   products: [],
+  lastUpdated: null,
   errorMessage: "",
   numOfItems: 1,
   id: 1,
@@ -27,6 +28,9 @@ export const productsSlice = createSlice({
   reducers: {
     increaseNumOfItems: (state) => state.numOfItems++,
     decreaseNumOfItems: (state) => state.numOfItems--,
+    updateLoadingState: (state, action) => {
+      state.loading = action.payload;
+    },
     incrementCartItem: (state, action) => {
       const newCart = state.cart.map((product) => {
         if (product.id === action.payload) {
@@ -51,9 +55,6 @@ export const productsSlice = createSlice({
     addItemToCart: (state, action) => {},
     removeFromCart: (state, action) => {},
     changeSectionClass: (state, action) => {},
-    updateLoadingState: (state) => {
-      state.loading = false;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -63,6 +64,7 @@ export const productsSlice = createSlice({
       .addCase(fetchProduts.fulfilled, (state, action) => {
         if (action.payload) {
           state.products = action.payload;
+          state.lastUpdated = Date.now();
           state.errorMessage = "";
         } else {
           state.errorMessage =
@@ -83,12 +85,12 @@ export const productsSlice = createSlice({
 export const {
   increaseNumOfItems,
   decreaseNumOfItems,
+  updateLoadingState,
   incrementCartItem,
   decrementCartItem,
   fetchProduct,
   addItemToCart,
   removeFromCart,
   changeSectionClass,
-  updateLoadingState,
 } = productsSlice.actions;
 export default productsSlice.reducer;

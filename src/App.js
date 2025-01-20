@@ -24,27 +24,30 @@ import {
 } from "./app/features/products/productsSlice";
 import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
+import purgeStorage from "./utils/purgeStorage";
 
 function App() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
+  const lastUpdated = useSelector((state) => state.products.lastUpdated);
   const loading = useSelector((state) => state.products.loading);
   const error = useSelector((state) => state.products.errorMessage);
 
   useEffect(() => {
     if (loading && !products.length) {
       dispatch(fetchProduts());
-    } else {
-      dispatch(updateLoadingState());
+    } else if (loading && products.length) {
+      purgeStorage(lastUpdated);
+      dispatch(updateLoadingState(false));
     }
-  }, [products, loading, dispatch]);
+  }, [loading, products, lastUpdated, dispatch]);
 
   return loading ? (
     <Spinner />
   ) : (
     <BrowserRouter>
-      <Navbar />
       <PersistGate loading={<Spinner />} persistor={persistor}>
+        <Navbar />
         <Routes>
           <Route
             exact
@@ -64,8 +67,8 @@ function App() {
             }
           />
         </Routes>
+        <Footer />
       </PersistGate>
-      <Footer />
     </BrowserRouter>
   );
 }
