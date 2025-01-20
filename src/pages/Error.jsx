@@ -2,10 +2,12 @@ import React from "react";
 
 function Error({ message }) {
   return (
-    <div>
-      <h1 className="title">An Error Happened!</h1>
-      <p>{message}</p>
-    </div>
+    <main className="error-page">
+      <div className="container">
+        <h1 className="title">An Error Happened!</h1>
+        <p className="description">{message}</p>
+      </div>
+    </main>
   );
 }
 

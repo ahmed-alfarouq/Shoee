@@ -1,0 +1,21 @@
+.error-page {
+  max-height: 100vh;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0;
+
+  .container {
+    padding-top: 0;
+    .title {
+      font-size: 80px;
+      text-align: center;
+    }
+
+    .description {
+      text-align: center;
+      font-size: 25px;
+    }
+  }
+}
