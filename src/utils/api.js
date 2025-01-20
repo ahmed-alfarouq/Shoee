@@ -2,19 +2,24 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const fetchData = async (thunkAPI, category) => {
+export const fetchProductsByCategories = async (thunkAPI, categories) => {
   try {
-    const [shirts, watches, shoes] = await Promise.all([
-      axios.get(`${API_URL}/mens-shirts`),
-      axios.get(`${API_URL}/mens-watches`),
-      axios.get(`${API_URL}/mens-shoes`),
-    ]);
-    return {
-      shirts: shirts.data.products,
-      watches: watches.data.products,
-      shoes: shoes.data.products,
-    };
+    // Fetch all categories in parallel
+    const responses = await Promise.all(
+      categories.map((cat) =>
+        axios.get(`${API_URL}/products/category/${cat}`).then((res) => res.data.products)
+      )
+    );
+
+    // Flatten the array of product arrays into a single array
+    const allProducts = responses.flat();
+
+    return allProducts;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    // Return a detailed error for debugging
+    return thunkAPI.rejectWithValue({
+      message: error.message,
+      stack: error.stack,
+    });
   }
 };

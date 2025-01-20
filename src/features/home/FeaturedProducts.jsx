@@ -20,7 +20,7 @@ const FeaturedProducts = () => {
 
   const changeTab = (cat) => {
     setActiveTab(cat);
-    setTabProducts(filterProductsByCategory(cat));
+    setTabProducts(filterProductsByCategory(products, cat));
   };
 
   const productMap = useMemo(() => {
@@ -41,7 +41,8 @@ const FeaturedProducts = () => {
   };
 
   useEffect(() => {
-    setTabProducts(filterProductsByCategory("mens-shirts"));
+    console.log(products);
+    setTabProducts(filterProductsByCategory(products, "mens-shirts"));
   }, [products]);
 
   return (

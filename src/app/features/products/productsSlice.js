@@ -1,15 +1,41 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchData } from "../../../utils/api";
+import { fetchProductsByCategories } from "../../../utils/api";
 
 export const fetchProduts = createAsyncThunk(
   "products/fetchProduts",
-  async (_, thunkAPI) => fetchData(thunkAPI)
+  async (_, thunkAPI) =>
+    fetchProductsByCategories(thunkAPI, [
+      "beauty",
+      "fragrances",
+      "furniture",
+      "groceries",
+      "home-decoration",
+      "kitchen-accessories",
+      "laptops",
+      "mens-shirts",
+      "mens-shoes",
+      "mens-watches",
+      "mobile-accessories",
+      "motorcycle",
+      "skin-care",
+      "smartphones",
+      "sports-accessories",
+      "sunglasses",
+      "tablets",
+      "tops",
+      "vehicle",
+      "womens-bags",
+      "womens-dresses",
+      "womens-jewellery",
+      "womens-shoes",
+      "womens-watches",
+    ])
 );
 
 const initialState = {
   loading: true,
   products: [],
-  error: "",
+  errorMessage: "",
   numOfItems: 1,
   id: 1,
   cart: [],
@@ -57,20 +83,20 @@ export const productsSlice = createSlice({
       })
       .addCase(fetchProduts.fulfilled, (state, action) => {
         if (action.payload) {
-          state.products = [
-            ...action.payload.shirts,
-            ...action.payload.watches,
-            ...action.payload.shoes,
-          ];
-          state.error = "";
+          state.products = action.payload;
+          state.errorMessage = "";
         } else {
-          state.error = "Something went wrong after fullfilling the request!";
+          state.errorMessage =
+            "Something went wrong after fullfilling the request!";
         }
         state.loading = false;
       })
       .addCase(fetchProduts.rejected, (state, action) => {
-        state.error = action.error.message;
+        state.errorMessage = `Fetching products rejected: ${action.payload.message}`;
         state.loading = false;
+
+        // This is for developers
+        // console.log(action.payload.stack);
       });
   },
 });

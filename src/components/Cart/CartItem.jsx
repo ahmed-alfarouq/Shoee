@@ -1,6 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { decrementCartItem, incrementCartItem, removeFromCart } from "../../app/features/products/productsSlice";
+import { useDispatch } from "react-redux";
+import {
+  decrementCartItem,
+  incrementCartItem,
+  removeFromCart,
+} from "../../app/features/products/productsSlice";
 
 // Components
 import IncrementDecrementCounter from "../IncrementDecrementCounter";
@@ -20,7 +24,7 @@ const CartItem = ({ item }) => {
   return (
     <li className="cart-item">
       <div>
-        <img src={item.images[0]} alt={item.title} />
+        <img src={item.thumbnail} alt={item.title} />
         <div>
           <span className="title">{truncate(item.title, 4)}</span>
           <IncrementDecrementCounter
