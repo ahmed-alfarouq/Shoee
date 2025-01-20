@@ -22,7 +22,7 @@ const Banner = () => {
         </Link>
       </div>
       <div className="right-wrap">
-        <img src={bannerImage} alt="Banner Image" />
+        <img src={bannerImage} alt="Banner" loading="lazy" />
       </div>
     </section>
   );
