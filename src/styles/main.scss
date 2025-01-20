@@ -1,16 +1,17 @@
 // Base styles
-@import 'base/typography';
-@import 'base/variables';
-@import 'base/animations';
-@import 'base/reset';
-@import 'base/globals';
+@import "base/typography";
+@import "base/variables";
+@import "base/animations";
+@import "base/reset";
+@import "base/globals";
 
 // Utilities
-@import 'utilities/helpers';
+@import "utilities/helpers";
 
 // Components
 @import "./components/navbar";
 @import "./components/banner";
+@import "./components/add_to_cart";
 @import "./components/card";
 @import "./components/quick_view";
 @import "./components/footer";

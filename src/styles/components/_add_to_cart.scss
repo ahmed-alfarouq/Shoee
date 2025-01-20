@@ -1,0 +1,21 @@
+.add-to-cart {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+
+    svg {
+        width: 17px;
+        height: 17px;
+        display: none;
+    }
+
+    &.added {
+        padding: 10px 0 !important;
+        max-width: 170px !important;
+        svg {
+            display: block;
+        }
+    }
+}

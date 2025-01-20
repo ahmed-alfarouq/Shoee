@@ -52,7 +52,29 @@ export const productsSlice = createSlice({
       state.cart = newCart;
     },
     fetchProduct: (state, action) => {},
-    addItemToCart: (state, action) => {},
+    addItemToCart: (state, action) => {
+      const { id, quantity } = action.payload;
+      console.log(action)
+      if (quantity <= 0) {
+        return;
+      }
+
+      let product = state.cart.find((product) => product.id === id);
+
+      if (product) {
+        state.cart = state.cart.map((item) => {
+          if (item.id === id) {
+            item.qty += quantity;
+          }
+          return item;
+        });
+        return;
+      }
+      product = state.products.find((product) => product.id === id);
+      if (product) {
+        state.cart.push({ ...product, qty: quantity });
+      }
+    },
     removeFromCart: (state, action) => {},
     changeSectionClass: (state, action) => {},
   },

@@ -14,12 +14,21 @@ import formatCategory from "../utils/formatCategory";
 import { IoMdArrowDroprightCircle, IoMdClose } from "react-icons/io";
 
 const QuickView = forwardRef(({ item, hidden, close }, ref) => {
-  const contentFooterRef = useRef(null);
   const [contentPaddingBottom, setContentPaddingBottom] = useState(72);
+  const [quantity, setQuantity] = useState(0);
+
   const onSale = Math.round(item.discountPercentage) >= 10;
+
+  const contentFooterRef = useRef(null);
+
+  const increment = () => setQuantity(quantity + 1);
+  const decrement = () => setQuantity(quantity - 1);
+  const resetQuantity = () => setQuantity(0);
+
   useEffect(() => {
     setContentPaddingBottom(contentFooterRef.current.clientHeight + 2);
   }, []);
+
   return (
     <div
       className={`quick-view-model ${hidden ? "hidden" : ""}`}
@@ -80,15 +89,11 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
           </div>
           <div className="content-footer" ref={contentFooterRef}>
             <IncrementDecrementCounter
-              increment={() => {
-                console.log("increase");
-              }}
-              decrement={() => {
-                console.log("decrease");
-              }}
-              count={0}
+              increment={increment}
+              decrement={decrement}
+              count={quantity}
             />
-            <AddToCart />
+            <AddToCart id={item.id} quantity={quantity} callback={resetQuantity} />
           </div>
         </div>
       </div>
