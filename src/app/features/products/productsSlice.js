@@ -50,7 +50,7 @@ export const productsSlice = createSlice({
     decreaseNumOfItems: (state) => state.numOfItems--,
     incrementCartItem: (state, action) => {
       const newCart = state.cart.map((product) => {
-        if (product.id == action.payload) {
+        if (product.id === action.payload) {
           product.qty += 1;
         }
         return product;
@@ -60,7 +60,7 @@ export const productsSlice = createSlice({
     decrementCartItem: (state, action) => {
       const newCart = state.cart
         .map((product) => {
-          if (product.id == action.payload) {
+          if (product.id === action.payload) {
             product.qty -= 1;
           }
           return product;
