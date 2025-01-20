@@ -11,7 +11,7 @@ const Card = ({ item, quickView }) => {
     <div className="card">
       <div className="card-thumbnail">
         <Link to={`/products/${item.id}`}>
-          <img src={item.thumbnail} alt={item.title} />
+          <img src={item.thumbnail} alt={item.title} loading="lazy" />
         </Link>
         <button
           type="button"
