@@ -6,8 +6,9 @@ import Card from "../../../components/Card";
 import formatCategory from "../../../utils/formatCategory";
 import QuickView from "../../../components/QuickView";
 import filterProductsByCategory from "../../../utils/filterProductsByCategory";
+import filterProductsByRating from "../../../utils/filterProductsByRating";
 
-const FeaturedProducts = () => {
+const TopRatedProducts = () => {
   const products = useSelector((state) => state.products.products);
   const [tabProducts, setTabProducts] = useState(products);
   const [modelItem, setModelItem] = useState({});
@@ -18,7 +19,9 @@ const FeaturedProducts = () => {
 
   const changeTab = (cat) => {
     setActiveTab(cat);
-    setTabProducts(filterProductsByCategory(products, cat));
+    const getProductsByCategory = filterProductsByCategory(products, cat);
+
+    setTabProducts(filterProductsByRating(getProductsByCategory, 4));
   };
 
   const productMap = useMemo(() => {
@@ -39,13 +42,15 @@ const FeaturedProducts = () => {
   };
 
   useEffect(() => {
-    setTabProducts(filterProductsByCategory(products, "mens-shirts"));
+    const getProductsByCategory = filterProductsByCategory(products, "mens-shirts");
+
+    setTabProducts(filterProductsByRating(getProductsByCategory, 4));
   }, [products]);
 
   return (
     <section className="featured-products">
       <div className="container">
-        <h2 className="title">Featured Products</h2>
+        <h2 className="title">Top Rated Products</h2>
 
         <div className="tabs-wrapper">
           {catList.map((cat) => (
@@ -65,13 +70,9 @@ const FeaturedProducts = () => {
           ))}
         </div>
       </div>
-      <QuickView
-        hidden={isModelHidden}
-        close={closeModel}
-        item={modelItem}
-      />
+      <QuickView hidden={isModelHidden} close={closeModel} item={modelItem} />
     </section>
   );
 };
 
-export default FeaturedProducts;
+export default TopRatedProducts;
