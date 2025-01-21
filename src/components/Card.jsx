@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Components
+import BlurImage from "./BlurImage";
+
 // Utils
 import calcOriginalPrice from "../utils/calcOriginalPrice";
 import formatCategory from "../utils/formatCategory";
@@ -11,7 +14,11 @@ const Card = ({ item, quickView }) => {
     <div className="card">
       <div className="card-thumbnail">
         <Link to={`/products/${item.id}`}>
-          <img src={item.thumbnail} alt={item.title} loading="lazy" />
+          <BlurImage
+            src={item.thumbnail}
+            placeholder="https://placehold.co/300x300"
+            alt={item.title}
+          />
         </Link>
         <button
           type="button"
