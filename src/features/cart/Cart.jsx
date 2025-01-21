@@ -2,9 +2,9 @@ import React, { forwardRef } from "react";
 import { useSelector } from "react-redux";
 
 // Components
-import CartItem from "../components/cart/CartItem";
-import Empty from "../components/cart/Empty";
-import CartFooter from "../components/cart/CartFooter";
+import CartItem from "./CartItem";
+import EmptyCart from "./EmptyCart";
+import CartFooter from "./CartFooter";
 
 // Icons
 import { IoMdClose } from "react-icons/io";
@@ -29,10 +29,10 @@ const Cart = forwardRef(({ switchCart }, ref) => {
               <CartItem key={item.id} item={item} />
             ))}
           </ul>
-          <CartFooter subtotal={subtotal} />
+          <CartFooter subtotal={subtotal} switchCart={switchCart} />
         </>
       ) : (
-        <Empty switchCart={switchCart} />
+        <EmptyCart switchCart={switchCart} />
       )}
     </div>
   );

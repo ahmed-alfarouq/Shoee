@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import {
   decrementCartItem,
@@ -7,7 +7,7 @@ import {
 } from "../../app/features/products/productsSlice";
 
 // Components
-import IncrementDecrementCounter from "../IncrementDecrementCounter";
+import IncrementDecrementCounter from "../../components/IncrementDecrementCounter";
 
 // Assets
 import { IoCloseCircleOutline } from "react-icons/io5";
