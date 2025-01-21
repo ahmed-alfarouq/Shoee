@@ -37,7 +37,7 @@ function App() {
     if (loading && !products.length) {
       dispatch(fetchProduts());
     } else if (loading && products.length) {
-      purgeStorage(lastUpdated);
+      purgeStorage(lastUpdated, persistor);
       dispatch(updateLoadingState(false));
     }
   }, [loading, products, lastUpdated, dispatch]);

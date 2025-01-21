@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchProductsByCategories } from "../../../utils/api";
+import { PURGE } from "redux-persist";
 
 export const fetchProduts = createAsyncThunk(
   "products/fetchProduts",
@@ -100,6 +101,9 @@ export const productsSlice = createSlice({
 
         // This is for developers
         // console.log(action.payload.stack);
+      })
+      .addCase(PURGE, (state) => {
+        state = initialState;
       });
   },
 });
