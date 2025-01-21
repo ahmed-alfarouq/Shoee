@@ -48,7 +48,7 @@ const TopRatedProducts = () => {
   }, [products]);
 
   return (
-    <section className="featured-products">
+    <section className="top-rated-products">
       <div className="container">
         <h2 className="title">Top Rated Products</h2>
 
