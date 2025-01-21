@@ -22,7 +22,7 @@ const Card = ({ item, quickView }) => {
         </button>
       </div>
       <div className="card-content">
-        {Math.round(item.discountPercentage) >= 10 && (
+        {Math.round(item.discountPercentage) >= 9 && (
           <span className="onsale">Sale!</span>
         )}
         <Link to={`/products/category/${item.category}`} className="category">
@@ -33,7 +33,7 @@ const Card = ({ item, quickView }) => {
         </h2>
         <ReviewRating rating={item.rating} />
         <div className="price">
-          {Math.round(item.discountPercentage) >= 10 && (
+          {Math.round(item.discountPercentage) >= 9 && (
             <>
               <span className="sr-only">
                 Original price was: $

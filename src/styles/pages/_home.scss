@@ -49,7 +49,8 @@
   }
 }
 
-.top-rated-products {
+.top-rated-products,
+.tabs-section {
   padding: 20px;
 
   .title {
@@ -77,10 +78,6 @@
 
   .cards-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
 
@@ -98,7 +95,8 @@
       }
     }
   }
-  .top-rated-products {
+  .top-rated-products,
+  .tabs-section {
     .cards-container {
       grid-template-columns: 1fr 1fr 1fr;
     }
@@ -121,7 +119,8 @@
     }
   }
 
-  .top-rated-products {
+  .top-rated-products,
+  .tabs-section {
     .tabs-wrapper {
       .tab-btn {
         padding: 10px 20px;
@@ -135,7 +134,8 @@
 }
 
 @media screen and (max-width: 480px) {
-  .top-rated-products {
+  .top-rated-products,
+  .tabs-section {
     .tabs-wrapper {
       display: flex;
       justify-content: center;
