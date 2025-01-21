@@ -79,10 +79,23 @@
   .cards-container {
     display: grid;
     gap: 20px;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
 
     .card {
       margin-bottom: 30px;
+    }
+  }
+}
+
+.reviews {
+  .container {
+    padding-bottom: 80px;
+    .reviews-cards {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 20px 20px 0 20px;
     }
   }
 }
@@ -140,7 +153,15 @@
   .top-rated-products,
   .tabs-section {
     .cards-container {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr !important;
+    }
+  }
+
+  .reviews {
+    .container {
+      .reviews-cards {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
     }
   }
 }
@@ -170,7 +191,15 @@
     }
 
     .cards-container {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+
+  .reviews {
+    .container {
+      .reviews-cards {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   }
 }
@@ -190,7 +219,15 @@
 
     .cards-container {
       place-items: center;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  .reviews {
+    .container {
+      .reviews-cards {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }

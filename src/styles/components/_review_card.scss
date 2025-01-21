@@ -1,0 +1,29 @@
+.review-card {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  max-height: 150px;
+  margin: 0 auto;
+  background-color: transparent;
+  transition: all 0.2s linear;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.07);
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .comment {
+    padding-bottom: 10px;
+    font-size: 15px;
+  }
+
+  .reviewer-name {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .review-rating {
+    color: $hover-font-color;
+  }
+}
