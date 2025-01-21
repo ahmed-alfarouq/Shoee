@@ -1,11 +1,11 @@
 import React from "react";
+
+// Components
 import MainBanner from "./sections/MainBanner";
 import TopRatedProducts from "./sections/TopRatedProducts";
 import BaseCollection from "./sections/BaseCollection";
 import OnSaleProducts from "./sections/OnSaleProducts";
-// import Slide from "./Slide";
-// import TopSelling from "./TopSelling";
-// import SingleSection from "./SingleSection";
+import SecondaryBanner from "./sections/SecondaryBanner";
 
 const Home = () => {
   return (
@@ -13,6 +13,7 @@ const Home = () => {
       <MainBanner />
       <BaseCollection />
       <TopRatedProducts />
+      <SecondaryBanner />
       <OnSaleProducts />
     </main>
   );

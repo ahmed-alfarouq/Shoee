@@ -87,6 +87,48 @@
   }
 }
 
+.secondary-banner {
+  .container {
+    background-image: url("../../assets/images/banner-2.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 0;
+    height: 600px;
+
+    .inner {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      span {
+        font-size: 14px;
+      }
+
+      .title {
+        text-align: center;
+        font-size: 40px;
+        line-height: 1.5;
+        span {
+          font-size: 30px;
+          display: block;
+        }
+      }
+
+      .btn {
+        width: 150px;
+        border-color: #ffffff;
+        color: #ffffff;
+      }
+    }
+  }
+}
 @media screen and (max-width: 991px) {
   .base-collection {
     .container {

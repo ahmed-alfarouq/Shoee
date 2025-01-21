@@ -29,7 +29,8 @@
   transition: all 0.3s ease;
 
   &:hover {
-    color: $hover-font-color;
+    color: $hover-font-color !important;
+    border-color: $hover-font-color !important;
   }
 }
 
