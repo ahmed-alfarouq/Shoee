@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Menu = ({ items, style }) => {
+const Menu = ({ items, direction }) => {
   return (
     <nav className="menu-wrap">
       <ul
         className="menu flex gap-3"
         style={{
-          flexDirection: style === "vertical" ? "column" : "row",
+          flexDirection: direction === "vertical" ? "column" : "row",
         }}
       >
         {items.map((item, i) => (

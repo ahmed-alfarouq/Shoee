@@ -74,9 +74,9 @@ const Footer = () => {
   return (
     <footer>
       <div className="primary-footer-wrap">
-        <Menu style="vertical" items={firstMenu} />
-        <Menu style="vertical" items={secondMenu} />
-        <Menu style="horizontal" items={socialMenu} />
+        <Menu direction="vertical" items={firstMenu} />
+        <Menu direction="vertical" items={secondMenu} />
+        <Menu direction="horizontal" items={socialMenu} />
       </div>
       <p>Copyright © 2025 Custom Printing Pro</p>
     </footer>
