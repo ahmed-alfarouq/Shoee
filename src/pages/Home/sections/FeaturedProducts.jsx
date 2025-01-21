@@ -2,10 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 // Components
-import Card from "../../components/Card";
-import formatCategory from "../../utils/formatCategory";
-import QuickView from "../../components/QuickView";
-import filterProductsByCategory from "../../utils/filterProductsByCategory";
+import Card from "../../../components/Card";
+import formatCategory from "../../../utils/formatCategory";
+import QuickView from "../../../components/QuickView";
+import filterProductsByCategory from "../../../utils/filterProductsByCategory";
 
 const FeaturedProducts = () => {
   const products = useSelector((state) => state.products.products);

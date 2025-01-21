@@ -1,82 +1,154 @@
+.base-collection {
+  padding-left: 50px;
+  padding-right: 50px;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      img {
+        height: 70%;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+        padding: 0 25px 0 25px;
+        height: 40%;
+        span {
+          font-size: 12px;
+          color: $secondary-font-color;
+        }
+
+        .title {
+          font-size: 40px;
+          line-height: 1;
+        }
+        .btn {
+          width: 40%;
+        }
+      }
+    }
+    .right {
+      width: 49%;
+      height: 542px;
+      max-height: 100%;
+      background-image: url("../../assets/images/collection-01.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
 .featured-products {
+  padding: 20px;
+
+  .title {
+    font-size: 42px;
+    line-height: 100px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .tabs-wrapper {
+    .tab-btn {
+      padding: 20px 25px;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+      color: #41516194;
+      transition: all 0.2s linear;
+
+      &:hover,
+      &.active {
+        color: $primary-font-color;
+      }
+    }
+  }
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
     padding: 20px;
 
-    .title {
-        font-size: 42px;
-        line-height: 100px;
-        font-weight: 600;
-        text-align: center;
+    .card {
+      margin-bottom: 30px;
     }
-
-    .tabs-wrapper {
-        .tab-btn {
-            padding: 20px 25px;
-            font-size: 17px;
-            font-weight: 700;
-            line-height: 1;
-            color: #41516194;
-            transition: all 0.2s linear;
-
-            &:hover,
-            &.active {
-                color: $primary-font-color;
-            }
-        }
-    }
-
-    .cards-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 20px;
-
-        .card {
-            margin-bottom: 30px;
-        }
-    }
+  }
 }
 
 @media screen and (max-width: 991px) {
-    .featured-products {
-        .cards-container {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
+  .base-collection {
+    .container {
+      .right {
+        height: 488px;
+      }
     }
+  }
+  .featured-products {
+    .cards-container {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .featured-products {
-        .tabs-wrapper {
-            .tab-btn {
-                padding: 10px 20px;
-            }
+  .base-collection {
+    .container {
+      flex-direction: column;
+      .left {
+        .content {
+          gap: 10px;
+          padding: 20px 0;
         }
-
-        .cards-container {
-            grid-template-columns: 1fr 1fr;
-        }
+      }
+      .right {
+        width: 100%;
+      }
     }
+  }
+
+  .featured-products {
+    .tabs-wrapper {
+      .tab-btn {
+        padding: 10px 20px;
+      }
+    }
+
+    .cards-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 }
 
-
 @media screen and (max-width: 480px) {
-    .featured-products {
-        .tabs-wrapper {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+  .featured-products {
+    .tabs-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
 
-            .tab-btn {
-                padding: 10px 25px;
-            }
-        }
-
-        .cards-container {
-            place-items: center;
-            grid-template-columns: 1fr;
-        }
+      .tab-btn {
+        padding: 10px 25px;
+      }
     }
+
+    .cards-container {
+      place-items: center;
+      grid-template-columns: 1fr;
+    }
+  }
 }

@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Assets
-import bannerImage from "../../assets/images/boy.png";
+import bannerImage from "../../../assets/images/boy.png";
 import { FaAnglesRight } from "react-icons/fa6";
 
-const Banner = () => {
+const MainBanner = () => {
   return (
     <section className="banner container">
       <div className="left-wrap">
@@ -28,4 +28,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default MainBanner;

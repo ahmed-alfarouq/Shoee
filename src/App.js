@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Import Style
 import "./styles/main.scss";
 // Pages
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Products from "./pages/Products";
 import SingleProduct from "./pages/SingleProduct";
 import CheckOut from "./pages/CheckOut";

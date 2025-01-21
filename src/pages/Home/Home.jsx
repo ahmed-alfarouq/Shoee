@@ -1,6 +1,7 @@
 import React from "react";
-import Banner from "../features/home/Banner";
-import FeaturedProducts from "../features/home/FeaturedProducts";
+import MainBanner from "./sections/MainBanner";
+import FeaturedProducts from "./sections/FeaturedProducts";
+import BaseCollection from "./sections/BaseCollection";
 // import Slide from "./Slide";
 // import TopSelling from "./TopSelling";
 // import SingleSection from "./SingleSection";
@@ -8,7 +9,8 @@ import FeaturedProducts from "../features/home/FeaturedProducts";
 const Home = () => {
   return (
     <main>
-      <Banner />
+      <MainBanner />
+      <BaseCollection />
       <FeaturedProducts />
     </main>
   );
