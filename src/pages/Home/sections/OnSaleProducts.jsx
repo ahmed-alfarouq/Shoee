@@ -20,7 +20,7 @@ const OnSaleProducts = () => {
   return (
     <section className="on-sale-products tabs-section">
       <div className="container">
-        <h2 className="title">On Sale Products</h2>
+        <h2 className="title under-line">On Sale Products</h2>
         <TabsWithProducts tabs={tabsList} products={tabsProducts} />
       </div>
     </section>

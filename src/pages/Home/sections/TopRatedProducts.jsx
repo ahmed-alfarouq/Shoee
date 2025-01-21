@@ -21,7 +21,7 @@ const TopRatedProducts = () => {
   return (
     <section className="tabs-section top-rated-products">
       <div className="container">
-        <h2 className="title">Top Rated Products</h2>
+        <h2 className="title under-line">Top Rated Products</h2>
 
         <TabsWithProducts tabs={tabsList} products={tabsProducts} />
       </div>
