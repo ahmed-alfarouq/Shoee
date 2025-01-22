@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { ErrorBoundary } from "react-error-boundary";
 //Import Style
 import "./styles/main.scss";
 // Pages
@@ -31,7 +32,7 @@ function App() {
   const products = useSelector((state) => state.products.products);
   const lastUpdated = useSelector((state) => state.products.lastUpdated);
   const loading = useSelector((state) => state.products.loading);
-  const error = useSelector((state) => state.products.errorMessage);
+  const errorMessage = useSelector((state) => state.products.errorMessage);
 
   useEffect(() => {
     if (loading && !products.length) {
@@ -46,29 +47,39 @@ function App() {
     <Spinner />
   ) : (
     <BrowserRouter>
-      <PersistGate loading={<Spinner />} persistor={persistor}>
-        <Navbar />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={error.length ? <Navigate to="/error" /> : <Home />}
-          />
-          <Route path="/products" element={<Products />} />
-          <Route path="/singleProduct" element={<SingleProduct />} />
-          <Route path="/checkout" element={<CheckOut />} />
-          <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route
-            path="/error"
-            element={
-              error.length ? <Error message={error} /> : <Navigate to="/" />
-            }
-          />
-        </Routes>
-        <Footer />
-      </PersistGate>
+      <ErrorBoundary
+        FallbackComponent={(props) => (
+          <Error {...props} purgeStorage={purgeStorage} />
+        )}
+      >
+        <PersistGate loading={<Spinner />} persistor={persistor}>
+          <Navbar />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={errorMessage.length ? <Navigate to="/error" /> : <Home />}
+            />
+            <Route path="/products" element={<Products />} />
+            <Route path="/singleProduct" element={<SingleProduct />} />
+            <Route path="/checkout" element={<CheckOut />} />
+            <Route path="/contactus" element={<ContactUs />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/error"
+              element={
+                errorMessage.length ? (
+                  <Error error={{ message: errorMessage }} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+          </Routes>
+          <Footer />
+        </PersistGate>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }
