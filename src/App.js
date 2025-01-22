@@ -26,6 +26,7 @@ import {
 import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
 import purgeStorage from "./utils/purgeStorage";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ function App() {
                 <Route path="/contactus" element={<ContactUs />} />
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/signup" element={<SignUp />} />
-                <Route path="*" exact element={<h1>Not Found</h1>} />
+                <Route path="*" exact element={<NotFound />} />
               </>
             )}
           </Routes>

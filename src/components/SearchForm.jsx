@@ -14,6 +14,7 @@ const SearchForm = forwardRef(({ options }, ref) => {
           option.title.toLowerCase().startsWith(value.toLowerCase())
         )
       );
+
       setShowOptions(true);
     } else {
       setShowOptions(false);
@@ -30,7 +31,7 @@ const SearchForm = forwardRef(({ options }, ref) => {
   };
 
   return (
-    <form name="search-form" ref={ref}>
+    <form className="search-form" name="search-form" ref={ref}>
       <label className="sr-only" htmlFor="search-product">
         Search
       </label>

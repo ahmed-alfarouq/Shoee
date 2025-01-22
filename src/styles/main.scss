@@ -10,6 +10,7 @@
 
 // Components
 @import "./components/navbar";
+@import "./components/search_form";
 @import "./components/cart";
 @import "./components/blur_image";
 @import "./components/add_to_cart";
@@ -21,3 +22,4 @@
 // Pages
 @import "./pages/home.scss";
 @import "./pages/error.scss";
+@import "./pages/not_found.scss";

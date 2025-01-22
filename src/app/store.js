@@ -7,7 +7,7 @@ import productsReducer from "./features/products/productsSlice";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["numOfItems", "cartItems", "sectionClass", "loading", "products"],
+  blacklist: ["numOfItems", "cartItems", "loading"],
 };
 
 const productsPersistedReducer = persistReducer(persistConfig, productsReducer);
