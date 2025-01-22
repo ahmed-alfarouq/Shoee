@@ -1,4 +1,5 @@
 import React, { useState, forwardRef } from "react";
+import { Link } from "react-router-dom";
 
 const SearchForm = forwardRef(({ options }, ref) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -21,9 +22,10 @@ const SearchForm = forwardRef(({ options }, ref) => {
     }
   };
 
-  const handleOptionClick = (option) => {
-    setInputValue(option);
+  const handleOptionClick = () => {
+    setInputValue("");
     setShowOptions(false);
+    setFilteredOptions([]);
   };
 
   const handleBlur = () => {
@@ -55,9 +57,9 @@ const SearchForm = forwardRef(({ options }, ref) => {
               <li
                 key={index}
                 className="dropdown-item"
-                onClick={() => handleOptionClick(option)}
+                onClick={handleOptionClick}
               >
-                {option.title}
+                <Link to={`/products/${option.id}`}>{option.title}</Link>
               </li>
             ))
           ) : (
