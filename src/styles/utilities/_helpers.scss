@@ -3,6 +3,10 @@
   max-width: 1140px;
   margin: 0 auto;
   padding-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .full-container {
@@ -83,5 +87,11 @@
 
   .gap-#{$i} {
     gap: $i * 4px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: 1240px;
   }
 }

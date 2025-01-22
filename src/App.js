@@ -8,7 +8,7 @@ import "./styles/main.scss";
 // Pages
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products";
-import SingleProduct from "./pages/SingleProduct";
+import SingleProduct from "./pages/SingleProduct/SingleProduct";
 import CheckOut from "./pages/CheckOut";
 import ContactUs from "./pages/ContactUs";
 import LogIn from "./pages/LogIn";
@@ -66,7 +66,7 @@ function App() {
               <>
                 <Route exact path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
-                <Route path="/singleProduct" element={<SingleProduct />} />
+                <Route path="/products/:id" element={<SingleProduct />} />
                 <Route path="/checkout" element={<CheckOut />} />
                 <Route path="/contactus" element={<ContactUs />} />
                 <Route path="/login" element={<LogIn />} />
