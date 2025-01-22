@@ -55,27 +55,24 @@ function App() {
         <PersistGate loading={<Spinner />} persistor={persistor}>
           <Navbar />
           <Routes>
-            <Route
-              exact
-              path="/"
-              element={errorMessage.length ? <Navigate to="/error" /> : <Home />}
-            />
-            <Route path="/products" element={<Products />} />
-            <Route path="/singleProduct" element={<SingleProduct />} />
-            <Route path="/checkout" element={<CheckOut />} />
-            <Route path="/contactus" element={<ContactUs />} />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route
-              path="/error"
-              element={
-                errorMessage.length ? (
-                  <Error error={{ message: errorMessage }} />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
-            />
+            {errorMessage.length ? (
+              <Route
+                exact
+                path="*"
+                element={<Error error={{ message: errorMessage }} />}
+              />
+            ) : (
+              <>
+                <Route exact path="/" element={<Home />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/singleProduct" element={<SingleProduct />} />
+                <Route path="/checkout" element={<CheckOut />} />
+                <Route path="/contactus" element={<ContactUs />} />
+                <Route path="/login" element={<LogIn />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="*" exact element={<h1>Not Found</h1>} />
+              </>
+            )}
           </Routes>
           <Footer />
         </PersistGate>
