@@ -5,6 +5,7 @@ const BlurImage = ({ src, alt, placeholder, className, zoomImage = false }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
+
   const handleLoad = () => {
     setIsLoaded(true);
   };

@@ -31,14 +31,10 @@ import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
-  const { products, lastUpdated, loading, errorMessage } = useSelector(
-    (state) => ({
-      products: state.products.products,
-      lastUpdated: state.products.lastUpdated,
-      loading: state.products.loading,
-      errorMessage: state.products.errorMessage,
-    })
-  );
+  const products = useSelector((state) => state.products.products);
+  const lastUpdated = useSelector((state) => state.products.lastUpdated);
+  const loading = useSelector((state) => state.products.loading);
+  const errorMessage = useSelector((state) => state.products.errorMessage);
 
   const FallbackComponent = (props) => (
     <Error {...props} purgeStorage={purgeStorage} />
