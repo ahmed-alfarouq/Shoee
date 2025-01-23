@@ -1,6 +1,6 @@
 // Import React Structure
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorBoundary } from "react-error-boundary";
 //Import Style
@@ -27,53 +27,55 @@ import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
 import purgeStorage from "./utils/purgeStorage";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.products);
-  const lastUpdated = useSelector((state) => state.products.lastUpdated);
-  const loading = useSelector((state) => state.products.loading);
-  const errorMessage = useSelector((state) => state.products.errorMessage);
+  const { products, lastUpdated, loading, errorMessage } = useSelector(
+    (state) => ({
+      products: state.products.products,
+      lastUpdated: state.products.lastUpdated,
+      loading: state.products.loading,
+      errorMessage: state.products.errorMessage,
+    })
+  );
+
+  const FallbackComponent = (props) => (
+    <Error {...props} purgeStorage={purgeStorage} />
+  );
 
   useEffect(() => {
     if (loading && !products.length) {
       dispatch(fetchProduts());
-    } else if (loading && products.length) {
+    }
+  }, [loading, products.length, dispatch]);
+
+  useEffect(() => {
+    if (loading && products.length) {
       purgeStorage(lastUpdated, persistor);
       dispatch(updateLoadingState(false));
     }
-  }, [loading, products, lastUpdated, dispatch]);
+  }, [loading, products.length, lastUpdated, dispatch]);
 
   return loading ? (
     <Spinner />
+  ) : errorMessage.length ? (
+    <Error error={{ message: errorMessage }} />
   ) : (
     <BrowserRouter>
-      <ErrorBoundary
-        FallbackComponent={(props) => (
-          <Error {...props} purgeStorage={purgeStorage} />
-        )}
-      >
+      <ScrollToTop />
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
         <PersistGate loading={<Spinner />} persistor={persistor}>
           <Navbar />
           <Routes>
-            {errorMessage.length ? (
-              <Route
-                exact
-                path="*"
-                element={<Error error={{ message: errorMessage }} />}
-              />
-            ) : (
-              <>
-                <Route exact path="/" element={<Home />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/products/:id" element={<SingleProduct />} />
-                <Route path="/checkout" element={<CheckOut />} />
-                <Route path="/contactus" element={<ContactUs />} />
-                <Route path="/login" element={<LogIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="*" exact element={<NotFound />} />
-              </>
-            )}
+            <Route exact path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<SingleProduct />} />
+            <Route path="/checkout" element={<CheckOut />} />
+            <Route path="/contactus" element={<ContactUs />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="*" exact element={<NotFound />} />
           </Routes>
           <Footer />
         </PersistGate>
