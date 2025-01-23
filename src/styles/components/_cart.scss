@@ -59,6 +59,7 @@
           font-size: 17px;
           line-height: normal;
           color: $secondary-font-color;
+          text-align: left;
         }
 
         .price {
@@ -73,7 +74,7 @@
       .remove {
         position: absolute;
         left: auto;
-        right: 0;
+        right: 15px;
         top: 25px;
         color: $secondary-font-color;
         opacity: 0.7;
@@ -108,7 +109,7 @@
 
   .cart-footer {
     background-color: #ffffff;
-
+    margin-top: auto;
     p {
       display: flex;
       justify-content: space-between;
@@ -148,9 +149,9 @@
   }
 }
 
-@media screen and (max-width: 921px) {
+@media screen and (max-width: 992px) {
   .cart {
-    width: 90%;
+    width: 60%;
 
     .cart-items {
       .cart-item {
@@ -172,7 +173,11 @@
     }
   }
 }
-
+@media screen and (max-width: 786px) {
+  .cart {
+    width: 65%;
+  }
+}
 @media screen and (max-width: 576px) {
   .cart {
     width: 95%;
