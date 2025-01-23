@@ -1,0 +1,121 @@
+.products {
+  background-color: $primary-color;
+  padding-bottom: 60px;
+
+  .container {
+    padding-top: 40px;
+    .filtering-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 40px;
+
+      .filter-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        width: 100px;
+        border-left: 0;
+        padding: 8px 12px;
+        font-weight: 600;
+        font-size: 14px;
+        color: $secondary-font-color;
+        svg {
+          font-size: 20px;
+        }
+      }
+      .result-count {
+        font-family: 15px;
+        font-weight: 500;
+        padding: 4px 0;
+        color: $secondary-font-color;
+      }
+      .shop-order {
+        background-color: transparent;
+        border: transparent;
+        border-radius: 0;
+        padding: 8px;
+        color: #666666;
+        font-size: 15px;
+        font-family: $primary-font;
+        font-weight: 500;
+        outline: none;
+        margin-left: auto;
+        option {
+          background-color: transparent;
+        }
+      }
+      .clear-filters-btn {
+        margin: auto;
+        width: 180px;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .load-more {
+      display: block;
+      width: 170px;
+      margin: 20px auto;
+      padding: 15px 20px;
+    }
+
+    .no-more-products {
+      width: 250px;
+      margin: 20px auto;
+      padding: 5px 23px;
+      text-align: center;
+      border: 2px solid $primary-border-color;
+      color: #000;
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .products {
+    .container {
+      .products-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 786px) {
+  .products {
+    .container {
+      .products-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .products {
+    .container {
+      .filtering-container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .shop-order {
+          margin: 0;
+        }
+        .clear-filters-btn {
+          margin: 0;
+        }
+      }
+      .products-container {
+        grid-template-columns: repeat(1, 1fr);
+        justify-items: center;
+      }
+    }
+  }
+}

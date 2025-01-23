@@ -16,12 +16,14 @@
 @import "./components/zoom_image";
 @import "./components/add_to_cart";
 @import "./components/card";
+@import "./components/filter";
 @import "./components/review_card";
 @import "./components/quick_view";
 @import "./components/footer";
 
 // Pages
 @import "./pages/home.scss";
+@import "./pages/products.scss";
 @import "./pages/single_product.scss";
 @import "./pages/error.scss";
 @import "./pages/not_found.scss";

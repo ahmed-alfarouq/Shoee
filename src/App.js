@@ -1,23 +1,25 @@
 // Import React Structure
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorBoundary } from "react-error-boundary";
 //Import Style
 import "./styles/main.scss";
 // Pages
 import Home from "./pages/Home/Home";
-import Products from "./pages/Products";
+import Products from "./pages/Products/Products";
 import SingleProduct from "./pages/SingleProduct/SingleProduct";
 import CheckOut from "./pages/CheckOut";
 import ContactUs from "./pages/ContactUs";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
 import Error from "./pages/Error";
+import NotFound from "./pages/NotFound";
 // Components
 import Spinner from "./features/Spinner";
 import Navbar from "./features/Navbar";
 import Footer from "./features/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 // Redux
 import {
   fetchProduts,
@@ -26,8 +28,6 @@ import {
 import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
 import purgeStorage from "./utils/purgeStorage";
-import NotFound from "./pages/NotFound";
-import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
