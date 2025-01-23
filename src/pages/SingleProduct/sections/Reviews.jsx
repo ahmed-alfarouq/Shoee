@@ -9,8 +9,8 @@ const Reviews = ({ reviews }) => {
         <h2 className="title">Reviews ({reviews.length})</h2>
       </div>
       <div className="reviews-container">
-        {reviews.map((review) => (
-          <div className="review">
+        {reviews.map((review, i) => (
+          <div className="review" key={`review-${review.rating}-${i}`}>
             <img src={avatar} alt="avatar" />
             <div className="content">
               <p className="comment">
