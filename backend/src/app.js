@@ -3,7 +3,6 @@ import helmet from "helmet";
 import compression from "compression";
 import authRoutes from "./routes/authRoutes.js";
 
-
 const app = express();
 
 // Middleware
@@ -12,6 +11,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
 
+app.get("/", (req, res) => {
+  res.json({
+    msg: "Ok",
+  });
+});
 // Routes
 app.use("/auth", authRoutes);
 
