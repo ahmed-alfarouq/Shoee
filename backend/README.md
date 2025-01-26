@@ -4,7 +4,7 @@
 
 This API provides endpoints for user authentication, including login and signup. It validates user input and returns detailed error messages for invalid requests.
 
-**Base URL**: `https://api.example.com/api/auth`
+**Base URL**: `https://shoee-api.vercel.app/auth`
 
 ## Authentication
 
