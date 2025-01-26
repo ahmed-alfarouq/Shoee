@@ -13,7 +13,7 @@ app.use(compression());
 
 app.get("/", (req, res) => {
   res.json({
-    msg: `${process.env.PORT}`,
+    msg: "Ok",
   });
 });
 
