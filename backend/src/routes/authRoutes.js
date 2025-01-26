@@ -1,27 +1,12 @@
 import express from "express";
 import { signup, login } from "../controllers/authController.js";
-import { body } from "express-validator";
+import loginValidator from "../middleware/loginValidator.js";
+import signupValidator from "../middleware/signupValidator.js";
 
 const router = express.Router();
 
-router.post(
-  "/signup",
-  [
-    body("email").isEmail().withMessage("Enter a valid email"),
-    body("password")
-      .isLength({ min: 6 })
-      .withMessage("Password must be at least 6 characters"),
-  ],
-  signup
-);
+router.post("/signup", signupValidator, signup);
 
-router.post(
-  "/login",
-  [
-    body("email").isEmail().withMessage("Enter a valid email"),
-    body("password").notEmpty().withMessage("Password is required"),
-  ],
-  login
-);
+router.post("/login", loginValidator, login);
 
 export default router;
