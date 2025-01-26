@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
     msg: "Ok",
   });
 });
+
 // Routes
 app.use("/auth", authRoutes);
 
