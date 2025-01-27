@@ -7,21 +7,24 @@ import {
   IoIosSearch,
   IoIosCart,
   IoMdClose,
+  IoIosLogOut,
 } from "react-icons/io";
 import { CiMenuBurger } from "react-icons/ci";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import SearchForm from "../components/SearchForm";
 import Cart from "./cart/Cart";
 import BGOverlay from "../components/BGOverlay";
+import { logUserOut } from "../app/features/auth/authSlice";
 
 const Navbar = () => {
   // Redux
-  let products = useSelector((state) => state.products.products);
-  let cart = useSelector((state) => state.products.cart);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
+  const cart = useSelector((state) => state.products.cart);
 
   // Refs
   const menuRef = useRef(null);
@@ -31,6 +34,8 @@ const Navbar = () => {
   // State
   const [cartCount, setCartCount] = useState(0);
   const [overlayHidden, setOverlayHidden] = useState(true);
+
+  const authrized = useSelector((state) => state.auth.authrized);
 
   useEffect(() => {
     let count = 0;
@@ -73,6 +78,16 @@ const Navbar = () => {
     setOverlayHidden(!overlayHidden);
   };
 
+  const handleNavigation = () =>
+    menuRef.current.className.includes("open")
+      ? toggleMenu()
+      : cartRef.current.className.includes("open")
+      ? switchCart()
+      : searchBoxRef.current.className.includes("open")
+      ? switchSearchBox()
+      : null;
+
+  const logout = () => dispatch(logUserOut());
   return (
     <header>
       <BGOverlay reset={resetClasses} hidden={overlayHidden} />
@@ -92,34 +107,14 @@ const Navbar = () => {
           </button>
           <ul className="flex flex-center menu">
             <li>
-              <Link
-                to="/"
-                onClick={() =>
-                  menuRef.current.className.includes("open")
-                    ? toggleMenu()
-                    : cartRef.current.className.includes("open")
-                    ? switchCart()
-                    : searchBoxRef.current.className.includes("open")
-                    ? switchSearchBox()
-                    : null
-                }
-                className="menu-link"
-              >
+              <Link to="/" onClick={handleNavigation} className="menu-link">
                 Home
               </Link>
             </li>
             <li>
               <Link
                 to="/products"
-                onClick={() =>
-                  menuRef.current.className.includes("open")
-                    ? toggleMenu()
-                    : cartRef.current.className.includes("open")
-                    ? switchCart()
-                    : searchBoxRef.current.className.includes("open")
-                    ? switchSearchBox()
-                    : null
-                }
+                onClick={handleNavigation}
                 className="menu-link"
               >
                 all products
@@ -128,15 +123,7 @@ const Navbar = () => {
             <li>
               <Link
                 to="/checkout"
-                onClick={() =>
-                  menuRef.current.className.includes("open")
-                    ? toggleMenu()
-                    : cartRef.current.className.includes("open")
-                    ? switchCart()
-                    : searchBoxRef.current.className.includes("open")
-                    ? switchSearchBox()
-                    : null
-                }
+                onClick={handleNavigation}
                 className="menu-link"
               >
                 Check Out
@@ -145,15 +132,7 @@ const Navbar = () => {
             <li>
               <Link
                 to="/contactus"
-                onClick={() =>
-                  menuRef.current.className.includes("open")
-                    ? toggleMenu()
-                    : cartRef.current.className.includes("open")
-                    ? switchCart()
-                    : searchBoxRef.current.className.includes("open")
-                    ? switchSearchBox()
-                    : null
-                }
+                onClick={handleNavigation}
                 className="menu-link"
               >
                 Contact
@@ -208,6 +187,7 @@ const Navbar = () => {
             </div>
             <Cart ref={cartRef} switchCart={switchCart} />
           </div>
+          {authrized && <IoIosLogOut onClick={logout} />}
         </div>
       </div>
       <button
