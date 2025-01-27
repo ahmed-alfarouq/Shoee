@@ -309,7 +309,12 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 576px) {
+  .banner {
+    .right-wrap {
+      display: none;
+    }
+  }
   .top-rated-products,
   .tabs-section {
     .tabs-wrapper {
