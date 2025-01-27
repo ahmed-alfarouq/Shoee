@@ -45,20 +45,6 @@ Log in an existing user.
         }
         ```
     - **Errors:**
-        - `400 Bad Request`: Invalid or missing fields
-            ```
-            {
-                "errors": [
-                    {
-                    "type": "field",
-                    "value": "<input_value>",
-                    "msg": "<error_message>",
-                    "path": "<field_name>",
-                    "location": "body"
-                    }
-                ]
-            }
-            ```
         - `401, 403, 404, 409`:
             ```
             {
