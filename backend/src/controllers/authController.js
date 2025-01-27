@@ -12,10 +12,11 @@ export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser =
+      (await User.findOne({ email })) || (await User.findOne({ username }));
     if (existingUser) {
       return res.status(409).json({
-        msg: "User already exists",
+        msg: "User already exists!",
       });
     }
 
@@ -34,10 +35,7 @@ export const signup = async (req, res) => {
 
     res.status(201).json({ user: newUser, token });
   } catch (error) {
-    res.status(500).json({
-      msg: "Something went wrong",
-      error: error.message,
-    });
+    res.status(500).json({ msg: `Something went wrong: ${error.message}` });
   }
 };
 
@@ -47,18 +45,18 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+      return res.status(404).json({ msg: "User not found!" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ msg: "Invalid credentials" });
+      return res.status(401).json({ msg: "Invalid credentials!" });
     }
 
     const token = generateAccessToken(user);
 
     res.status(200).json({ user, token });
   } catch (error) {
-    res.status(500).json({ msg: "Something went wrong", error: error.message });
+    res.status(500).json({ msg: `Something went wrong: ${error.message}` });
   }
 };
