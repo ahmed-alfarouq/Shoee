@@ -6,8 +6,16 @@ import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
+const allowedOrigins = ["https://shoee.pages.dev", "http://localhost:3000"];
+
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   optionSuccessStatus: 200,
 };
