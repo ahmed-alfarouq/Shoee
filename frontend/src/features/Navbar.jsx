@@ -146,22 +146,18 @@ const Navbar = () => {
               </div>
               <ul className="dropdown-menu">
                 <li>
-                  <Link to="/account" className="menu-link">
+                  <Link
+                    to="/account"
+                    className="menu-link"
+                    onClick={handleNavigation}
+                  >
                     my account
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/cart"
-                    onClick={() =>
-                      menuRef.current.className.includes("open")
-                        ? toggleMenu()
-                        : cartRef.current.className.includes("open")
-                        ? switchCart()
-                        : searchBoxRef.current.className.includes("open")
-                        ? switchSearchBox()
-                        : null
-                    }
+                    onClick={handleNavigation}
                     className="menu-link"
                   >
                     cart
