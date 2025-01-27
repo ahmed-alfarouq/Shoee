@@ -1,0 +1,24 @@
+.log_in,
+.sign_up {
+  text-align: center;
+  background: $primary-color;
+  padding-bottom: 80px;
+  .title {
+    text-align: left;
+    font-size: 30px;
+    line-height: 1.1;
+  }
+  .message {
+    font-weight: 500;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .log_in,
+  .sign_up {
+    .title {
+      font-size: 27px;
+    }
+  }
+}

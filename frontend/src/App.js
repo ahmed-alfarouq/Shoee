@@ -1,6 +1,6 @@
 // Import React Structure
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorBoundary } from "react-error-boundary";
 //Import Style
@@ -11,8 +11,9 @@ import Products from "./pages/Products/Products";
 import SingleProduct from "./pages/SingleProduct/SingleProduct";
 import CheckOut from "./pages/CheckOut";
 import ContactUs from "./pages/ContactUs";
-import LogIn from "./pages/LogIn";
-import SignUp from "./pages/SignUp";
+import Account from "./pages/Account/Account";
+import LogIn from "./pages/Login/LogIn";
+import SignUp from "./pages/Signup/Signup";
 import Error from "./pages/Error";
 import NotFound from "./pages/NotFound";
 // Components
@@ -31,6 +32,7 @@ import purgeStorage from "./utils/purgeStorage";
 
 function App() {
   const dispatch = useDispatch();
+  const authrized = useSelector((state) => state.auth.authrized);
   const products = useSelector((state) => state.products.products);
   const lastUpdated = useSelector((state) => state.products.lastUpdated);
   const loading = useSelector((state) => state.products.loading);
@@ -67,8 +69,33 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<SingleProduct />} />
-            <Route path="/checkout" element={<CheckOut />} />
+            <Route
+              path="/checkout"
+              element={
+                authrized ? (
+                  <CheckOut />
+                ) : (
+                  <Navigate
+                    to="/login"
+                    replace={true}
+                    state={{
+                      message: "You need to login before checking out!",
+                    }}
+                  />
+                )
+              }
+            />
             <Route path="/contactus" element={<ContactUs />} />
+            <Route
+              path="/account"
+              element={
+                authrized ? (
+                  <Account />
+                ) : (
+                  <Navigate to="/login" replace={true} />
+                )
+              }
+            />
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="*" exact element={<NotFound />} />
