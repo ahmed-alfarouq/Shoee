@@ -33,12 +33,13 @@ Log in an existing user.
         ```
         {
             "user": {
-                "username": "ahmedomar",
-                "email": "ahmed.omar.alfarouq@gmail.com",
-                "password": "$2b$10$TUEKHLhIlXDr0Br4nzPGtOJ/dfdieHlbY0bNvsDeN7H6AMwNWH4Nm",
+                "_id": "6798e3614acbc1b71ae958f9",
+                "username": <value>,
+                "email": <value>,
+                "password": <value>,
                 "role": "customer",
-                "_id": "6795d7209d94ee53b1636895",
-                "createdAt": "2025-01-26T06:33:04.502Z",
+                "isVerified": <value>,
+                "createdAt": "2025-01-28T14:02:09.498Z",
                 "__v": 0
             },
             "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OTVkNzIwOWQ5NGVlNTNiMTYzNjg5NSIsImlhdCI6MTczNzg3MzE4NCwiZXhwIjoxNzM3ODc2Nzg0fQ.rdj13SxfhKBndLOGg1ZgvezLMeF0TksQITVJQOE6lj4"
@@ -77,11 +78,12 @@ Register a new user.
         ```
         {
             "user": {
-                "username": "ahmedomar",
-                "email": "ahmed.omar.alfarouq@gmail.com",
-                "password": "$2b$10$TUEKHLhIlXDr0Br4nzPGtOJ/dfdieHlbY0bNvsDeN7H6AMwNWH4Nm",
+                "username": <value>,
+                "email": <value>,
+                "password": <value>,
                 "role": "customer",
-                "_id": "6795d7209d94ee53b1636895",
+                isVerified: <value>,
+                "_id": <value>,
                 "createdAt": "2025-01-26T06:33:04.502Z",
                 "__v": 0
             },
