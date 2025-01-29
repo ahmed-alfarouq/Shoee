@@ -9,7 +9,7 @@ import "./styles/main.scss";
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
 import SingleProduct from "./pages/SingleProduct/SingleProduct";
-import CheckOut from "./pages/CheckOut";
+import Checkout from "./pages/Checkout/Checkout";
 import ContactUs from "./pages/ContactUs";
 import Account from "./pages/Account/Account";
 import LogIn from "./pages/Login/LogIn";
@@ -77,7 +77,7 @@ function App() {
               element={
                 authrized ? (
                   verified ? (
-                    <CheckOut />
+                    <Checkout />
                   ) : (
                     <Navigate to="/verify-email" replace={true} />
                   )
