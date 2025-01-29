@@ -16,23 +16,27 @@ import LogIn from "./pages/Login/LogIn";
 import SignUp from "./pages/Signup/Signup";
 import Error from "./pages/Error";
 import NotFound from "./pages/NotFound";
+import VerifyEmail from "./pages/VerifyEmail";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 // Components
 import Spinner from "./features/Spinner";
 import Navbar from "./features/Navbar";
 import Footer from "./features/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 // Redux
-import {
-  fetchProduts,
-  updateLoadingState,
-} from "./app/features/products/productsSlice";
+import { updateLoadingState } from "./app/features/products/productsSlice";
+import { fetchProducts } from "./utils/api";
 import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
 import purgeStorage from "./utils/purgeStorage";
 
+
+
 function App() {
   const dispatch = useDispatch();
   const authrized = useSelector((state) => state.auth.authrized);
+  const verified = useSelector((state) => state.auth.verified);
   const products = useSelector((state) => state.products.products);
   const lastUpdated = useSelector((state) => state.products.lastUpdated);
   const loading = useSelector((state) => state.products.loading);
@@ -44,7 +48,7 @@ function App() {
 
   useEffect(() => {
     if (loading && !products.length) {
-      dispatch(fetchProduts());
+      dispatch(fetchProducts());
     }
   }, [loading, products.length, dispatch]);
 
@@ -73,7 +77,11 @@ function App() {
               path="/checkout"
               element={
                 authrized ? (
-                  <CheckOut />
+                  verified ? (
+                    <CheckOut />
+                  ) : (
+                    <Navigate to="/verify-email" replace={true} />
+                  )
                 ) : (
                   <Navigate
                     to="/login"
@@ -90,7 +98,11 @@ function App() {
               path="/account"
               element={
                 authrized ? (
-                  <Account />
+                  verified ? (
+                    <Account />
+                  ) : (
+                    <Navigate to="/verify-email" replace={true} />
+                  )
                 ) : (
                   <Navigate to="/login" replace={true} />
                 )
@@ -98,6 +110,9 @@ function App() {
             />
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="*" exact element={<NotFound />} />
           </Routes>
           <Footer />
