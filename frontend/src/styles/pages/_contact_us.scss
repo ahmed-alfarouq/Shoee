@@ -1,0 +1,63 @@
+.contact-us {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 80px;
+  .title {
+    font-size: 94px;
+    text-align: left;
+  }
+  .content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    .left {
+      width: 35%;
+      p {
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .info {
+        font-weight: 700;
+      }
+    }
+    .map-container {
+      width: 55%;
+    }
+  }
+  .contact-form {
+    background-color: $primary-color;
+    margin-top: 50px;
+    max-width: 600px;
+    .title {
+      font-size: 30px;
+      align-self: baseline;
+      line-height: 1.5;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contact-us {
+    .content {
+      flex-direction: column;
+      .left {
+        width: 100%;
+      }
+      .map-container {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 578px) {
+  .contact-us {
+    .title {
+      font-size: 30px;
+      line-height: 1;
+    }
+  }
+}
