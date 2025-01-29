@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 //import Icons
 import {
-  IoIosArrowDown,
   IoIosSearch,
   IoIosCart,
   IoMdClose,
@@ -13,12 +12,13 @@ import { CiMenuBurger } from "react-icons/ci";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+import { logUserOut } from "../app/features/auth/authSlice";
 
 // Components
 import SearchForm from "../components/SearchForm";
 import Cart from "./cart/Cart";
 import BGOverlay from "../components/BGOverlay";
-import { logUserOut } from "../app/features/auth/authSlice";
+
 
 const Navbar = () => {
   // Redux
@@ -49,11 +49,6 @@ const Navbar = () => {
   const toggleMenu = () => {
     menuRef.current.classList.toggle("open");
     setOverlayHidden(!overlayHidden);
-  };
-
-  const toggleDropdownMenu = (e) => {
-    // open class is set only for screens smaller than 921px
-    e.currentTarget.classList.toggle("open");
   };
 
   const switchSearchBox = () => {
@@ -141,33 +136,6 @@ const Navbar = () => {
               >
                 Contact
               </Link>
-            </li>
-
-            <li className="dropdown" onClick={toggleDropdownMenu}>
-              <div className="dropdown-btn">
-                <span>account</span>
-                <IoIosArrowDown />
-              </div>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link
-                    to="/account"
-                    className="menu-link"
-                    onClick={handleNavigation}
-                  >
-                    my account
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/cart"
-                    onClick={handleNavigation}
-                    className="menu-link"
-                  >
-                    cart
-                  </Link>
-                </li>
-              </ul>
             </li>
           </ul>
         </nav>
