@@ -14,9 +14,6 @@ const CartFooter = ({ switchCart, subtotal }) => {
         </span>
       </p>
       <div className="buttons">
-        <Link to="/cart" className="btn" onClick={switchCart}>
-          View cart
-        </Link>
         <Link to="/checkout" className="btn" onClick={switchCart}>
           Checkout
         </Link>
