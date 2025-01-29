@@ -1,11 +1,12 @@
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../app/features/auth/authSlice";
+import { login } from "../../utils/api";
 
 // Components
 import LoginForm from "./sections/LoginForm";
 import Spinner from "../../features/Spinner";
-import { useEffect } from "react";
+import { resetErrorAndMessage } from "../../app/features/auth/authSlice";
 
 const SignIn = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const error = useSelector((state) => state.auth.error);
+  const verified = useSelector((state) => state.auth.verified);
   const authrized = useSelector((state) => state.auth.authrized);
   const loading = useSelector((state) => state.auth.loading);
 
@@ -23,13 +25,18 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (authrized) {
-      if (message && message.length) {
-        return navigate("/checkout");
-      }
-      navigate("/");
+    if (!authrized) return;
+
+    if (error.length) {
+      dispatch(resetErrorAndMessage());
     }
-  }, [authrized, message, navigate]);
+
+    if (verified) {
+      navigate(message?.length ? "/checkout" : "/");
+    } else {
+      navigate("/verify-email");
+    }
+  }, [authrized, verified, message, error, dispatch, navigate]);
 
   return (
     <main className="log_in">

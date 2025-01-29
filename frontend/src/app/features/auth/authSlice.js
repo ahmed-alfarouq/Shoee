@@ -1,20 +1,21 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { userLogin, createNewUser } from "../../../utils/api";
-
-export const signup = createAsyncThunk("auth/signup", async (_, thunkAPI) =>
-  createNewUser(thunkAPI, _)
-);
-
-export const login = createAsyncThunk("auth/login", async (_, thunkAPI) =>
-  userLogin(thunkAPI, _)
-);
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  login,
+  signup,
+  resendVerificationEmail,
+  verifyEmail,
+  forgotPassword,
+  resetPassword,
+} from "../../../utils/api";
 
 const initialState = {
   authrized: false,
   token: "",
   user: null,
+  verified: null,
   error: "",
   loading: false,
+  message: "",
 };
 
 export const authSlice = createSlice({
@@ -25,40 +26,69 @@ export const authSlice = createSlice({
       state.authrized = false;
       state.token = "";
       state.user = null;
+      state.verified = null;
+      state.error = "";
+    },
+    resetErrorAndMessage: (state) => {
+      state.error = "";
+      state.message = "";
     },
   },
   extraReducers: (builder) => {
+    const setLoading = (state) => {
+      state.loading = true;
+      state.error = "";
+      state.message = "";
+    };
+
+    const setError = (state, action) => {
+      state.loading = false;
+      state.error = action.payload?.message || "An error occurred";
+      state.message = "";
+    };
+
+    const setAuthState = (state, action) => {
+      state.loading = false;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+      state.verified = action.payload.user.isVerified;
+      state.authrized = true;
+      state.error = "";
+      state.message = "";
+    };
+
     builder
-      .addCase(signup.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(signup.fulfilled, (state, action) => {
+      .addCase(signup.pending, setLoading)
+      .addCase(signup.fulfilled, setAuthState)
+      .addCase(signup.rejected, setError)
+      .addCase(login.pending, setLoading)
+      .addCase(login.fulfilled, setAuthState)
+      .addCase(login.rejected, setError)
+      .addCase(verifyEmail.pending, setLoading)
+      .addCase(verifyEmail.fulfilled, setAuthState)
+      .addCase(verifyEmail.rejected, setError)
+      .addCase(resendVerificationEmail.pending, setLoading)
+      .addCase(resendVerificationEmail.fulfilled, (state, action) => {
+        state.message = action.payload;
         state.loading = false;
-        state.token = action.payload.token;
-        state.user = action.payload.user;
-        state.authrized = true;
+      })
+      .addCase(resendVerificationEmail.rejected, setError)
+      .addCase(forgotPassword.pending, setLoading)
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.message = action.payload;
+        state.loading = false;
         state.error = "";
       })
-      .addCase(signup.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload.message;
-      })
-      .addCase(login.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.loading = false;
-        state.token = action.payload.token;
-        state.user = action.payload.user;
-        state.authrized = true;
+      .addCase(forgotPassword.rejected, setError)
+      .addCase(resetPassword.pending, setLoading)
+      .addCase(resetPassword.fulfilled, (state, action) => {
         state.error = "";
-      })
-      .addCase(login.rejected, (state, action) => {
+        state.message = "";
         state.loading = false;
-        state.error = action.payload.message;
-      });
+      })
+      .addCase(resetPassword.rejected, setError);
   },
 });
 
-export const { logUserOut } = authSlice.actions;
+export const { logUserOut, resetErrorAndMessage } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,33 +1,33 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../app/features/auth/authSlice";
+import { resetErrorAndMessage } from "../../app/features/auth/authSlice";
+import { signup } from "../../utils/api";
 
 // Components
 import Spinner from "../../features/Spinner";
 import SignupForm from "./sections/SignupForm";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const error = useSelector((state) => state.auth.error);
+  const verified = useSelector((state) => state.auth.verified);
   const authrized = useSelector((state) => state.auth.authrized);
   const loading = useSelector((state) => state.auth.loading);
 
-  const submit = (values) => {
-    dispatch(signup(values));
-    if (error.length) {
-      return;
-    }
-    navigate("/");
-  };
+  const submit = (values) => dispatch(signup(values));
 
   useEffect(() => {
-    if (authrized) {
-      navigate("/");
+    if (!authrized) return;
+
+    if (error.length) {
+      dispatch(resetErrorAndMessage());
     }
-  }, [authrized, navigate]);
+
+    navigate(verified ? "/" : "/verify-email");
+  }, [authrized, verified, error, dispatch, navigate]);
 
   return (
     <main className="sign_up">

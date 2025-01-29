@@ -1,5 +1,7 @@
 .log_in,
-.sign_up {
+.sign_up,
+.forgot_password,
+.reset_password {
   text-align: center;
   background: $primary-color;
   padding-bottom: 80px;
@@ -14,11 +16,77 @@
   }
 }
 
+.verify-email {
+  padding-bottom: 120px;
+  .container {
+    .title {
+      padding-bottom: 0;
+      font-size: 30px;
+    }
+
+    .description,
+    .message,
+    .error {
+      text-align: center;
+      width: 60%;
+      margin: auto;
+      font-weight: 500;
+      font-size: 17px;
+    }
+    .message {
+      color: #b3b303;
+      margin-top: 10px;
+    }
+    .error {
+      color: #666666;
+      margin-top: 10px;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+      .btn {
+        width: 45%;
+      }
+    }
+  }
+}
 @media screen and (max-width: 991px) {
   .log_in,
   .sign_up {
     .title {
       font-size: 27px;
+    }
+  }
+  .verify-email {
+    .container {
+      .title {
+        font-size: 27px;
+        line-height: 1.4;
+      }
+      .description {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .verify-email {
+    padding-bottom: 80px;
+    .container {
+      .description {
+        font-size: 14px;
+      }
+      .btns {
+        .btn {
+          width: 80%;
+        }
+      }
     }
   }
 }

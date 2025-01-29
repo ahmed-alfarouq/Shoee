@@ -8,7 +8,7 @@ import authReducer from "./features/auth/authSlice";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["numOfItems", "cartItems", "loading", "error"],
+  blacklist: ["loading", "error", "message"],
 };
 
 const productsPersistedReducer = persistReducer(persistConfig, productsReducer);

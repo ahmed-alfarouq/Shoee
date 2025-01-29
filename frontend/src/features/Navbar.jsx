@@ -87,7 +87,11 @@ const Navbar = () => {
       ? switchSearchBox()
       : null;
 
-  const logout = () => dispatch(logUserOut());
+  const logout = () => {
+    dispatch(logUserOut());
+    handleNavigation();
+  };
+
   return (
     <header>
       <BGOverlay reset={resetClasses} hidden={overlayHidden} />

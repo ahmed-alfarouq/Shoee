@@ -1,34 +1,20 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchProductsByCategories } from "../../../utils/api";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchProducts } from "../../../utils/api";
 import { PURGE } from "redux-persist";
 
-export const fetchProduts = createAsyncThunk(
-  "products/fetchProduts",
-  async (_, thunkAPI) =>
-    fetchProductsByCategories(thunkAPI, [
-      "mens-shirts",
-      "mens-shoes",
-      "mens-watches",
-    ])
-);
 
 const initialState = {
   loading: true,
   products: [],
   lastUpdated: null,
   errorMessage: "",
-  numOfItems: 1,
-  id: 1,
   cart: [],
-  sectionClass: "all",
 };
 
 export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    increaseNumOfItems: (state) => state.numOfItems++,
-    decreaseNumOfItems: (state) => state.numOfItems--,
     updateLoadingState: (state, action) => {
       state.loading = action.payload;
     },
@@ -81,10 +67,10 @@ export const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProduts.pending, (state) => {
+      .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchProduts.fulfilled, (state, action) => {
+      .addCase(fetchProducts.fulfilled, (state, action) => {
         if (action.payload) {
           state.products = action.payload;
           state.lastUpdated = Date.now();
@@ -95,7 +81,7 @@ export const productsSlice = createSlice({
         }
         state.loading = false;
       })
-      .addCase(fetchProduts.rejected, (state, action) => {
+      .addCase(fetchProducts.rejected, (state, action) => {
         state.errorMessage = `Fetching products rejected: ${action.payload.message}`;
         state.loading = false;
 
@@ -109,8 +95,6 @@ export const productsSlice = createSlice({
 });
 
 export const {
-  increaseNumOfItems,
-  decreaseNumOfItems,
   updateLoadingState,
   incrementCartItem,
   decrementCartItem,

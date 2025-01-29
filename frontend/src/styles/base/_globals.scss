@@ -32,6 +32,11 @@
     color: $hover-font-color !important;
     border-color: $hover-font-color !important;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .increment-decrement-counter {
