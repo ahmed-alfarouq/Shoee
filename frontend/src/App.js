@@ -31,8 +31,6 @@ import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
 import purgeStorage from "./utils/purgeStorage";
 
-
-
 function App() {
   const dispatch = useDispatch();
   const authrized = useSelector((state) => state.auth.authrized);
@@ -73,6 +71,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<SingleProduct />} />
+
             <Route
               path="/checkout"
               element={

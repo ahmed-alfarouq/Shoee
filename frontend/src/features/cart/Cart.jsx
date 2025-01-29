@@ -2,9 +2,9 @@ import React, { forwardRef } from "react";
 import { useSelector } from "react-redux";
 
 // Components
-import CartItem from "./CartItem";
-import EmptyCart from "./EmptyCart";
-import CartFooter from "./CartFooter";
+import CartItem from "./sections/CartItem";
+import EmptyCart from "./sections/EmptyCart";
+import CartFooter from "./sections/CartFooter";
 
 // Icons
 import { IoMdClose } from "react-icons/io";

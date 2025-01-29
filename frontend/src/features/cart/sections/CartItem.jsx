@@ -4,16 +4,16 @@ import {
   decrementCartItem,
   incrementCartItem,
   removeFromCart,
-} from "../../app/features/products/productsSlice";
+} from "../../../app/features/products/productsSlice";
 
 // Components
-import IncrementDecrementCounter from "../../components/IncrementDecrementCounter";
+import IncrementDecrementCounter from "../../../components/IncrementDecrementCounter";
 
 // Assets
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 // Utils
-import truncate from "../../utils/truncate";
+import truncate from "../../../utils/truncate";
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
