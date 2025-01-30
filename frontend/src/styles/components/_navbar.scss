@@ -13,6 +13,7 @@ header {
   .logo {
     color: $secondary-color;
     font: normal small-caps 600 40px/ 25px $primary-font;
+    width: fit-content;
   }
 
   .nav-right-side {
