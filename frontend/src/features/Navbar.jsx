@@ -7,6 +7,7 @@ import {
   IoIosCart,
   IoMdClose,
   IoIosLogOut,
+  IoIosArrowDown,
 } from "react-icons/io";
 import { CiMenuBurger } from "react-icons/ci";
 
@@ -18,7 +19,6 @@ import { logUserOut } from "../app/features/auth/authSlice";
 import SearchForm from "../components/SearchForm";
 import Cart from "./cart/Cart";
 import BGOverlay from "../components/BGOverlay";
-
 
 const Navbar = () => {
   // Redux
@@ -49,6 +49,11 @@ const Navbar = () => {
   const toggleMenu = () => {
     menuRef.current.classList.toggle("open");
     setOverlayHidden(!overlayHidden);
+  };
+  
+  const toggleDropdownMenu = (e) => {
+    // open class is set only for screens smaller than 921px
+    e.currentTarget.classList.toggle("open");
   };
 
   const switchSearchBox = () => {
@@ -121,11 +126,11 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to="/checkout"
+                to="/about"
                 onClick={handleNavigation}
                 className="menu-link"
               >
-                Check Out
+                About
               </Link>
             </li>
             <li>
@@ -136,6 +141,32 @@ const Navbar = () => {
               >
                 Contact
               </Link>
+            </li>
+            <li className="dropdown" onClick={toggleDropdownMenu}>
+              <div className="dropdown-btn">
+                <span>account</span>
+                <IoIosArrowDown />
+              </div>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link
+                    to="/account"
+                    className="menu-link"
+                    onClick={handleNavigation}
+                  >
+                    my account
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/cart"
+                    onClick={handleNavigation}
+                    className="menu-link"
+                  >
+                    cart
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </nav>
