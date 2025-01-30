@@ -14,11 +14,13 @@ import { CiMenuBurger } from "react-icons/ci";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { logUserOut } from "../app/features/auth/authSlice";
+import { clearUser } from "../app/features/user/userSlice";
 
 // Components
 import SearchForm from "../components/SearchForm";
 import Cart from "./cart/Cart";
 import BGOverlay from "../components/BGOverlay";
+
 
 const Navbar = () => {
   // Redux
@@ -35,7 +37,7 @@ const Navbar = () => {
   const [cartCount, setCartCount] = useState(0);
   const [overlayHidden, setOverlayHidden] = useState(true);
 
-  const authrized = useSelector((state) => state.auth.authrized);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     let count = 0;
@@ -50,7 +52,7 @@ const Navbar = () => {
     menuRef.current.classList.toggle("open");
     setOverlayHidden(!overlayHidden);
   };
-  
+
   const toggleDropdownMenu = (e) => {
     // open class is set only for screens smaller than 921px
     e.currentTarget.classList.toggle("open");
@@ -89,6 +91,7 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch(logUserOut());
+    dispatch(clearUser());
     handleNavigation();
   };
 
@@ -186,7 +189,7 @@ const Navbar = () => {
             </div>
             <Cart ref={cartRef} switchCart={switchCart} />
           </div>
-          {authrized && <IoIosLogOut onClick={logout} />}
+          {isAuthenticated && <IoIosLogOut onClick={logout} />}
         </div>
       </div>
       <button

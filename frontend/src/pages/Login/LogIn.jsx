@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import { resetErrorAndMessage } from "../../app/features/auth/authSlice";
+import { setUser } from "../../app/features/user/userSlice";
+
+// Utils
 import { login } from "../../utils/api";
 
 // Components
 import LoginForm from "./sections/LoginForm";
 import Spinner from "../../features/Spinner";
-import { resetErrorAndMessage } from "../../app/features/auth/authSlice";
 
 const SignIn = () => {
   const location = useLocation();
@@ -16,16 +20,17 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const error = useSelector((state) => state.auth.error);
-  const verified = useSelector((state) => state.auth.verified);
-  const authrized = useSelector((state) => state.auth.authrized);
+  const verified = useSelector((state) => state.user.verified);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
 
-  const submit = (values) => {
-    dispatch(login(values));
+  const submit = async (values) => {
+    const res = await dispatch(login(values)).unwrap();
+    dispatch(setUser(res.user));
   };
 
   useEffect(() => {
-    if (!authrized) return;
+    if (!isAuthenticated) return;
 
     if (error.length) {
       dispatch(resetErrorAndMessage());
@@ -36,7 +41,7 @@ const SignIn = () => {
     } else {
       navigate("/verify-email");
     }
-  }, [authrized, verified, message, error, dispatch, navigate]);
+  }, [isAuthenticated, verified, message, error, dispatch, navigate]);
 
   return (
     <main className="log_in">

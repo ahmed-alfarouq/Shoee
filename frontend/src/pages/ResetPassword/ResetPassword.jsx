@@ -12,7 +12,7 @@ const ResetPassword = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const loading = useSelector((state) => state.auth.loading);
-  const authrized = useSelector((state) => state.auth.authrized);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const message = useSelector((state) => state.auth.message);
   const error = useSelector((state) => state.auth.error);
 
@@ -30,7 +30,7 @@ const ResetPassword = () => {
 
   useLayoutEffect(() => {
     const token = searchParams.get("token");
-    if (authrized || !token) {
+    if (isAuthenticated || !token) {
       navigate("/", { replace: true });
     }
   });

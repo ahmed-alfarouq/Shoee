@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+
+// Forms
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
+
+// Redux
 import { resetErrorAndMessage } from "../../../app/features/auth/authSlice";
 import { useDispatch } from "react-redux";
+
+// Components
+import FormInput from "../../../components/FormInput";
 
 let initialValues = {
   username: "",
@@ -10,6 +17,7 @@ let initialValues = {
   password: "",
   confirm_password: "",
 };
+
 const validate = Yup.object({
   username: Yup.string().required("User name Is Required!"),
   email: Yup.string().email("Invalid email!").required("Email is required!"),
@@ -29,57 +37,13 @@ const SignupForm = ({ submit, formError }) => {
     >
       <Form name="log_in" className="log_in_form form">
         <h2 className="title">signup</h2>
-        <div className="form_control">
-          <Field
-            type="text"
-            name="username"
-            className="form_input"
-            placeholder=" "
-          />
-          <label className="form_label" htmlFor="username">
-            Username
-          </label>
-        </div>
-        <ErrorMessage name="username" component="div" className="error" />
-        <div className="form_control">
-          <Field
-            type="email"
-            name="email"
-            className="form_input"
-            placeholder=" "
-          />
-          <label className="form_label" htmlFor="email">
-            Email
-          </label>
-        </div>
-        <ErrorMessage name="email" component="div" className="error" />
-        <div className="form_control">
-          <Field
-            type="password"
-            name="password"
-            className="form_input"
-            placeholder=" "
-          />
-          <label className="form_label" htmlFor="password">
-            password
-          </label>
-        </div>
-        <ErrorMessage name="password" component="div" className="error" />
-        <div className="form_control">
-          <Field
-            type="password"
-            name="confirm_password"
-            className="form_input"
-            placeholder=" "
-          />
-          <label className="form_label" htmlFor="confirm_password">
-            Confirm Password
-          </label>
-        </div>
-        <ErrorMessage
+        <FormInput label="Username" name="username" type="text" />
+        <FormInput label="Email" name="email" type="email" />
+        <FormInput label="Password" name="password" type="password" />
+        <FormInput
+          label="Confirm Password"
           name="confirm_password"
-          component="div"
-          className="error"
+          type="password"
         />
         <span className="error">{formError}</span>
         <button type="submit" className="btn">

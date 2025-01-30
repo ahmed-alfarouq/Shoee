@@ -4,18 +4,24 @@ import storage from "redux-persist/lib/storage";
 
 import productsReducer from "./features/products/productsSlice";
 import authReducer from "./features/auth/authSlice";
+import userReducer from "./features/user/userSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["loading", "error", "message"],
+  blacklist: ["loading", "error", "message", "verified"],
 };
 
 const productsPersistedReducer = persistReducer(persistConfig, productsReducer);
 const authPersistedReducer = persistReducer(persistConfig, authReducer);
+const userPersistedReducer = persistReducer(persistConfig, userReducer);
 
 export const store = configureStore({
-  reducer: { products: productsPersistedReducer, auth: authPersistedReducer },
+  reducer: {
+    products: productsPersistedReducer,
+    auth: authPersistedReducer,
+    user: userPersistedReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

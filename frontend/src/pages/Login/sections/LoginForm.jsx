@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { resetErrorAndMessage } from "../../../app/features/auth/authSlice";
+
+import FormInput from "../../../components/FormInput";
 
 let initialValues = {
   email: "",
@@ -22,30 +24,8 @@ const LoginForm = ({ submit, formError }) => {
     >
       <Form name="log_in" className="log_in_form form">
         <h2 className="title">login</h2>
-        <div className="form_control">
-          <Field
-            type="email"
-            name="email"
-            className="form_input"
-            placeholder=" "
-          />
-          <label className="form_label" htmlFor="email">
-            Email
-          </label>
-        </div>
-        <ErrorMessage name="email" component="div" className="error" />
-        <div className="form_control">
-          <Field
-            type="password"
-            name="password"
-            className="form_input"
-            placeholder=" "
-          />
-          <label className="form_label" htmlFor="password">
-            password
-          </label>
-        </div>
-        <ErrorMessage name="password" component="div" className="error" />
+        <FormInput label="Email" name="email" type="email" />
+        <FormInput label="Password" name="password" type="password" />
         <span className="error">{formError}</span>
         <button type="submit" className="btn">
           Log In
