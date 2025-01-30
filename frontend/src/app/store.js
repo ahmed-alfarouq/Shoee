@@ -9,7 +9,7 @@ import userReducer from "./features/user/userSlice";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["loading", "error", "message", "verified"],
+  blacklist: ["loading", "error", "message"],
 };
 
 const productsPersistedReducer = persistReducer(persistConfig, productsReducer);
