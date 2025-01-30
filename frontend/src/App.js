@@ -9,6 +9,7 @@ import "./styles/main.scss";
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
 import SingleProduct from "./pages/SingleProduct/SingleProduct";
+import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Account from "./pages/Account/Account";
@@ -71,6 +72,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<SingleProduct />} />
+            <Route path="/cart" element={<Cart />} />
 
             <Route
               path="/checkout"
