@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
-const AUTH_API_URL = process.env.REACT_APP_AUTH_API_URL;
+const AUTH_API_URL = process.env.REACT_APP_MY_API_URL + "/auth";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",

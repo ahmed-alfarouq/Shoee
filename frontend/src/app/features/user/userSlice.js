@@ -23,11 +23,11 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { username, verified, avatar, email, role, billing_details } =
+      const { username, isVerified, avatar, email, role, billing_details } =
         action.payload;
 
       state.username = username;
-      state.verified = verified;
+      state.verified = isVerified;
       state.avatar = avatar;
       state.email = email;
       state.role = role;

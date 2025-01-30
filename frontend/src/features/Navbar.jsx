@@ -21,7 +21,6 @@ import SearchForm from "../components/SearchForm";
 import Cart from "./cart/Cart";
 import BGOverlay from "../components/BGOverlay";
 
-
 const Navbar = () => {
   // Redux
   const dispatch = useDispatch();
