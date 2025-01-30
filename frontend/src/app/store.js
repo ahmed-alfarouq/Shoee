@@ -6,22 +6,38 @@ import productsReducer from "./features/products/productsSlice";
 import authReducer from "./features/auth/authSlice";
 import userReducer from "./features/user/userSlice";
 
-const persistConfig = {
-  key: "root",
+const productsPersistConfig = {
+  key: "products",
   storage,
   blacklist: ["loading", "error", "message"],
 };
 
-const productsPersistedReducer = persistReducer(persistConfig, productsReducer);
-const authPersistedReducer = persistReducer(persistConfig, authReducer);
-const userPersistedReducer = persistReducer(persistConfig, userReducer);
+const authPersistConfig = {
+  key: "auth",
+  storage,
+  blacklist: ["loading", "error", "message"],
+};
+
+const userPersistConfig = {
+  key: "user",
+  storage,
+  blacklist: ["loading", "error", "message"],
+};
+
+// Create persisted reducers
+const productsPersistedReducer = persistReducer(productsPersistConfig, productsReducer);
+const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
+const userPersistedReducer = persistReducer(userPersistConfig, userReducer);
+
+// Combine reducers
+const rootReducer = {
+  products: productsPersistedReducer,
+  auth: authPersistedReducer,
+  user: userPersistedReducer,
+};
 
 export const store = configureStore({
-  reducer: {
-    products: productsPersistedReducer,
-    auth: authPersistedReducer,
-    user: userPersistedReducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

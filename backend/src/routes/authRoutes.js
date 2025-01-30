@@ -6,6 +6,7 @@ import {
   resendEmail,
   forgotPassword,
   resetPassword,
+  refreshToken
 } from "../controllers/authController.js";
 import signupValidator from "../middleware/signupValidator.js";
 
@@ -17,5 +18,6 @@ router.get("/verify-email", verifyEmail);
 router.post("/resend-email", resendEmail);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
+router.post('/refresh-token', refreshToken);
 
 export default router;

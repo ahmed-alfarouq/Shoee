@@ -4,7 +4,9 @@
 
 This API provides endpoints for user authentication, including login and signup. It validates user input and returns detailed error messages for invalid requests.
 
-**Base URL**: `https://shoee-api.vercel.app/auth`
+**Base URL**: `https://shoee-api.vercel.app`
+**Auth URL**: `https://shoee-api.vercel.app/auth`
+**User Data URL**: `https://shoee-api.vercel.app/user`
 
 ## Authentication
 
