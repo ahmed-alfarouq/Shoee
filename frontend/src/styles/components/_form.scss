@@ -17,7 +17,7 @@
     width: 100%;
     .form_label {
       position: absolute;
-      top: 50%;
+      top: 30%;
       left: 10px;
       transform: translateY(-50%);
       font-size: 16px;
@@ -42,14 +42,15 @@
         font-size: 12px;
       }
     }
-  }
-  .error {
-    font-size: 14px;
-    color: $hover-font-color;
-    text-align: left;
-    text-indent: 5px;
-    margin-bottom: 10px;
-    align-self: baseline;
+    .error {
+      font-size: 14px;
+      color: $hover-font-color;
+      text-align: left;
+      text-indent: 5px;
+      margin: 5px 0;
+      align-self: baseline;
+      min-height: 10px;
+    }
   }
 
   .btn {
