@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { updateAvatar } from "../../../utils/api";
 
 const initialState = {
   username: "",
@@ -16,6 +17,9 @@ const initialState = {
     street_name: "",
     apartment: "",
   },
+  error: "",
+  message: "",
+  loading: false,
 };
 
 const userSlice = createSlice({
@@ -50,6 +54,28 @@ const userSlice = createSlice({
         apartment: "",
       };
     },
+  },
+  extraReducers: (builder) => {
+    const setLoading = (state) => {
+      state.loading = true;
+      state.error = "";
+      state.message = "";
+    };
+    const setError = (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+      state.message = "";
+    };
+    builder
+      .addCase(updateAvatar.pending, setLoading)
+      .addCase(updateAvatar.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        state.message = action.payload.msg;
+        state.avatar = action.payload.avatar;
+        console.log(action.payload.avatar);
+      })
+      .addCase(updateAvatar.rejected, setError);
   },
 });
 

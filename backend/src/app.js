@@ -1,8 +1,12 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
+import path from "path";
+
 import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 
@@ -23,9 +27,11 @@ const corsOptions = {
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
+app.use("/public", express.static("public"));
 
 app.get("/", (req, res) => {
   res.json({
@@ -35,6 +41,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {

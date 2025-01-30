@@ -3,13 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
 import sendEmail from "../utils/sendEmail.js";
-import { body } from "express-validator";
-
-const generateToken = (data) => {
-  return jwt.sign(data, process.env.JWT_SECRET, {
-    expiresIn: "15m",
-  });
-};
+import { generateAccessToken } from "../utils/tokens.js";
 
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
@@ -43,8 +37,8 @@ export const signup = async (req, res) => {
     }
     await newUser.save();
 
-    const verificationToken = generateToken({ email: req.body.email });
-    const token = generateToken({ id: newUser._id });
+    const verificationToken = generateAccessToken({ email: req.body.email });
+    const token = generateAccessToken({ id: newUser._id });
     const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
 
     process.env.EMAIL_USER != email &&
@@ -73,7 +67,7 @@ export const login = async (req, res) => {
       return res.status(401).json({ msg: "Invalid credentials!" });
     }
 
-    const token = generateToken({ user });
+    const token = generateAccessToken({ user });
 
     res.status(200).json({ user, token });
   } catch (error) {
@@ -104,7 +98,7 @@ export const verifyEmail = async (req, res) => {
 export const resendEmail = async (req, res) => {
   try {
     const { email } = req.body;
-    const verificationToken = generateToken({ email });
+    const verificationToken = generateAccessToken({ email });
     const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
 
     await sendEmail(
@@ -130,7 +124,7 @@ export const forgotPassword = async (req, res) => {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    const resetToken = generateToken({ email: user.email });
+    const resetToken = generateAccessToken({ email: user.email });
     const resetLink = `${process.env.FRONT_END_URL}/reset-password?token=${resetToken}`;
     await sendEmail(
       user.email,
@@ -156,13 +150,44 @@ export const resetPassword = async (req, res) => {
     if (!user) {
       return res.status(400).json({ msg: "User not found" });
     }
-    
+
     user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
 
     res.status(200).json({ msg: "Password reset successful" });
   } catch (error) {
-    console.log(error);
     res.status(400).json({ msg: "Invalid or expired token" });
+  }
+};
+
+export const refreshToken = async (req, res) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+      return res.status(401).json({ message: "No refresh token provided" });
+    }
+
+    jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET,
+      (err, decoded) => {
+        if (err) {
+          return res
+            .status(403)
+            .json({ message: "Invalid or expired refresh token" });
+        }
+
+        const newAccessToken = generateAccessToken(decoded.userId);
+
+        return res.status(200).json({ accessToken: newAccessToken });
+      }
+    );
+  } catch (error) {
+    console.error("Error refreshing token:", error);
+    res.status(500).json({
+      message: "An unexpected error occurred while refreshing the token",
+      error: error.message,
+    });
   }
 };

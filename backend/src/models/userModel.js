@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  avatar: {
+    type: String,
+    default: "",
+  },
   email: {
     type: String,
     required: true,
@@ -19,6 +23,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["admin", "customer"],
     default: "customer",
+  },
+  billing_details: {
+    type: Object,
+    default: {
+      first_name: "",
+      last_name: "",
+      country: "",
+      city: "",
+      state: "",
+      zip_code: "",
+      street_name: "",
+      apartment: "",
+    },
   },
   isVerified: { type: Boolean, default: false },
   createdAt: {

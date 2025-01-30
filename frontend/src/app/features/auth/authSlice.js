@@ -6,6 +6,7 @@ import {
   verifyEmail,
   forgotPassword,
   resetPassword,
+  refreshAccessToken,
 } from "../../../utils/api";
 
 const initialState = {
@@ -81,6 +82,11 @@ export const authSlice = createSlice({
         state.loading = false;
       })
       .addCase(resetPassword.rejected, setError);
+      // .addCase(refreshAccessToken.fulfilled, (state, action) => {
+      //   state.token = action.payload.accessToken;
+      //   console.log(state.token);
+      // })
+      // .addCase(refreshAccessToken.rejected, setError);
   },
 });
 

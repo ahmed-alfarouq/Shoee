@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import FormInput from "../../../components/FormInput";
+import Spinner from "../../../features/Spinner";
+
+import { updateAvatar } from "../../../utils/api";
 
 const MainInfoForm = () => {
-  const [avatar, setAvatar] = useState(null);
+  const avatar = useSelector((state) => state.user.avatar);
 
   const dispatch = useDispatch();
 
+  const token = useSelector((state) => state.auth.token);
+
+  const loading = useSelector((state) => state.user.loading);
   const username = useSelector((state) => state.user.username);
+  const error = useSelector((state) => state.user.error);
+  const message = useSelector((state) => state.user.message);
+
   const initialValues = { username };
 
   const validate = Yup.object({
@@ -21,7 +30,7 @@ const MainInfoForm = () => {
   const handleAvatarChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setAvatar(URL.createObjectURL(file));
+      dispatch(updateAvatar({ avatar: file, token }));
     }
   };
 
@@ -37,6 +46,7 @@ const MainInfoForm = () => {
     >
       {({ setFieldValue }) => (
         <Form className="account-form form">
+          {loading && <Spinner />}
           <div className="form_control">
             <label htmlFor="avatar" className="avatar-label">
               Profile Picture
@@ -51,12 +61,12 @@ const MainInfoForm = () => {
               className="form_input"
             />
           </div>
-          {avatar && (
+          {avatar?.length && (
             <img src={avatar} alt="Avatar Preview" className="avatar-preview" />
           )}
 
           <FormInput label="Username" name="username" />
-
+          <span className="error">{error}</span>
           <button type="submit" className="btn">
             Save Changes
           </button>
