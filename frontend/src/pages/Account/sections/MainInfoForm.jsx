@@ -11,7 +11,7 @@ const MainInfoForm = () => {
 
   const dispatch = useDispatch();
 
-  const username = useSelector((state) => state.auth.user.username);
+  const username = useSelector((state) => state.user.username);
   const initialValues = { username };
 
   const validate = Yup.object({
