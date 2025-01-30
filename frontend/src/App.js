@@ -34,8 +34,11 @@ import purgeStorage from "./utils/purgeStorage";
 
 function App() {
   const dispatch = useDispatch();
-  const authrized = useSelector((state) => state.auth.authrized);
-  const verified = useSelector((state) => state.auth.verified);
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  const verified = useSelector((state) => state.user.verified);
+
   const products = useSelector((state) => state.products.products);
   const lastUpdated = useSelector((state) => state.products.lastUpdated);
   const loading = useSelector((state) => state.products.loading);
@@ -77,7 +80,7 @@ function App() {
             <Route
               path="/checkout"
               element={
-                authrized ? (
+                isAuthenticated ? (
                   verified ? (
                     <Checkout />
                   ) : (
@@ -98,7 +101,7 @@ function App() {
             <Route
               path="/account"
               element={
-                authrized ? (
+                isAuthenticated ? (
                   verified ? (
                     <Account />
                   ) : (

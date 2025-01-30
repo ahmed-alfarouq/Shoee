@@ -9,10 +9,8 @@ import {
 } from "../../../utils/api";
 
 const initialState = {
-  authrized: false,
+  isAuthenticated: false,
   token: "",
-  user: null,
-  verified: null,
   error: "",
   loading: false,
   message: "",
@@ -23,10 +21,8 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logUserOut: (state) => {
-      state.authrized = false;
+      state.isAuthenticated = false;
       state.token = "";
-      state.user = null;
-      state.verified = null;
       state.error = "";
     },
     resetErrorAndMessage: (state) => {
@@ -50,9 +46,7 @@ export const authSlice = createSlice({
     const setAuthState = (state, action) => {
       state.loading = false;
       state.token = action.payload.token;
-      state.user = action.payload.user;
-      state.verified = action.payload.user.isVerified;
-      state.authrized = true;
+      state.isAuthenticated = true;
       state.error = "";
       state.message = "";
     };

@@ -11,7 +11,7 @@ import { forgotPassword } from "../../utils/api";
 const ForgotPassword = () => {
   const navigate = useNavigate();
 
-  const authrized = useSelector((state) => state.auth.authrized);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
   const error = useSelector((state) => state.auth.error);
   const message = useSelector((state) => state.auth.message);
@@ -21,7 +21,7 @@ const ForgotPassword = () => {
   const submit = async ({ email }) => dispatch(forgotPassword(email));
 
   useLayoutEffect(() => {
-    if (authrized) {
+    if (isAuthenticated) {
       if (error.length || message.length) {
         dispatch(resetErrorAndMessage());
       }
