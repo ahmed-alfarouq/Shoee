@@ -9,7 +9,7 @@ import { resetPassword } from "../../utils/api";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const loading = useSelector((state) => state.auth.loading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -30,6 +30,7 @@ const ResetPassword = () => {
 
   useLayoutEffect(() => {
     const token = searchParams.get("token");
+
     if (isAuthenticated || !token) {
       navigate("/", { replace: true });
     }

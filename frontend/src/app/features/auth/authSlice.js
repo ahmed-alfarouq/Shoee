@@ -6,7 +6,6 @@ import {
   verifyEmail,
   forgotPassword,
   resetPassword,
-  refreshAccessToken,
 } from "../../../utils/api";
 
 const initialState = {
