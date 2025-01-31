@@ -73,7 +73,6 @@ const userSlice = createSlice({
         state.error = "";
         state.message = action.payload.msg;
         state.avatar = action.payload.avatar;
-        console.log(action.payload.avatar);
       })
       .addCase(updateAvatar.rejected, setError);
   },

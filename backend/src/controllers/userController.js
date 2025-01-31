@@ -1,30 +1,42 @@
 import sharp from "sharp";
 import User from "../models/userModel.js";
-import fs from "fs";
+import { del, put } from "@vercel/blob";
+import { v4 as uuidv4 } from "uuid";
+
+const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
 
 export const uploadAvatar = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ msg: "No file uploaded!" });
 
-    const tempFilePath = req.file.path;
-    const outputFilePath = `public/images/${Date.now()}-${req.file.filename}`;
-    const format = req.body.format || "webp";
+    const file = req.file;
+
+    const buffer = await sharp(file.buffer)
+      .resize(200, 200, { fit: "inside", withoutEnlargement: true })
+      .jpeg({ quality: 80 })
+      .png({ quality: 80 })
+      .toBuffer();
+
+    const blob = await put(
+      `${uuidv4()}-${file.originalname}`,
+      buffer,
+      {
+        access: "public",
+      },
+      BLOB_TOKEN
+    );
 
     const user = await User.findOne({ email: req.user.email });
-    await sharp(tempFilePath)
-      .resize(200, 200)
-      .toFormat(format, { quality: 80 })
-      .toFile(outputFilePath);
+    const prevAvatar = user.avatar;
 
-    fs.unlinkSync(tempFilePath);
+    await del(prevAvatar, { token: BLOB_TOKEN });
 
-    user.avatar = outputFilePath;
+    user.avatar = blob.url;
     await user.save();
 
-    res.status(200).json({
-      msg: "Upload successful!",
-      avatar: `${process.env.BACK_END_URL}/${outputFilePath}`,
-    });
+    res
+      .status(200)
+      .json({ message: "File uploaded successfully!", avatar: blob.url });
   } catch (error) {
     res.status(500).json({ msg: `Something went wrong: ${error.message}` });
   }
