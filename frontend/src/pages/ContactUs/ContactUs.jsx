@@ -1,7 +1,7 @@
 import ContactForm from "./sections/ContactForm";
 
 const ContactUs = () => {
-  const GOOGLE_SECRET = process.env.REACT_APP_GOOGAL_API_SECRET;
+  const GOOGLE_SECRET = process.env.REACT_APP_GOOGLE_API_SECRET;
   return (
     <main className="contact-us">
       <section className="container">
