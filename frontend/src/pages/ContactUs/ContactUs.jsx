@@ -1,6 +1,7 @@
 import ContactForm from "./sections/ContactForm";
 
 const ContactUs = () => {
+  const GOOGLE_SECRET = process.env.REACT_APP_GOOGAL_API_SECRET;
   return (
     <main className="contact-us">
       <section className="container">
@@ -20,7 +21,7 @@ const ContactUs = () => {
           <div className="map-container">
             <iframe
               title="Google Map"
-              src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCe08hAsU7c2BvNu8EFnDfqAVZsSFZbMs0&center=0,0&zoom=2"
+              src={`https://www.google.com/maps/embed/v1/view?key=${GOOGLE_SECRET}&center=0,0&zoom=2`}
               width="100%"
               height="400"
               style={{ border: 0 }}
