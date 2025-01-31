@@ -19,7 +19,6 @@ const MainInfoForm = () => {
   const loading = useSelector((state) => state.user.loading);
   const username = useSelector((state) => state.user.username);
   const error = useSelector((state) => state.user.error);
-  const message = useSelector((state) => state.user.message);
 
   const initialValues = { username };
 

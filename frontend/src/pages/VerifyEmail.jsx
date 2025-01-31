@@ -6,7 +6,7 @@ import { resendVerificationEmail, verifyEmail } from "../utils/api";
 import Spinner from "../features/Spinner";
 
 const VerifyEmail = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
