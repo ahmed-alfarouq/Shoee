@@ -17,9 +17,6 @@ const initialState = {
     street_name: "",
     apartment: "",
   },
-  error: "",
-  message: "",
-  loading: false,
 };
 
 const userSlice = createSlice({
@@ -29,7 +26,6 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       const { username, isVerified, avatar, email, role, billing_details } =
         action.payload;
-
       state.username = username;
       state.verified = isVerified;
       state.avatar = avatar;
@@ -37,44 +33,14 @@ const userSlice = createSlice({
       state.role = role;
       state.billing_details = billing_details;
     },
-    clearUser: (state) => {
-      state.username = "";
-      state.verified = null;
-      state.avatar = "";
-      state.email = "";
-      state.role = "";
-      state.billing_details = {
-        first_name: "",
-        last_name: "",
-        country: "",
-        city: "",
-        state: "",
-        zip_code: "",
-        street_name: "",
-        apartment: "",
-      };
+    clearUser: () => {
+      return initialState;
     },
   },
   extraReducers: (builder) => {
-    const setLoading = (state) => {
-      state.loading = true;
-      state.error = "";
-      state.message = "";
-    };
-    const setError = (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
-      state.message = "";
-    };
-    builder
-      .addCase(updateAvatar.pending, setLoading)
-      .addCase(updateAvatar.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = "";
-        state.message = action.payload.msg;
-        state.avatar = action.payload.avatar;
-      })
-      .addCase(updateAvatar.rejected, setError);
+    builder.addCase(updateAvatar.fulfilled, (state, action) => {
+      state.avatar = action.payload.avatar;
+    });
   },
 });
 

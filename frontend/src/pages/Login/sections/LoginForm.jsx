@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+
 import { useDispatch } from "react-redux";
-import { resetErrorAndMessage } from "../../../app/features/auth/authSlice";
+import { clearAll } from "../../../app/features/main/mainSlice";
 
 import FormInput from "../../../components/FormInput";
 
@@ -10,10 +11,12 @@ let initialValues = {
   email: "",
   password: "",
 };
+
 const validate = Yup.object({
   email: Yup.string().email("Invalid email!").required("Email is required!"),
   password: Yup.string().required("Password is required!"),
 });
+
 const LoginForm = ({ submit, formError }) => {
   const dispatch = useDispatch();
   return (
@@ -30,13 +33,10 @@ const LoginForm = ({ submit, formError }) => {
         <button type="submit" className="btn">
           Log In
         </button>
-        <Link
-          onClick={() => dispatch(resetErrorAndMessage())}
-          to="/forgot-password"
-        >
+        <Link onClick={() => dispatch(clearAll())} to="/forgot-password">
           Forgot password?
         </Link>
-        <Link onClick={() => dispatch(resetErrorAndMessage())} to="/signup">
+        <Link onClick={() => dispatch(clearAll())} to="/signup">
           Don't have an account?
         </Link>
       </Form>

@@ -1,20 +1,19 @@
 import React, { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetErrorAndMessage } from "../../app/features/auth/authSlice";
 
 import ForgotPasswordForm from "./sections/ForgotPasswordForm";
-import Spinner from "../../features/Spinner";
 
 import { forgotPassword } from "../../utils/api";
+import { clearAll } from "../../app/features/main/mainSlice";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const loading = useSelector((state) => state.auth.loading);
-  const error = useSelector((state) => state.auth.error);
-  const message = useSelector((state) => state.auth.message);
+
+  const error = useSelector((state) => state.main.authError);
+  const message = useSelector((state) => state.main.message);
 
   const dispatch = useDispatch();
 
@@ -23,15 +22,13 @@ const ForgotPassword = () => {
   useLayoutEffect(() => {
     if (isAuthenticated) {
       if (error.length || message.length) {
-        dispatch(resetErrorAndMessage());
+        dispatch(clearAll());
       }
       navigate("/", { replace: true });
     }
   });
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <main className="forgot_password">
       <section className="container">
         <h1 className="title">Forgot password</h1>

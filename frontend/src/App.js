@@ -25,8 +25,8 @@ import Spinner from "./features/Spinner";
 import Navbar from "./features/Navbar";
 import Footer from "./features/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+
 // Redux
-import { updateLoadingState } from "./app/features/products/productsSlice";
 import { fetchProducts } from "./utils/api";
 import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -35,14 +35,15 @@ import purgeStorage from "./utils/purgeStorage";
 function App() {
   const dispatch = useDispatch();
 
+  const loading = useSelector((state) => state.main.loading);
+  const errorMessage = useSelector((state) => state.main.error);
+
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const verified = useSelector((state) => state.user.verified);
 
   const products = useSelector((state) => state.products.products);
   const lastUpdated = useSelector((state) => state.products.lastUpdated);
-  const loading = useSelector((state) => state.products.loading);
-  const errorMessage = useSelector((state) => state.products.errorMessage);
 
   const FallbackComponent = (props) => (
     <Error {...props} purgeStorage={purgeStorage} />
@@ -56,20 +57,18 @@ function App() {
 
   useEffect(() => {
     if (loading && products.length) {
-      purgeStorage(lastUpdated, persistor);
-      dispatch(updateLoadingState(false));
+      purgeStorage(lastUpdated, persistor, dispatch);
     }
   }, [loading, products.length, lastUpdated, dispatch]);
 
-  return loading ? (
-    <Spinner />
-  ) : errorMessage.length ? (
+  return errorMessage.length ? (
     <Error error={{ message: errorMessage }} />
   ) : (
     <BrowserRouter>
       <ScrollToTop />
+      {loading && <Spinner />}
       <ErrorBoundary FallbackComponent={FallbackComponent}>
-        <PersistGate loading={<Spinner />} persistor={persistor}>
+        <PersistGate persistor={persistor}>
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />

@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchProducts } from "../../../utils/api";
 import { PURGE } from "redux-persist";
 
+import { fetchProducts } from "../../../utils/api";
 
 const initialState = {
-  loading: true,
   products: [],
   lastUpdated: null,
-  errorMessage: "",
   cart: [],
 };
 
@@ -15,10 +13,6 @@ export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    updateLoadingState: (state, action) => {
-      state.loading = action.payload;
-    },
-    fetchProduct: (state, action) => {},
     addItemToCart: (state, action) => {
       const { id, quantity } = action.payload;
       if (quantity <= 0) {
@@ -41,6 +35,10 @@ export const productsSlice = createSlice({
         state.cart.push({ ...product, qty: quantity });
       }
     },
+    removeFromCart: (state, action) => {
+      const ID = action.payload;
+      state.cart = state.cart.filter((product) => product.id !== ID);
+    },
     incrementCartItem: (state, action) => {
       state.cart = state.cart.map((product) => {
         if (product.id === action.payload) {
@@ -59,34 +57,12 @@ export const productsSlice = createSlice({
         })
         .filter((product) => product.qty > 0);
     },
-    removeFromCart: (state, action) => {
-      const ID = action.payload;
-      state.cart = state.cart.filter((product) => product.id !== ID);
-    },
-    changeSectionClass: (state, action) => {},
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProducts.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        if (action.payload) {
-          state.products = action.payload;
-          state.lastUpdated = Date.now();
-          state.errorMessage = "";
-        } else {
-          state.errorMessage =
-            "Something went wrong after fullfilling the request!";
-        }
-        state.loading = false;
-      })
-      .addCase(fetchProducts.rejected, (state, action) => {
-        state.errorMessage = `Fetching products rejected: ${action.payload.message}`;
-        state.loading = false;
-
-        // This is for developers
-        // console.log(action.payload.stack);
+        state.products = action.payload;
+        state.lastUpdated = Date.now();
       })
       .addCase(PURGE, (state) => {
         state = initialState;
@@ -95,12 +71,9 @@ export const productsSlice = createSlice({
 });
 
 export const {
-  updateLoadingState,
-  incrementCartItem,
-  decrementCartItem,
-  fetchProduct,
   addItemToCart,
   removeFromCart,
-  changeSectionClass,
+  incrementCartItem,
+  decrementCartItem,
 } = productsSlice.actions;
 export default productsSlice.reducer;

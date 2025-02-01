@@ -5,7 +5,6 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import FormInput from "../../../components/FormInput";
-import Spinner from "../../../features/Spinner";
 
 import { updateAvatar } from "../../../utils/api";
 
@@ -16,9 +15,9 @@ const MainInfoForm = () => {
 
   const token = useSelector((state) => state.auth.token);
 
-  const loading = useSelector((state) => state.user.loading);
   const username = useSelector((state) => state.user.username);
-  const error = useSelector((state) => state.user.error);
+  
+  const error = useSelector((state) => state.main.authError);
 
   const initialValues = { username };
 
@@ -45,7 +44,6 @@ const MainInfoForm = () => {
     >
       {({ setFieldValue }) => (
         <Form className="account-form form">
-          {loading && <Spinner />}
           <div className="form_control">
             <label htmlFor="avatar" className="avatar-label">
               Profile Picture

@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import { resetErrorAndMessage } from "../../app/features/auth/authSlice";
+import { clearAll } from "../../app/features/main/mainSlice";
 import { setUser } from "../../app/features/user/userSlice";
 
 // Utils
@@ -10,7 +9,6 @@ import { login } from "../../utils/api";
 
 // Components
 import LoginForm from "./sections/LoginForm";
-import Spinner from "../../features/Spinner";
 
 const SignIn = () => {
   const location = useLocation();
@@ -19,10 +17,10 @@ const SignIn = () => {
   const { message } = location.state || {};
   const dispatch = useDispatch();
 
-  const error = useSelector((state) => state.auth.error);
+  const error = useSelector((state) => state.main.authError);
+
   const verified = useSelector((state) => state.user.verified);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const loading = useSelector((state) => state.auth.loading);
 
   const submit = async (values) => {
     const res = await dispatch(login(values)).unwrap();
@@ -33,7 +31,7 @@ const SignIn = () => {
     if (!isAuthenticated) return;
 
     if (error.length) {
-      dispatch(resetErrorAndMessage());
+      dispatch(clearAll());
     }
 
     if (verified) {
@@ -46,7 +44,6 @@ const SignIn = () => {
   return (
     <main className="log_in">
       <section className="container">
-        {loading && <Spinner />}
         <h1 className="title">My account</h1>
         <p className="message">{message}</p>
         <LoginForm submit={submit} formError={error} />
