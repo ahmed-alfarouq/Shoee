@@ -8,18 +8,16 @@ import { setUser } from "../../app/features/user/userSlice";
 import { signup } from "../../utils/api";
 
 // Components
-import Spinner from "../../features/Spinner";
-import SignupForm from "./sections/SignupForm";
 
+import SignupForm from "./sections/SignupForm";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const error = useSelector((state) => state.auth.error);
+  const error = useSelector((state) => state.main.authError);
   const verified = useSelector((state) => state.user.verified);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const loading = useSelector((state) => state.auth.loading);
 
   const submit = async (values) => {
     const res = await dispatch(signup(values)).unwrap();
@@ -39,7 +37,6 @@ const Signup = () => {
   return (
     <main className="sign_up">
       <section className="container">
-        {loading && <Spinner />}
         <h1 className="title">Join our family</h1>
         <SignupForm submit={submit} formError={error} />
       </section>

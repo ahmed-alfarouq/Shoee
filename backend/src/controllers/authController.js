@@ -5,6 +5,8 @@ import User from "../models/userModel.js";
 import sendEmail from "../utils/sendEmail.js";
 import { generateAccessToken } from "../utils/tokens.js";
 
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN_SECRET;
+
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -79,7 +81,7 @@ export const verifyEmail = async (req, res) => {
   const { token } = req.query;
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, ACCESS_TOKEN);
     const user = await User.findOne({ email: decoded.email });
 
     if (!user) {
@@ -144,7 +146,7 @@ export const resetPassword = async (req, res) => {
   const { token, newPassword } = req.body;
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, ACCESS_TOKEN);
     const user = await User.findOne({ email: decoded.email });
 
     if (!user) {
@@ -156,7 +158,7 @@ export const resetPassword = async (req, res) => {
 
     res.status(200).json({ msg: "Password reset successful" });
   } catch (error) {
-    res.status(400).json({ msg: "Invalid or expired token" });
+    res.status(400).json({ msg: "Invalid or expired token!" });
   }
 };
 

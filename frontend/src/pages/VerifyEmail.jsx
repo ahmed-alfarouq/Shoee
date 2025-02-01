@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { resendVerificationEmail, verifyEmail } from "../utils/api";
 
-import Spinner from "../features/Spinner";
 
 const VerifyEmail = () => {
   const [searchParams] = useSearchParams();
@@ -14,9 +13,8 @@ const VerifyEmail = () => {
   const email = useSelector((state) => state.user.email);
   const verified = useSelector((state) => state.user.verified);
 
-  const error = useSelector((state) => state.auth.error);
-  const message = useSelector((state) => state.auth.message);
-  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.authError);
+  const message = useSelector((state) => state.main.message);
 
   const resendEmail = () => {
     dispatch(resendVerificationEmail({ email }));
@@ -33,9 +31,7 @@ const VerifyEmail = () => {
     }
   }, [searchParams, dispatch, navigate, verified]);
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <main className="verify-email">
       <section className="container">
         <h1 className="title">Verify Email</h1>

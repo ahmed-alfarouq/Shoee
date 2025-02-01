@@ -15,26 +15,28 @@ const validate = Yup.object({
     .required("Confirm password is required!"),
 });
 
-const ResetPasswordForm = ({ submit, formError }) => {
+const ResetPasswordForm = ({ submit, formError, disabled }) => {
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={submit}
       validationSchema={validate}
     >
-      <Form name="reset_password" className="reset_password_form form">
-        <FormInput label="Password" name="password" type="password" />
-        <FormInput
-          label="Confirm Password"
-          name="confirm_password"
-          type="password"
-        />
+      {({ resetForm }) => (
+        <Form name="reset_password" className="reset_password_form form">
+          <FormInput label="Password" name="password" type="password" />
+          <FormInput
+            label="Confirm Password"
+            name="confirm_password"
+            type="password"
+          />
 
-        <span className="error">{formError}</span>
-        <button type="submit" className="btn">
-          Reset Password
-        </button>
-      </Form>
+          <span className="error">{formError}</span>
+          <button type="submit" className="btn" disabled={disabled}>
+            Reset Password
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 };
