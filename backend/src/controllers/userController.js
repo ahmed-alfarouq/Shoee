@@ -36,8 +36,9 @@ export const uploadAvatar = async (req, res) => {
 
     res
       .status(200)
-      .json({ message: "File uploaded successfully!", avatar: blob.url });
+      .json({ msg: "File uploaded successfully!", avatar: blob.url });
   } catch (error) {
-    res.status(500).json({ msg: `Something went wrong: ${error.message}` });
+    console.log(error.message);
+    res.status(500).json({ msg: "Something went wrong!" });
   }
 };
