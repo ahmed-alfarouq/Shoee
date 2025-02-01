@@ -13,7 +13,4 @@ router.post(
   uploadAvatar
 );
 
-router.get("/", (req, res) => {
-  res.status(200).json({ msg: "okay" });
-});
 export default router;
