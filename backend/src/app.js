@@ -3,7 +3,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
-import path from "path";
 
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -22,13 +21,14 @@ const corsOptions = {
   },
   credentials: true,
   optionSuccessStatus: 200,
+  exposedHeaders: ["Authorization"],
 };
 
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(helmet());
 app.use(compression());
 app.use("/public", express.static("public"));

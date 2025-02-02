@@ -1,9 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 import User from "../models/userModel.js";
 
 import sendEmail from "../utils/sendEmail.js";
-import { generateAccessToken } from "../utils/tokens.js";
+import { generateAccessToken, generateRefreshToken } from "../utils/tokens.js";
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN_SECRET;
 
@@ -40,7 +41,6 @@ export const signup = async (req, res) => {
     await newUser.save();
 
     const verificationToken = generateAccessToken({ email: req.body.email });
-    const token = generateAccessToken({ id: newUser._id });
     const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
 
     process.env.EMAIL_USER != email &&
@@ -49,6 +49,16 @@ export const signup = async (req, res) => {
         "Verify Your Email",
         `Click here to verify your email: ${verificationLink}`
       );
+
+    const refreshToken = generateAccessToken({ email: newUser.email });
+    const token = generateAccessToken({ email: newUser.email });
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 15 * 24 * 60 * 60 * 1000,
+    });
+
     res.status(201).json({ user: newUser, token });
   } catch (error) {
     res.status(500).json({ msg: `Something went wrong: ${error.message}` });
@@ -69,12 +79,25 @@ export const login = async (req, res) => {
       return res.status(401).json({ msg: "Invalid credentials!" });
     }
 
-    const token = generateAccessToken({ user });
+    const refreshToken = generateRefreshToken({ email: user.email });
+    const accessToken = generateAccessToken({ email: user.email });
 
-    res.status(200).json({ user, token });
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 15 * 24 * 60 * 60 * 1000,
+    });
+
+    res.status(200).json({ user, token: accessToken });
   } catch (error) {
     res.status(500).json({ msg: `Something went wrong: ${error.message}` });
   }
+};
+
+export const logout = async (req, res) => {
+  res.clearCookie("refreshToken");
+  res.status(200).json({ msg: "Logged out successfully" });
 };
 
 export const verifyEmail = async (req, res) => {
@@ -159,37 +182,5 @@ export const resetPassword = async (req, res) => {
     res.status(200).json({ msg: "Password reset successful" });
   } catch (error) {
     res.status(400).json({ msg: "Invalid or expired token!" });
-  }
-};
-
-export const refreshToken = async (req, res) => {
-  try {
-    const refreshToken = req.cookies.refreshToken;
-
-    if (!refreshToken) {
-      return res.status(401).json({ message: "No refresh token provided" });
-    }
-
-    jwt.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET,
-      (err, decoded) => {
-        if (err) {
-          return res
-            .status(403)
-            .json({ message: "Invalid or expired refresh token" });
-        }
-
-        const newAccessToken = generateAccessToken(decoded.userId);
-
-        return res.status(200).json({ accessToken: newAccessToken });
-      }
-    );
-  } catch (error) {
-    console.error("Error refreshing token:", error);
-    res.status(500).json({
-      message: "An unexpected error occurred while refreshing the token",
-      error: error.message,
-    });
   }
 };
