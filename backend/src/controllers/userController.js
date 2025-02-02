@@ -1,7 +1,9 @@
 import sharp from "sharp";
-import User from "../models/userModel.js";
+import bcrypt from "bcrypt";
 import { del, put } from "@vercel/blob";
 import { v4 as uuidv4 } from "uuid";
+
+import User from "../models/userModel.js";
 
 const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
 
@@ -40,5 +42,65 @@ export const uploadAvatar = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ msg: "Something went wrong!" });
+  }
+};
+
+export const updateUsername = async (req, res) => {
+  try {
+    const user = req.user;
+    const { newUsername } = req.body;
+    const existingUser = await User.findOne({ username: newUsername });
+    if (existingUser) {
+      return res.status(409).json({
+        msg: "Username already exists!",
+      });
+    }
+
+    user.username = newUsername;
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ msg: "username changed successfully.", newUsername });
+  } catch (error) {
+    res.status(500).json({ msg: "something went wrong!" });
+  }
+};
+
+export const updatePassword = async (req, res) => {
+  try {
+    const user = req.user;
+    const { oldPassword, newPassword } = req.body;
+
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ msg: "Invalid credentials!" });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    return res.status(200).json({ msg: "password updated successfully." });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "something went wrong!" });
+  }
+};
+
+export const updateBillingDetails = async (req, res) => {
+  try {
+    const user = req.user;
+    const { billingDetails } = req.body;
+
+    user.billing_details = billingDetails;
+    await user.save();
+
+    return res.status(200).json({
+      msg: "Billing details updated successfully.",
+      billing_details: billingDetails,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "something went wrong!" });
   }
 };

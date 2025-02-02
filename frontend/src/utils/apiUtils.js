@@ -10,14 +10,14 @@ export const handleAuthError = (error, thunkAPI) => {
     "Something went wrong!";
 
   thunkAPI.dispatch(setAuthError(errorMessage));
-  return thunkAPI.rejectWithValue("Error");
+  return thunkAPI.rejectWithValue(errorMessage);
 };
 
 export const handleGlobalError = (error, thunkAPI) => {
   const errorMessage = error.message || "Something went wrong!";
 
   thunkAPI.dispatch(setError(errorMessage));
-  return thunkAPI.rejectWithValue("Error");
+  return thunkAPI.rejectWithValue(errorMessage);
 };
 
 export const handleUserlogout = (thunkAPI) => {

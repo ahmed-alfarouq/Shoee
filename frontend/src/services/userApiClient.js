@@ -21,11 +21,9 @@ userApiClient.interceptors.request.use(
 
 userApiClient.interceptors.response.use(
   (res) => {
-    console.log(res.headers);
     if (res.headers.authorization) {
       const newToken = res.headers.authorization.split(" ")[1];
       store.dispatch(setToken(newToken));
-      console.log(newToken);
     }
     return res;
   },
@@ -33,8 +31,8 @@ userApiClient.interceptors.response.use(
     if (err.response.status === 403) {
       store.dispatch(clearUser());
       store.dispatch(logUserOut());
-      return Promise.reject(err);
     }
+    return Promise.reject(err);
   }
 );
 
