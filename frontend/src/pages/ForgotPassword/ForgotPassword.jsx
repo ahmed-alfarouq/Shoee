@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ForgotPasswordForm from "./sections/ForgotPasswordForm";
 
-import { forgotPassword } from "../../utils/api";
+import { forgotPassword } from "../../app/features/auth/authAPI";
 import { clearAll } from "../../app/features/main/mainSlice";
+
 
 const ForgotPassword = () => {
   const navigate = useNavigate();

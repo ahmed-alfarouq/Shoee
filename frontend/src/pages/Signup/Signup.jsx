@@ -1,15 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetErrorAndMessage } from "../../app/features/auth/authSlice";
+
+import { signup } from "../../app/features/auth/authAPI";
+
 import { setUser } from "../../app/features/user/userSlice";
 
-// Utils
-import { signup } from "../../utils/api";
-
 // Components
-
 import SignupForm from "./sections/SignupForm";
+import { clearAll } from "../../app/features/main/mainSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -26,13 +25,9 @@ const Signup = () => {
 
   useEffect(() => {
     if (!isAuthenticated) return;
-
-    if (error.length) {
-      dispatch(resetErrorAndMessage());
-    }
-
+    dispatch(clearAll());
     navigate(verified ? "/" : "/verify-email");
-  }, [isAuthenticated, verified, error, dispatch, navigate]);
+  }, [isAuthenticated, verified, dispatch, navigate]);
 
   return (
     <main className="sign_up">

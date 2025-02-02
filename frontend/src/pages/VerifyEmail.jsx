@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { resendVerificationEmail, verifyEmail } from "../utils/api";
 
+import {
+  resendVerificationEmail,
+  verifyEmail,
+} from "../app/features/auth/authAPI";
 
 const VerifyEmail = () => {
   const [searchParams] = useSearchParams();

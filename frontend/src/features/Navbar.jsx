@@ -13,13 +13,12 @@ import { CiMenuBurger } from "react-icons/ci";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { logUserOut } from "../app/features/auth/authSlice";
-import { clearUser } from "../app/features/user/userSlice";
 
 // Components
 import SearchForm from "../components/SearchForm";
 import Cart from "./cart/Cart";
 import BGOverlay from "../components/BGOverlay";
+import { logout } from "../app/features/auth/authAPI";
 
 const Navbar = () => {
   // Redux
@@ -88,9 +87,8 @@ const Navbar = () => {
       ? switchSearchBox()
       : null;
 
-  const logout = () => {
-    dispatch(logUserOut());
-    dispatch(clearUser());
+  const handleLogout = () => {
+    dispatch(logout());
     handleNavigation();
   };
 
@@ -188,7 +186,7 @@ const Navbar = () => {
             </div>
             <Cart ref={cartRef} switchCart={switchCart} />
           </div>
-          {isAuthenticated && <IoIosLogOut onClick={logout} />}
+          {isAuthenticated && <IoIosLogOut onClick={handleLogout} />}
         </div>
       </div>
       <button

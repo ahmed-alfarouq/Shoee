@@ -27,9 +27,9 @@ import Footer from "./features/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
 // Redux
-import { fetchProducts } from "./utils/api";
 import { persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { fetchProducts } from "./app/features/products/productsAPI";
 import purgeStorage from "./utils/purgeStorage";
 
 function App() {

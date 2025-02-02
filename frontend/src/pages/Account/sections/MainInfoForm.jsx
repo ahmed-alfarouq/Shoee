@@ -5,8 +5,8 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import FormInput from "../../../components/FormInput";
+import { updateAvatar } from "../../../app/features/user/userAPI";
 
-import { updateAvatar } from "../../../utils/api";
 
 const MainInfoForm = () => {
   const avatar = useSelector((state) => state.user.avatar);
@@ -58,12 +58,13 @@ const MainInfoForm = () => {
               className="form_input"
             />
           </div>
-          {avatar?.length && (
+          {avatar && (
             <img src={avatar} alt="Avatar Preview" className="avatar-preview" />
           )}
 
           <FormInput label="Username" name="username" />
           <span className="error">{error}</span>
+          
           <button type="submit" className="btn">
             Save Changes
           </button>

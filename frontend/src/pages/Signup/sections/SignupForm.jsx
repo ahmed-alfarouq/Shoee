@@ -5,11 +5,12 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 // Redux
-import { resetErrorAndMessage } from "../../../app/features/auth/authSlice";
 import { useDispatch } from "react-redux";
+import { clearAll } from "../../../app/features/main/mainSlice";
 
 // Components
 import FormInput from "../../../components/FormInput";
+
 
 let initialValues = {
   username: "",
@@ -49,7 +50,7 @@ const SignupForm = ({ submit, formError }) => {
         <button type="submit" className="btn">
           Sign Up
         </button>
-        <Link to="/login" onClick={() => dispatch(resetErrorAndMessage())}>
+        <Link to="/login" onClick={() => dispatch(clearAll())}>
           Already have an account!
         </Link>
       </Form>

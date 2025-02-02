@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PURGE } from "redux-persist";
 
-import { fetchProducts } from "../../../utils/api";
+import { fetchProducts } from "./productsAPI";
 
 const initialState = {
   products: [],
