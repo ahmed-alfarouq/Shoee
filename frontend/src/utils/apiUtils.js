@@ -1,4 +1,6 @@
-import { setAuthError } from "../app/features/main/mainSlice";
+import { logUserOut } from "../app/features/auth/authSlice";
+import { setAuthError, setError } from "../app/features/main/mainSlice";
+import { clearUser } from "../app/features/user/userSlice";
 
 export const handleAuthError = (error, thunkAPI) => {
   const errorMessage =
@@ -7,11 +9,19 @@ export const handleAuthError = (error, thunkAPI) => {
     error.message ||
     "Something went wrong!";
 
-  return thunkAPI.dispatch(setAuthError(errorMessage));
+  thunkAPI.dispatch(setAuthError(errorMessage));
+  return thunkAPI.rejectWithValue("Error");
 };
 
 export const handleGlobalError = (error, thunkAPI) => {
   const errorMessage = error.message || "Something went wrong!";
 
-  return thunkAPI.dispatch(setAuthError(errorMessage));
+  thunkAPI.dispatch(setError(errorMessage));
+  return thunkAPI.rejectWithValue("Error");
+};
+
+export const handleUserlogout = (thunkAPI) => {
+  thunkAPI.dispatch(clearUser());
+  thunkAPI.dispatch(logUserOut());
+  return thunkAPI.rejectWithValue("Invalid or expired refresh token!");
 };

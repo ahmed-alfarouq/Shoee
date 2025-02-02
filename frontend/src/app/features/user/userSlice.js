@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateAvatar } from "../../../utils/api";
+
+import { updateAvatar } from "./userAPI";
 
 const initialState = {
   username: "",
