@@ -1,61 +1,90 @@
-# Shoee
+# **Shoee - Modern Ecommerce Platform**
 
-> Shoee is an Ecommerce site. That provides men clothes, watches, and shoes.
+> **Shoee** is a modern **Ecommerce platform** specializing in **men's clothing, watches, and shoes**.  
+> Built for **performance, security, and a seamless shopping experience**.
 
-> |Big Screen       |Small Screen|
-> |--------------|--------------|
-> |![screenshot](./screenshot.png)|![screenshot2](./screenshot-sm-screen.png)|
+---
 
-## Built With
-  - React JS & Hooks
-  - React-Router-Dom
-  - Redux
-  - Redux-Persist
-  - React-Icons
-  - Formik & Yup
-  - Swiper JS
-  - SASS
+## **📸 Screenshots**
+| **Desktop View** | **Mobile View** |
+|-----------------|----------------|
+| ![screenshot](./screenshot.jpg) | ![screenshot-sm-screen](./screenshot-sm-screen.png) |
 
-## Live Demo
-[Live-demo](https://shoeeecommercesite.pages.dev/)
+---
 
-### Prerequisites
-  - #### Knowledge of these technologies
-    - React JS & Hooks
-  - React-Router-Dom
-  - Redux
-  - Redux-Persist
-  - React-Icons
-  - Formik & Yup
-  - Swiper JS
-  - SASS
+## **🚀 Live Demo**
+🔗 **[Visit Shoee Live](https://shoee.pages.dev)**  
 
-### Setup
-  * Open your command
-  * Type "git clone https://github.com/ahmed-al-farouq/Shoee.git"
-  * npm i
-  * npm run start
+---
 
-### Run the app
-  * npm run start
+## **🛠️ Tech Stack**
+### **Frontend**
+- **React.js** (Hooks, Context API)  
+- **React Router Dom** (Navigation)  
+- **Redux Toolkit** (State Management)  
+- **Redux Persist** (Persistent State)  
+- **Formik & Yup** (Form Handling & Validation)  
+- **Axios** (API Requests)  
+- **SCSS (SASS)** (Responsive & Modern Styling)  
+- **Swiper.js** (Interactive Product Carousels)  
+- **React Icons** (Stylish Icons)  
 
-### Deployment
-  * npm run build
+### **Backend**
+- **Node.js & Express.js** (Server)  
+- **MongoDB & Mongoose** (Database)  
+- **JWT Authentication** (Secure Login System)  
+- **bcrypt.js** (Password Encryption)  
+- **Multer** (File Uploads - Profile Avatars)  
+- **Express Validator** (Form Data Validation)  
+- **Nodemailer (OAuth)** (Email Verification & Password Reset)  
 
-## Author
+---
+
+## **🔧 Features**
+✅ **Fully Responsive** - Works on all devices  
+✅ **Authentication & Authorization** (Login, Signup, Email Verification)  
+✅ **Password Reset via Email**  
+✅ **Redux State Management** for Cart & Authentication  
+✅ **Floating Alerts & Notifications**  
+✅ **Optimized Performance with Redux Persist**  
+✅ **Secure API with JWT Authentication & Refresh Tokens**  
+✅ **Profile & Billing Details Management**  
+
+---
+
+## **🖥️ Installation Guide**
+### **🔹 Prerequisites**
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/)  
+- [MongoDB](https://www.mongodb.com/)  
+- Basic knowledge of React, Redux, and Node.js  
+
+### **🔹 Clone the Repository**
+```sh
+git clone https://github.com/ahmed-al-farouq/Shoee.git
+cd Shoee
+```
+### **🔹 Install Dependencies**
+```
+npm install
+```
+
+### **👨‍💻 Author**
 
 :bearded_person: **Ahmed Al-Farouq**
   - Github: [@Ahmed-Alfarouq](https://github.com/ahmed-al-farouq)
   - LinkedIn: [LinkedIn](https://www.linkedin.com/in/ahmed-al-farouq/)
   - Twitter: [@twitter](https://twitter.com/ahmed_al_farouq)
 
-
-## 🤝 Contributing
+### **🤝 Contributing**
 
 Contributions, issues, and feature requests are welcome!
 
 Feel free to check the [issues page](../../issues/).
 
-## Show your support
+### **⭐ Show Your Support**
 
-Give a ⭐️ if you like this project!
+**If you like this project, give it a star! ⭐**\
+**🚀 Let's build an amazing Ecommerce experience together!**
+
+
