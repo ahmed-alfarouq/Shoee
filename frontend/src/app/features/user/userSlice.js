@@ -8,7 +8,7 @@ const initialState = {
   avatar: "",
   email: "",
   role: "",
-  billing_details: {
+  billingDetails: {
     first_name: "",
     last_name: "",
     country: "",
@@ -17,6 +17,7 @@ const initialState = {
     zip_code: "",
     street_name: "",
     apartment: "",
+    phone_number: "",
   },
 };
 
@@ -32,7 +33,7 @@ const userSlice = createSlice({
       state.avatar = avatar;
       state.email = email;
       state.role = role;
-      state.billing_details = billing_details;
+      state.billingDetails = billing_details;
     },
     clearUser: () => {
       return initialState;
@@ -47,7 +48,7 @@ const userSlice = createSlice({
         state.username = action.payload;
       })
       .addCase(updateBillingDetails.fulfilled, (state, action) => {
-        state.billing_details = action.payload;
+        state.billingDetails = action.payload;
       });
   },
 });

@@ -36,11 +36,21 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(255, 54, 54, 0.1);
 
-    .account-form {
+    .account-form,
+    .billing-form {
       gap: 15px;
       padding: 0;
       border: none;
-
+      select {
+        width: 100%;
+        border: 1px solid $primary-border-color;
+        padding: 10px;
+        color: $primary-font-color;
+        outline: none;
+      }
+      .error {
+        align-self: self-start;
+      }
       .avatar-preview {
         width: 100px;
         height: 100px;

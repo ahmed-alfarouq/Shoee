@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+import FormInput from "../../../components/FormInput";
+
 const countries = [
   "Egypt",
   "Saudi Arabia",
@@ -12,37 +14,44 @@ const countries = [
 ];
 
 const validationSchema = Yup.object({
-  firstName: Yup.string().required("First name is required!"),
-  lastName: Yup.string().required("Last name is required!"),
+  first_name: Yup.string().required("First name is required!"),
+  last_name: Yup.string().required("Last name is required!"),
   country: Yup.string().required("Country is required!"),
-  town: Yup.string().required("Town is required!"),
+  city: Yup.string().required("City is required!"),
   state: Yup.string().required("State is required!"),
-  zipCode: Yup.string().required("ZIP Code is required!"),
-  street: Yup.string().required("Street name is required!"),
+  street_name: Yup.string().required("Street name is required!"),
   apartment: Yup.string(),
+  zip_code: Yup.string()
+    .matches(/^\d{5}(-\d{4})?$/, "Zip code is not valid!")
+    .required("ZIP Code is required!"),
+  phone_number: Yup.string()
+    .required("Phone Number is required!")
+    .matches(/^\+?[1-9]\d{1,3}(\s)?\d{1,14}$/, "Phone number is not valid!"),
   notes: Yup.string(),
 });
 
 const CustomerInfo = () => {
-  const userEmail = useSelector((state) => state.auth.user.email);
+  const userEmail = useSelector((state) => state.user.email);
+  const billingDetails = useSelector((state) => state.user.billingDetails);
 
   return (
     <Formik
       initialValues={{
         email: userEmail || "",
-        firstName: "",
-        lastName: "",
-        country: "",
-        town: "",
-        state: "",
-        zipCode: "",
-        street: "",
-        apartment: "",
+        first_name: billingDetails.first_name || "",
+        last_name: billingDetails.last_name || "",
+        country: billingDetails.country || "",
+        city: billingDetails.city || "",
+        state: billingDetails.state || "",
+        zip_code: billingDetails.zip_code || "",
+        street_name: billingDetails.street_name || "",
+        apartment: billingDetails.apartment || "",
+        phone_number: billingDetails.phone_number || "",
         notes: "",
       }}
       validationSchema={validationSchema}
     >
-      <Form className="customer-info-form from">
+      <Form className="customer-info-form form">
         <section className="form-section">
           <h3 className="title">Contact Information</h3>
           <Field
@@ -55,12 +64,8 @@ const CustomerInfo = () => {
 
         <section className="form-section">
           <h3 className="title">Billing Details</h3>
-
-          <Field type="text" name="firstName" placeholder="First Name" />
-          <ErrorMessage name="firstName" component="div" className="error" />
-
-          <Field type="text" name="lastName" placeholder="Last Name" />
-          <ErrorMessage name="lastName" component="div" className="error" />
+          <FormInput label="First Name" name="first_name" />
+          <FormInput label="Last Name" name="last_name" />
 
           <Field as="select" name="country">
             <option value="">Select Country</option>
@@ -72,25 +77,13 @@ const CustomerInfo = () => {
           </Field>
           <ErrorMessage name="country" component="div" className="error" />
 
-          <Field type="text" name="town" placeholder="Town / City" />
-          <ErrorMessage name="town" component="div" className="error" />
-
-          <Field type="text" name="state" placeholder="State" />
-          <ErrorMessage name="state" component="div" className="error" />
-
-          <Field type="text" name="zipCode" placeholder="ZIP Code" />
-          <ErrorMessage name="zipCode" component="div" className="error" />
-
-          <Field type="text" name="street" placeholder="Street Name" />
-          <ErrorMessage name="street" component="div" className="error" />
-
-          <Field
-            type="text"
-            name="apartment"
-            placeholder="Apartment (Optional)"
-          />
+          <FormInput label="Town / City" name="city" />
+          <FormInput label="State" name="state" />
+          <FormInput label="Street Name" name="street_name" />
+          <FormInput label="Zip Code" name="zip_code" />
+          <FormInput label="Apartment (optional)" name="apartment" />
+          <FormInput label="Phone Number" name="phone_number" />
         </section>
-
         <section className="form-section">
           <h3 className="title">Additional Information</h3>
           <Field
