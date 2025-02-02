@@ -12,6 +12,11 @@ const billingDetailsSchema = new mongoose.Schema({
   },
   street_name: { type: String, default: "" },
   apartment: { type: String, default: "" },
+  phone_number: {
+    type: String,
+    match: [/^\+?[1-9]\d{1,3}(\s)?\d{1,14}$/, "Invalid Phone Number"],
+    default: "",
+  },
 });
 
 const userSchema = new mongoose.Schema({

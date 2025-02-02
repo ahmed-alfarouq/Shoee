@@ -60,7 +60,9 @@ export const updateBillingDetails = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       thunkAPI.dispatch(setLoading(true));
-      const res = await userApiClient.post("/billing-details", data);
+      const res = await userApiClient.post("/billing-details", {
+        billing_details: data,
+      });
       thunkAPI.dispatch(setMessage(res.data.msg));
       return res.data.billing_details;
     } catch (error) {

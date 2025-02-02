@@ -90,14 +90,14 @@ export const updatePassword = async (req, res) => {
 export const updateBillingDetails = async (req, res) => {
   try {
     const user = req.user;
-    const { billingDetails } = req.body;
+    const { billing_details } = req.body;
 
-    user.billing_details = billingDetails;
+    user.billing_details = billing_details;
     await user.save();
 
     return res.status(200).json({
       msg: "Billing details updated successfully.",
-      billing_details: billingDetails,
+      billing_details: billing_details,
     });
   } catch (error) {
     console.log(error);
