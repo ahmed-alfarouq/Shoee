@@ -1,7 +1,13 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
 
-const FormInput = ({ label, name, type = "text", placeholder = " " }) => {
+const FormInput = ({
+  label,
+  name,
+  type = "text",
+  placeholder = " ",
+  autoComplete = false,
+}) => {
   return (
     <div className="form_control">
       <Field
@@ -9,6 +15,7 @@ const FormInput = ({ label, name, type = "text", placeholder = " " }) => {
         name={name}
         placeholder={placeholder}
         className="form_input"
+        autoComplete={autoComplete}
       />
       <label htmlFor={name} className="form_label">
         {label}

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { updateAvatar } from "./userAPI";
+import { updateAvatar, updateBillingDetails, updateUsername } from "./userAPI";
 
 const initialState = {
   username: "",
@@ -39,9 +39,16 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(updateAvatar.fulfilled, (state, action) => {
-      state.avatar = action.payload.avatar;
-    });
+    builder
+      .addCase(updateAvatar.fulfilled, (state, action) => {
+        state.avatar = action.payload;
+      })
+      .addCase(updateUsername.fulfilled, (state, action) => {
+        state.username = action.payload;
+      })
+      .addCase(updateBillingDetails.fulfilled, (state, action) => {
+        state.billing_details = action.payload;
+      });
   },
 });
 

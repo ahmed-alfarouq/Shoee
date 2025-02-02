@@ -21,8 +21,8 @@ authApiClient.interceptors.response.use(
     if (err.response.status === 403) {
       store.dispatch(clearUser());
       store.dispatch(logUserOut());
-      return Promise.reject(err);
     }
+    return Promise.reject(err);
   }
 );
 

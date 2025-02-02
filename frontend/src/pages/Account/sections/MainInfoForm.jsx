@@ -5,19 +5,22 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import FormInput from "../../../components/FormInput";
-import { updateAvatar } from "../../../app/features/user/userAPI";
-
+import {
+  updateAvatar,
+  updateUsername,
+} from "../../../app/features/user/userAPI";
+import FloatingAlert from "../../../components/FloatingAlert";
+import { clearAll } from "../../../app/features/main/mainSlice";
 
 const MainInfoForm = () => {
   const avatar = useSelector((state) => state.user.avatar);
 
   const dispatch = useDispatch();
 
-  const token = useSelector((state) => state.auth.token);
-
   const username = useSelector((state) => state.user.username);
-  
+
   const error = useSelector((state) => state.main.authError);
+  const message = useSelector((state) => state.main.message);
 
   const initialValues = { username };
 
@@ -28,12 +31,12 @@ const MainInfoForm = () => {
   const handleAvatarChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      dispatch(updateAvatar({ avatar: file, token }));
+      dispatch(updateAvatar({ avatar: file }));
     }
   };
 
   const submit = (values) => {
-    dispatch();
+    dispatch(updateUsername(values.username));
   };
 
   return (
@@ -42,7 +45,7 @@ const MainInfoForm = () => {
       validationSchema={validate}
       onSubmit={submit}
     >
-      {({ setFieldValue }) => (
+      {({ setFieldValue, isSubmitting }) => (
         <Form className="account-form form">
           <div className="form_control">
             <label htmlFor="avatar" className="avatar-label">
@@ -64,8 +67,12 @@ const MainInfoForm = () => {
 
           <FormInput label="Username" name="username" />
           <span className="error">{error}</span>
-          
-          <button type="submit" className="btn">
+          <FloatingAlert
+            message={message}
+            seconds={5}
+            callback={() => dispatch(clearAll())}
+          />
+          <button type="submit" className="btn" disabled={isSubmitting}>
             Save Changes
           </button>
         </Form>
