@@ -26,7 +26,7 @@ export const uploadAvatar = async (req, res) => {
       BLOB_TOKEN
     );
 
-    const user = await User.findOne({ email: req.user.email });
+    const user = req.user;
     const prevAvatar = user.avatar;
 
     await del(prevAvatar, { token: BLOB_TOKEN });
