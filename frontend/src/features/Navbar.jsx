@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-//import Icons
+// Import Icons
 import {
   IoIosSearch,
   IoIosCart,
@@ -49,16 +49,21 @@ const Navbar = () => {
   const toggleMenu = () => {
     menuRef.current.classList.toggle("open");
     setOverlayHidden(!overlayHidden);
+    if (menuRef.current.classList.contains("open")) {
+      menuRef.current.querySelector("button").focus();
+    }
   };
 
   const toggleDropdownMenu = (e) => {
-    // open class is set only for screens smaller than 921px
     e.currentTarget.classList.toggle("open");
   };
 
   const switchSearchBox = () => {
     searchBoxRef.current.classList.toggle("open");
     setOverlayHidden(!overlayHidden);
+    if (searchBoxRef.current.classList.contains("open")) {
+      searchBoxRef.current.querySelector("input").focus();
+    }
   };
 
   const switchCart = () => {
@@ -68,6 +73,9 @@ const Navbar = () => {
     } else {
       cartRef.current.classList.toggle("open");
       setOverlayHidden(!overlayHidden);
+    }
+    if (cartRef.current.classList.contains("open")) {
+      cartRef.current.querySelector("button").focus();
     }
   };
 
@@ -99,12 +107,13 @@ const Navbar = () => {
         Shoee
       </Link>
       <div ref={menuRef} className="nav-right-side">
-        <nav className="menu-collapse">
+        <nav className="menu-collapse" aria-label="Main navigation">
           <button
             type="button"
             className="close-menu"
             title="close menu"
             onClick={toggleMenu}
+            aria-label="Close menu"
           >
             <span className="sr-only">close menu</span>
             <IoMdClose />
@@ -121,7 +130,7 @@ const Navbar = () => {
                 onClick={handleNavigation}
                 className="menu-link"
               >
-                all products
+                All products
               </Link>
             </li>
             <li>
@@ -142,19 +151,25 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-            <li className="dropdown" onClick={toggleDropdownMenu}>
+            <li
+              className="dropdown"
+              onClick={toggleDropdownMenu}
+              tabIndex="0"
+              role="button"
+              aria-expanded="false"
+            >
               <div className="dropdown-btn">
-                <span>account</span>
+                <span>Account</span>
                 <IoIosArrowDown />
               </div>
-              <ul className="dropdown-menu">
+              <ul className="dropdown-menu" role="menu">
                 <li>
                   <Link
                     to="/account"
                     className="menu-link"
                     onClick={handleNavigation}
                   >
-                    my account
+                    My account
                   </Link>
                 </li>
                 <li>
@@ -163,7 +178,7 @@ const Navbar = () => {
                     onClick={handleNavigation}
                     className="menu-link"
                   >
-                    cart
+                    Cart
                   </Link>
                 </li>
               </ul>
@@ -172,27 +187,55 @@ const Navbar = () => {
         </nav>
         <div className="icons">
           <div className="search-container">
-            <IoIosSearch onClick={switchSearchBox} />
-            <div className="search-box" ref={searchBoxRef}>
-              <IoMdClose className="close" onClick={switchSearchBox} />
-              <SearchForm className="hidden" options={products} />
+            <button type="button" onClick={switchSearchBox} aria-label="Search">
+              <IoIosSearch />
+            </button>
+            <div
+              className="search-box"
+              ref={searchBoxRef}
+              role="dialog"
+              aria-modal="true"
+              aria-hidden="true"
+            >
+              <button
+                type="button"
+                className="close"
+                onClick={switchSearchBox}
+                aria-label="Close search"
+              >
+                <IoMdClose />
+              </button>
+              <SearchForm
+                className="hidden"
+                options={products}
+                close={switchSearchBox}
+              />
             </div>
           </div>
 
           <div className="cart-container">
-            <div className="cart-icon" onClick={switchCart}>
+            <button
+              type="button"
+              className="cart-icon"
+              onClick={switchCart}
+              aria-label="Cart"
+            >
               <span>{cartCount}</span>
               <IoIosCart />
-            </div>
+            </button>
             <Cart ref={cartRef} switchCart={switchCart} />
           </div>
-          {isAuthenticated && <IoIosLogOut onClick={handleLogout} />}
+          {isAuthenticated && (
+            <button type="button" onClick={handleLogout} aria-label="Logout">
+              <IoIosLogOut />
+            </button>
+          )}
         </div>
       </div>
       <button
         type="button"
         className="toggle-icon"
-        aria-label="toggle menu"
+        aria-label="Toggle menu"
         onClick={toggleMenu}
       >
         <CiMenuBurger />

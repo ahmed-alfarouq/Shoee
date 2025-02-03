@@ -31,9 +31,19 @@ const FloatingAlert = ({ message, seconds = 300, callback }) => {
   if (!message || !visible) return null;
 
   return (
-    <div className={`floating-alert ${fadeOut ? "slide-up" : ""}`}>
+    <div
+      className={`floating-alert ${fadeOut ? "slide-up" : ""}`}
+      aria-atomic="true"
+      aria-hidden={fadeOut}
+      aria-live="assertive"
+      role="alert"
+    >
       <p>{message}</p>
-      <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+      <div
+        className="progress-bar"
+        style={{ width: `${progress}%` }}
+        aria-hidden="true"
+      ></div>
     </div>
   );
 };

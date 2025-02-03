@@ -21,10 +21,18 @@ const PriceRangeSlider = ({ min, max, onChange }) => {
         value={range}
         onChange={handleSliderChange}
         tipFormatter={(value) => `$${value}`}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={range[0]}
+        aria-valuetext={`$${range[0]} to $${range[1]}`}
       />
 
       <div className="price-range-values">
-        <span>${range[0]}</span> - <span>${range[1]}</span>
+        <span id="price-range-label" className="sr-only">
+          Price range
+        </span>
+        <span aria-hidden="true">${range[0]} - </span>
+        <span aria-hidden="true">${range[1]}</span>
       </div>
     </div>
   );

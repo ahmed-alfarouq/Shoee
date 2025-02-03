@@ -39,11 +39,17 @@ const TabsWithProducts = ({ tabs, products }) => {
 
   return (
     <>
-      <div className="tabs-wrapper">
+      <div
+        className="tabs-wrapper"
+        role="tablist"
+        aria-label="Product categories"
+      >
         {tabs.map((cat) => (
           <button
             type="button"
             key={cat}
+            id={`tab-${cat}`}
+            aria-controls={`tabpanel-${cat}`}
             className={`tab-btn ${activeTab === cat ? "active" : ""}`}
             onClick={() => changeTab(cat)}
           >
@@ -52,11 +58,14 @@ const TabsWithProducts = ({ tabs, products }) => {
         ))}
       </div>
       <div
+        id={`tabpanel-${activeTab}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${activeTab}`}
         className="cards-container tab-content"
         style={{
-            gridTemplateColumns:
-              tabProducts.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr",
-          }}
+          gridTemplateColumns:
+            tabProducts.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr",
+        }}
       >
         {tabProducts.map((product) => (
           <Card key={product.id} item={product} quickView={openModel} />

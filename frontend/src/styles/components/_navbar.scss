@@ -111,6 +111,7 @@ header {
 
       .search-container {
         .search-box {
+          display: none;
           .close {
             position: fixed;
             top: 30px;
@@ -137,6 +138,7 @@ header {
           }
 
           &.open {
+            display: block;
             .close {
               opacity: 1;
               visibility: visible;

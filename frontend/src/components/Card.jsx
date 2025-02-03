@@ -13,7 +13,10 @@ const Card = ({ item, quickView }) => {
   return (
     <div className="card">
       <div className="card-thumbnail">
-        <Link to={`/products/${item.id}`}>
+        <Link
+          to={`/products/${item.id}`}
+          aria-label={`View details for ${item.title}`}
+        >
           <BlurImage
             src={item.thumbnail}
             placeholder="https://placehold.co/300x300"
@@ -24,6 +27,7 @@ const Card = ({ item, quickView }) => {
           type="button"
           className="quick-view"
           onClick={() => quickView(item.id)}
+          aria-label={`Quick view for ${item.title}`}
         >
           quick view
         </button>
@@ -36,7 +40,12 @@ const Card = ({ item, quickView }) => {
           {formatCategory(item.category)}
         </Link>
         <h2 className="title">
-          <Link to={`products/${item.id}`}>{item.title}</Link>
+          <Link
+            to={`products/${item.id}`}
+            aria-label={`View details for ${item.title}`}
+          >
+            {item.title}
+          </Link>
         </h2>
         <ReviewRating rating={item.rating} />
         <div className="price">

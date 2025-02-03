@@ -1,12 +1,12 @@
 const BGOverlay = ({ reset, hidden }) => {
   return (
-    <button
-      type="button"
+    <div
+      role="button"
       className={`bg-overlay ${hidden ? "hidden" : ""}`}
       onClick={reset}
       title="Background Overlay"
       aria-hidden={hidden}
-    ></button>
+    ></div>
   );
 };
 
