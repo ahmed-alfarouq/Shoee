@@ -32,9 +32,10 @@ const AddToCart = ({ id, quantity, callback }) => {
       type="button"
       className={`btn add-to-cart ${added ? "added" : ""}`}
       onClick={addToCart}
+      aria-live="polite"
     >
       {text}
-      <MdBookmarkAdded />
+      <MdBookmarkAdded aria-hidden="true" />
     </button>
   );
 };

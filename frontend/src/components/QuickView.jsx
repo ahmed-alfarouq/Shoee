@@ -20,6 +20,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
   const onSale = Math.round(item.discountPercentage) >= 10;
 
   const contentFooterRef = useRef(null);
+  const closeButtonRef = useRef(null);
 
   const increment = () => setQuantity(quantity + 1);
   const decrement = () => setQuantity(quantity - 1);
@@ -28,18 +29,31 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
   useEffect(() => {
     setContentPaddingBottom(contentFooterRef.current.clientHeight + 2);
   }, []);
+  useEffect(() => {
+    if (!hidden) {
+      const closeButton = closeButtonRef.current;
+      closeButton?.focus();
+    }
+  }, [hidden]);
 
   return (
     <div
       className={`quick-view-model ${hidden ? "hidden" : ""}`}
       ref={ref}
       aria-hidden={hidden}
+      aria-modal={!hidden}
     >
       <BGOverlay reset={close} hidden={hidden} />
       <div className="model-container">
-        <IoMdClose className="close" onClick={close} />
+        <IoMdClose
+          className="close"
+          onClick={close}
+          aria-label="Close"
+          tabIndex={0}
+          ref={closeButtonRef}
+        />
         <div className="image">
-          <img src={item.thumbnail} alt={item.title} />
+          <img src={item.thumbnail} alt={item.title} aria-hidden="false" />
           {onSale && <span className="onsale">Sale!</span>}
         </div>
         <div className="model-content">
@@ -67,7 +81,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
                 ${item.price}
               </ins>
             </div>
-            <p className="description">{item.description}</p>
+            <p className="description" tabIndex={0}>{item.description}</p>
             <p className="category">
               Category:
               <Link to={`/products/category/${item.category}`}>
@@ -77,13 +91,16 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
             <ul className="info">
               <li>Free shipping on orders over $100!</li>
               <li>
-                <IoMdArrowDroprightCircle /> {item.returnPolicy}
+                <IoMdArrowDroprightCircle aria-hidden="true" />{" "}
+                {item.returnPolicy}
               </li>
               <li>
-                <IoMdArrowDroprightCircle /> {item.shippingInformation}
+                <IoMdArrowDroprightCircle aria-hidden="true" />{" "}
+                {item.shippingInformation}
               </li>
               <li>
-                <IoMdArrowDroprightCircle /> {item.warrantyInformation}
+                <IoMdArrowDroprightCircle aria-hidden="true" />{" "}
+                {item.warrantyInformation}
               </li>
             </ul>
           </div>
@@ -93,7 +110,11 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
               decrement={decrement}
               count={quantity}
             />
-            <AddToCart id={item.id} quantity={quantity} callback={resetQuantity} />
+            <AddToCart
+              id={item.id}
+              quantity={quantity}
+              callback={resetQuantity}
+            />
           </div>
         </div>
       </div>

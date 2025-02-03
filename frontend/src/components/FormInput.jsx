@@ -9,6 +9,7 @@ const FormInput = ({ label, name, type = "text", placeholder = " " }) => {
         name={name}
         placeholder={placeholder}
         className="form_input"
+        aria-describedby={`${name}-error`}
       />
       <label htmlFor={name} className="form_label">
         {label}
