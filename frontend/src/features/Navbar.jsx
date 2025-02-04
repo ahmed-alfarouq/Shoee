@@ -156,7 +156,6 @@ const Navbar = () => {
               onClick={toggleDropdownMenu}
               tabIndex="0"
               role="button"
-              aria-expanded="false"
             >
               <div className="dropdown-btn">
                 <span>Account</span>
