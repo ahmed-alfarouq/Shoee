@@ -151,16 +151,15 @@ header {
           }
         }
       }
-
-      svg {
-        color: $primary-font-color;
+      button {
+        padding: 0;
+        font-size: 25px;
         margin: 0 10px;
-        cursor: pointer;
+        color: $primary-font-color;
         transition: all 0.4s ease-in-out;
-      }
-
-      svg:hover {
-        color: $hover-font-color;
+        &:hover {
+          color: $hover-font-color;
+        }
       }
 
       .cart-icon {
@@ -169,16 +168,13 @@ header {
 
         span {
           position: absolute;
-          top: -1px;
-          right: 1px;
+          top: -2px;
+          right: -5px;
           color: #ffffff;
-          background-color: $secondary-color;
+          background-color: #415161;
           box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.3);
-          font-size: 11px;
-          padding-left: 2px;
-          padding-right: 2px;
+          font-size: 10px;
           line-height: 17px;
-          letter-spacing: -0.5px;
           height: 18px;
           min-width: 18px;
           border-radius: 99px;
