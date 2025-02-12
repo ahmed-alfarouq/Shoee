@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Assets
-import bannerImage from "../../../assets/images/boy.png";
+import bannerImage from "../../../assets/images/boy.webp";
 import { FaAnglesRight } from "react-icons/fa6";
 
 const MainBanner = () => {
