@@ -1,5 +1,5 @@
 import React from "react";
-import collectionTwo from "../../../assets/images/collection-02.jpg";
+import collectionTwo from "../../../assets/images/collection-02.webp";
 import { Link } from "react-router-dom";
 
 const BaseCollection = () => {
