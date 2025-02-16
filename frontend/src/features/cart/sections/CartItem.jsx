@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import {
   decrementCartItem,
@@ -18,31 +18,35 @@ import truncate from "../../../utils/truncate";
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
 
-  const increment = () => dispatch(incrementCartItem(item.id));
-  const decrement = () => dispatch(decrementCartItem(item.id));
+  const increment = useCallback(() => dispatch(incrementCartItem(item.id)), []);
+  const decrement = useCallback(() => dispatch(decrementCartItem(item.id)), []);
+  const removeItem = () => dispatch(removeFromCart(item.id));
 
+  const truncatedTitle = useMemo(() => truncate(item.title, 4), [item.title]);
   return (
     <li className="cart-item">
-      <img src={item.thumbnail} alt={item.title} />
+      <img src={item.thumbnail} alt={item.title} role="presentation" />
       <div className="content">
-        <span className="title">{truncate(item.title, 4)}</span>
+        <span className="title">{truncatedTitle}</span>
         <IncrementDecrementCounter
           count={item.qty}
           increment={increment}
           decrement={decrement}
         />
-        <div className="price">
+        <div className="price" aria-live="assertive">
           <bdi>
             <span className="currency-symbol">$</span>
             {(item.qty * item.price).toFixed(2)}
           </bdi>
         </div>
       </div>
-
-      <IoCloseCircleOutline
-        className="remove"
-        onClick={() => dispatch(removeFromCart(item.id))}
-      />
+      <button
+        className="icon remove"
+        onClick={removeItem}
+        aria-label="remove item from cart"
+      >
+        <IoCloseCircleOutline />
+      </button>
     </li>
   );
 };

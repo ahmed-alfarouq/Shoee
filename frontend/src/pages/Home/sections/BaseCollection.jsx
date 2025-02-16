@@ -11,7 +11,7 @@ const BaseCollection = () => {
           <div className="content">
             <span>Tshirts</span>
             <h2 className="title">The base collection - Ideal every day.</h2>
-            <Link to="/products/category/mens-shirts" className="btn">
+            <Link to="/products" className="btn">
               Shop Now
             </Link>
           </div>

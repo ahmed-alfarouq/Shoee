@@ -19,8 +19,10 @@ const Cart = forwardRef(({ switchCart }, ref) => {
   return (
     <div className="cart" ref={ref}>
       <div className="cart-header">
-        <span>Shopping Cart</span>
-        <IoMdClose onClick={switchCart} />
+        <span aria-hidden="true">Shopping Cart</span>
+        <button onClick={switchCart} aria-label="close side cart">
+          <IoMdClose />
+        </button>
       </div>
       {cartItems && cartItems.length ? (
         <>

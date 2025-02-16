@@ -17,7 +17,7 @@ const MainBanner = () => {
             laborum voluptates veniam vero non tempore dignissimos.
           </p>
 
-          <Link to="/shop" className="btn">
+          <Link to="/products" className="btn">
             <FaAnglesRight />
             explore store
           </Link>

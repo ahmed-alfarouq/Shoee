@@ -62,7 +62,7 @@ const Navbar = () => {
     searchBoxRef.current.classList.toggle("open");
     setOverlayHidden(!overlayHidden);
     if (searchBoxRef.current.classList.contains("open")) {
-      searchBoxRef.current.querySelector("input").focus();
+      searchBoxRef.current.querySelector("input")?.focus();
     }
   };
 
@@ -75,7 +75,7 @@ const Navbar = () => {
       setOverlayHidden(!overlayHidden);
     }
     if (cartRef.current.classList.contains("open")) {
-      cartRef.current.querySelector("button").focus();
+      cartRef.current.querySelector("button")?.focus();
     }
   };
 
@@ -186,7 +186,7 @@ const Navbar = () => {
         </nav>
         <div className="icons">
           <div className="search-container">
-            <button type="button" onClick={switchSearchBox} aria-label="Search">
+            <button className="icon" type="button" onClick={switchSearchBox} aria-label="Search">
               <IoIosSearch />
             </button>
             <div
@@ -198,7 +198,7 @@ const Navbar = () => {
             >
               <button
                 type="button"
-                className="close"
+                className="icon close"
                 onClick={switchSearchBox}
                 aria-label="Close search"
               >
@@ -215,7 +215,7 @@ const Navbar = () => {
           <div className="cart-container">
             <button
               type="button"
-              className="cart-icon"
+              className="icon cart-icon"
               onClick={switchCart}
               aria-label="Cart"
             >
@@ -225,7 +225,7 @@ const Navbar = () => {
             <Cart ref={cartRef} switchCart={switchCart} />
           </div>
           {isAuthenticated && (
-            <button type="button" onClick={handleLogout} aria-label="Logout">
+            <button className="icon" type="button" onClick={handleLogout} aria-label="Logout">
               <IoIosLogOut />
             </button>
           )}
@@ -233,7 +233,7 @@ const Navbar = () => {
       </div>
       <button
         type="button"
-        className="toggle-icon"
+        className="icon toggle-icon"
         aria-label="Toggle menu"
         onClick={toggleMenu}
       >
