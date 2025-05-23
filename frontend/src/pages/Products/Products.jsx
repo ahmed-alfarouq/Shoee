@@ -5,15 +5,15 @@ import { debounce } from "lodash";
 // Components
 import Card from "../../components/Card";
 import Filter from "../../components/Filter";
-
+import SortList from "../../components/SortList";
 // Assets
 import { IoMenuSharp } from "react-icons/io5";
 
 // Utils
-import sortProducts from "../../utils/sortProducts";
 import filterProductsByCategory from "../../utils/filterProductsByCategory";
 import filterProductsByRating from "../../utils/filterProductsByRating";
 import filterProductsByPrice from "../../utils/filterProductsByPrice";
+import sortProducts from "../../utils/sortProducts";
 
 const CATEGORIES = ["mens-shirts", "mens-shoes", "mens-watches"];
 
@@ -46,6 +46,8 @@ const Products = () => {
   const loadMore = () => {
     setShownProducts((prev) => Math.min(prev + 5, filteredProducts.length));
   };
+
+  const changeSortType = (e) => setSortType(e.target.value);
 
   const applyFilter = debounce((type, value) => {
     setFilter({ type, value });
@@ -99,18 +101,7 @@ const Products = () => {
               Clear Filters
             </button>
           )}
-          <select
-            className="shop-order"
-            name="orderby"
-            onChange={(e) => setSortType(e.target.value)}
-            aria-label="Shop order"
-            value={sortType}
-          >
-            <option value="menu_order">Default sorting</option>
-            <option value="date">Sort by latest</option>
-            <option value="price">Sort by price: low to high</option>
-            <option value="price-desc">Sort by price: high to low</option>
-          </select>
+          <SortList sortType={sortType} sort={changeSortType} />
         </div>
         <section className="products-container">
           {sortedProducts.slice(0, shownProducts).map((product) => (
