@@ -1,27 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 
 import FormInput from "../../../components/FormInput";
 import FormSelect from "../../../components/FormSelect";
 
-const validationSchema = Yup.object({
-  first_name: Yup.string().required("First name is required!"),
-  last_name: Yup.string().required("Last name is required!"),
-  country: Yup.string().required("Country is required!"),
-  city: Yup.string().required("City is required!"),
-  state: Yup.string().required("State is required!"),
-  street_name: Yup.string().required("Street name is required!"),
-  apartment: Yup.string(),
-  zip_code: Yup.string()
-    .matches(/^\d{5}(-\d{4})?$/, "Zip code is not valid!")
-    .required("ZIP Code is required!"),
-  phone_number: Yup.string()
-    .required("Phone Number is required!")
-    .matches(/^\+?[1-9]\d{1,3}(\s)?\d{1,14}$/, "Phone number is not valid!"),
-  notes: Yup.string(),
-});
+import customerInfoSchema from "../../../schema/customerInfo";
 
 const CustomerInfo = () => {
   const userEmail = useSelector((state) => state.user.email);
@@ -42,7 +26,7 @@ const CustomerInfo = () => {
         phone_number: billingDetails.phone_number || "",
         notes: "",
       }}
-      validationSchema={validationSchema}
+      validationSchema={customerInfoSchema}
     >
       <Form className="customer-info-form form">
         <section className="form-section">
