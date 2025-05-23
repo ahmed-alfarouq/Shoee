@@ -135,15 +135,6 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to="/about"
-                onClick={handleNavigation}
-                className="menu-link"
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
                 to="/contactus"
                 onClick={handleNavigation}
                 className="menu-link"
