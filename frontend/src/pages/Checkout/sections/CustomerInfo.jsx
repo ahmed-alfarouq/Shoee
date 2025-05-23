@@ -1,17 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
 import FormInput from "../../../components/FormInput";
-
-const countries = [
-  "Egypt",
-  "Saudi Arabia",
-  "United Arab Emirates",
-  "USA",
-  "UK",
-];
+import FormSelect from "../../../components/FormSelect";
 
 const validationSchema = Yup.object({
   first_name: Yup.string().required("First name is required!"),
@@ -66,17 +59,7 @@ const CustomerInfo = () => {
           <h3 className="title">Billing Details</h3>
           <FormInput label="First Name" name="first_name" />
           <FormInput label="Last Name" name="last_name" />
-
-          <Field as="select" name="country">
-            <option value="">Select Country</option>
-            {countries.map((country) => (
-              <option key={country} value={country}>
-                {country}
-              </option>
-            ))}
-          </Field>
-          <ErrorMessage name="country" component="div" className="error" />
-
+          <FormSelect label="Select Country" name="country" />
           <FormInput label="Town / City" name="city" />
           <FormInput label="State" name="state" />
           <FormInput label="Street Name" name="street_name" />
