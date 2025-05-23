@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import { updateBillingDetails } from "../../../app/features/user/userAPI";
@@ -8,14 +8,7 @@ import { clearAll } from "../../../app/features/main/mainSlice";
 
 import FormInput from "../../../components/FormInput";
 import FloatingAlert from "../../../components/FloatingAlert";
-
-const countries = [
-  "Egypt",
-  "Saudi Arabia",
-  "United Arab Emirates",
-  "USA",
-  "UK",
-];
+import FormSelect from "../../../components/FormSelect";
 
 const OrderInfoForm = () => {
   const billingDetails = useSelector((state) => state.user.billingDetails);
@@ -64,15 +57,7 @@ const OrderInfoForm = () => {
       <Form className="billing-form form">
         <FormInput label="First Name" name="first_name" />
         <FormInput label="Last Name" name="last_name" />
-        <Field as="select" name="country">
-          <option value="">Select Country</option>
-          {countries.map((country) => (
-            <option key={country} value={country}>
-              {country}
-            </option>
-          ))}
-        </Field>
-        <ErrorMessage name="country" component="div" className="error" />
+        <FormSelect label="Select Country" name="country" />
         <FormInput label="Town / City" name="city" />
         <FormInput label="State" name="state" />
         <FormInput label="Street Name" name="street_name" />
