@@ -1,21 +1,17 @@
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
 
 import { useDispatch } from "react-redux";
 import { clearAll } from "../../../app/features/main/mainSlice";
 
 import FormInput from "../../../components/FormInput";
 
+import { loginSchema } from "../../../schema/auth";
+
 let initialValues = {
   email: "",
   password: "",
 };
-
-const validate = Yup.object({
-  email: Yup.string().email("Invalid email!").required("Email is required!"),
-  password: Yup.string().required("Password is required!"),
-});
 
 const LoginForm = ({ submit, formError }) => {
   const dispatch = useDispatch();
@@ -23,7 +19,7 @@ const LoginForm = ({ submit, formError }) => {
     <Formik
       initialValues={initialValues}
       onSubmit={submit}
-      validationSchema={validate}
+      validationSchema={loginSchema}
     >
       <Form name="log_in" className="log_in_form form">
         <h2 className="title">login</h2>
