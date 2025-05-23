@@ -11,7 +11,7 @@ const SecondaryBanner = () => {
             Be different in your own way!
             <span>Find your unique style.</span>
           </h2>
-          <Link className="btn" to="/shop">
+          <Link className="btn" to="/products">
             Shop Now
           </Link>
         </div>

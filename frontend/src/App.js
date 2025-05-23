@@ -50,16 +50,14 @@ function App() {
   );
 
   useEffect(() => {
-    if (loading && !products.length) {
+    if (!products.length) {
       dispatch(fetchProducts());
     }
-  }, [loading, products.length, dispatch]);
+  }, [products.length, dispatch]);
 
   useEffect(() => {
-    if (loading && products.length) {
-      purgeStorage(lastUpdated, persistor, dispatch);
-    }
-  }, [loading, products.length, lastUpdated, dispatch]);
+    purgeStorage(lastUpdated, persistor, dispatch);
+  }, [lastUpdated, dispatch]);
 
   return errorMessage.length ? (
     <Error error={{ message: errorMessage }} />
