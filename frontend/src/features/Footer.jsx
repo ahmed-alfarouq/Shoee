@@ -17,11 +17,6 @@ const Footer = () => {
       icon: null,
     },
     {
-      name: "About",
-      to: "/about",
-      icon: null,
-    },
-    {
       name: "My Account",
       to: "/my-account",
       icon: null,
