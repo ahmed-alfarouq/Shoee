@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
@@ -8,8 +8,12 @@ import BlurImage from "./BlurImage";
 import calcOriginalPrice from "../utils/calcOriginalPrice";
 import formatCategory from "../utils/formatCategory";
 import ReviewRating from "./ReviewRating";
+import QuickView from "./QuickView";
 
-const Card = ({ item, quickView }) => {
+const Card = ({ item }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleModal = () => setIsOpen(!isOpen);
+
   return (
     <div className="card">
       <div className="card-thumbnail">
@@ -26,7 +30,7 @@ const Card = ({ item, quickView }) => {
         <button
           type="button"
           className="quick-view"
-          onClick={() => quickView(item.id)}
+          onClick={toggleModal}
           aria-label={`Quick view for ${item.title}`}
         >
           quick view
@@ -36,12 +40,10 @@ const Card = ({ item, quickView }) => {
         {Math.round(item.discountPercentage) >= 9 && (
           <span className="onsale">Sale!</span>
         )}
-        <Link to={`/products/category/${item.category}`} className="category">
-          {formatCategory(item.category)}
-        </Link>
+        <span className="category">{formatCategory(item.category)}</span>
         <h2 className="title">
           <Link
-            to={`products/${item.id}`}
+            to={`/products/${item.id}`}
             aria-label={`View details for ${item.title}`}
           >
             {item.title}
@@ -66,6 +68,7 @@ const Card = ({ item, quickView }) => {
           </ins>
         </div>
       </div>
+      <QuickView hidden={!isOpen} close={toggleModal} item={item} />
     </div>
   );
 };

@@ -4,8 +4,8 @@ import { debounce } from "lodash";
 
 // Components
 import Card from "../../components/Card";
-import QuickView from "../../components/QuickView";
 import Filter from "../../components/Filter";
+
 // Assets
 import { IoMenuSharp } from "react-icons/io5";
 
@@ -23,7 +23,6 @@ const Products = () => {
   const [filter, setFilter] = useState({ type: null, value: null });
   const [sortType, setSortType] = useState("menu_order");
   const [shownProducts, setShownProducts] = useState(10);
-  const [modalState, setModalState] = useState({ isHidden: true, item: {} });
   const [isFilterHidden, setIsFilterHidden] = useState(true);
 
   const filteredProducts = useMemo(() => {
@@ -61,15 +60,6 @@ const Products = () => {
     setFilter({ type: null, value: null });
     setSortType("menu_order");
     setShownProducts(10);
-  };
-
-  const openModel = (id) => {
-    const product = products.find((product) => product.id === id) || {};
-    setModalState({ isHidden: false, item: product });
-  };
-
-  const closeModel = () => {
-    setModalState({ isHidden: true, item: {} });
   };
 
   useEffect(() => {
@@ -124,14 +114,9 @@ const Products = () => {
         </div>
         <section className="products-container">
           {sortedProducts.slice(0, shownProducts).map((product) => (
-            <Card key={product.id} item={product} quickView={openModel} />
+            <Card key={product.id} item={product} />
           ))}
         </section>
-        <QuickView
-          hidden={modalState.isHidden}
-          close={closeModel}
-          item={modalState.item}
-        />
         {shownProducts >= filteredProducts.length ? (
           <p className="no-more-products">No more products to show.</p>
         ) : (
