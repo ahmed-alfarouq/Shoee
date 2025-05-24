@@ -74,7 +74,6 @@ npm install
 :bearded_person: **Ahmed Al-Farouq**
   - Github: [@Ahmed-Alfarouq](https://github.com/ahmed-al-farouq)
   - LinkedIn: [LinkedIn](https://www.linkedin.com/in/ahmed-al-farouq/)
-  - Twitter: [@twitter](https://twitter.com/ahmed_al_farouq)
 
 ### **🤝 Contributing**
 
