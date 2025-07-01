@@ -9,7 +9,11 @@ import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 
-const allowedOrigins = ["https://shoee.pages.dev", "http://localhost:3000"];
+const allowedOrigins = [
+  "https://shoee.pages.dev",
+  "http://localhost:3000",
+  "https://shoee-rho.vercel.app",
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
