@@ -35,8 +35,12 @@ const MainInfoForm = () => {
     }
   };
 
-  const submit = (values) => {
-    dispatch(updateUsername(values.username));
+  const submit = (values, { setSubmitting }) => {
+    try {
+      dispatch(updateUsername(values.username));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
