@@ -18,10 +18,6 @@ authApiClient.interceptors.response.use(
     return res;
   },
   async (err) => {
-    if (!err.response && err.message) {
-      return Promise.reject(err.message);
-    }
-
     if (err.response && err.response.status === 403) {
       store.dispatch(clearUser());
       store.dispatch(logUserOut());

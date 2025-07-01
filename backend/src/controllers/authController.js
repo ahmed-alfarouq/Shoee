@@ -96,7 +96,13 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.clearCookie("refreshToken");
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 15 * 24 * 60 * 60 * 1000,
+    path: "/",
+  });
   res.status(200).json({ msg: "Logged out successfully" });
 };
 

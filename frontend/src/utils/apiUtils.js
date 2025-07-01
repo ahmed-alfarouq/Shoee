@@ -4,8 +4,8 @@ import { clearUser } from "../app/features/user/userSlice";
 
 export const handleAuthError = (error, thunkAPI) => {
   const errorMessage =
-    error.response?.data?.msg ||
-    error.response?.data?.message ||
+    error?.response?.data?.msg ||
+    error?.response?.data?.message ||
     error.message ||
     "Something went wrong!";
 
