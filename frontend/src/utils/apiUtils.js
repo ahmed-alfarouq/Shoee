@@ -6,6 +6,7 @@ export const handleAuthError = (error, thunkAPI) => {
   const errorMessage =
     error?.response?.data?.msg ||
     error?.response?.data?.message ||
+    error?.response?.data?.errors[0]?.msg ||
     error.message ||
     "Something went wrong!";
 

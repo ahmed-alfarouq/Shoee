@@ -61,9 +61,9 @@ export const updateUsername = async (req, res) => {
 
     return res
       .status(200)
-      .json({ msg: "username changed successfully.", newUsername });
+      .json({ msg: "Username updated successfully.", newUsername });
   } catch (error) {
-    res.status(500).json({ msg: "something went wrong!" });
+    res.status(500).json({ msg: "Something went wrong!" });
   }
 };
 
