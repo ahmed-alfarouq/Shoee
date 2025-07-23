@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { clearAll } from "../../app/features/main/mainSlice";
-import { setUser } from "../../app/features/user/userSlice";
-import { login } from "../../app/features/auth/authAPI";
+import { clearAll } from "app/features/main/mainSlice";
+import { setUser } from "app/features/user/userSlice";
+import { login } from "app/features/auth/authAPI";
 
 // Components
 import LoginForm from "./sections/LoginForm";

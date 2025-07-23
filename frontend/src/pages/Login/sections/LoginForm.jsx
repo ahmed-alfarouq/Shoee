@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 
 import { useDispatch } from "react-redux";
-import { clearAll } from "../../../app/features/main/mainSlice";
+import { clearAll } from "app/features/main/mainSlice";
 
-import FormInput from "../../../components/FormInput";
+import FormInput from "components/FormInput";
 
-import { loginSchema } from "../../../schema/auth";
+import { loginSchema } from "schema/auth";
 
 let initialValues = {
   email: "",

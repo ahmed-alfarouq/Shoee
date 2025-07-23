@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import { debounce } from "lodash";
 
 // Components
@@ -14,11 +13,12 @@ import filterProductsByCategory from "../../utils/filterProductsByCategory";
 import filterProductsByRating from "../../utils/filterProductsByRating";
 import filterProductsByPrice from "../../utils/filterProductsByPrice";
 import sortProducts from "../../utils/sortProducts";
+import { useProducts } from "../../query/products/useProducts";
 
 const CATEGORIES = ["mens-shirts", "mens-shoes", "mens-watches"];
 
 const Products = () => {
-  const products = useSelector((state) => state.products.products);
+  const { data: products } = useProducts();
 
   const [filter, setFilter] = useState({ type: null, value: null });
   const [sortType, setSortType] = useState("menu_order");

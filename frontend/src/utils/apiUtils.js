@@ -1,6 +1,6 @@
-import { logUserOut } from "../app/features/auth/authSlice";
-import { setAuthError, setError } from "../app/features/main/mainSlice";
-import { clearUser } from "../app/features/user/userSlice";
+import { logUserOut } from "app/features/auth/authSlice";
+import { setAuthError, setError } from "app/features/main/mainSlice";
+import { clearUser } from "app/features/user/userSlice";
 
 export const handleAuthError = (error, thunkAPI) => {
   const errorMessage =
