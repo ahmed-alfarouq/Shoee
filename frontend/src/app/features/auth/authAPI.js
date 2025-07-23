@@ -1,15 +1,16 @@
-import authApiClient from "../../../services/authApiClient";
+import authApiClient from "services/authApiClient";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { clearUser } from "../user/userSlice";
-import { setLoading, setMessage } from "../main/mainSlice";
+import { setAuthError, setLoading, setMessage } from "../main/mainSlice";
 
-import { handleAuthError, handleGlobalError } from "../../../utils/apiUtils";
+import { handleAuthError, handleGlobalError } from "utils/apiUtils";
 
 export const login = createAsyncThunk(
   "auth/login",
   async (userData, thunkAPI) => {
     try {
+      thunkAPI.dispatch(setAuthError(""));
       thunkAPI.dispatch(setLoading(true));
       const res = await authApiClient.post("login", userData);
       thunkAPI.dispatch(setLoading(false));
