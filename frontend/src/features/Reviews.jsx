@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useMemo } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
 import ReviewCard from "../components/ReviewCard";
 
+import { useProducts } from "query/products/useProducts";
+
 const Reviews = () => {
-  const products = useSelector((state) => state.products.products);
-  const [reviews, setReviews] = useState([]);
-  const extractBestReviews = (products) => {
+  const { data: products } = useProducts();
+
+  const reviews = useMemo(() => {
     const allReviews = products.flatMap((product) =>
       product.reviews.map((review) => ({
         ...review,
@@ -19,10 +20,6 @@ const Reviews = () => {
     const sortedReviews = allReviews.sort((a, b) => b.rating - a.rating);
 
     return sortedReviews.slice(0, 4);
-  };
-
-  useEffect(() => {
-    setReviews(extractBestReviews(products));
   }, [products]);
 
   return (

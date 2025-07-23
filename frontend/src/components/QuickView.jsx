@@ -29,6 +29,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
   useEffect(() => {
     setContentPaddingBottom(contentFooterRef.current.clientHeight + 2);
   }, []);
+  
   useEffect(() => {
     if (!hidden) {
       const closeButton = closeButtonRef.current;
@@ -111,7 +112,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
               count={quantity}
             />
             <AddToCart
-              id={item.id}
+              product={item}
               quantity={quantity}
               callback={resetQuantity}
             />

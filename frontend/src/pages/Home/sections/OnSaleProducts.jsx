@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useMemo } from "react";
 
 // Components
-import TabsWithProducts from "../../../components/TabsWithProducts";
+import TabsWithProducts from "components/TabsWithProducts";
+
+// Query
+import { useProducts } from "query/products/useProducts";
+
+// Constants
+import { categories } from "constants";
 
 const OnSaleProducts = () => {
-  const products = useSelector((state) => state.products.products);
-  const [tabsProducts, setTabsProducts] = useState([]);
+  const { data: products } = useProducts();
 
-  const tabsList = ["mens-shirts", "mens-shoes", "mens-watches"];
-
-  useEffect(() => {
-    const onSaleProducts = products.filter(
-      (product) => Math.round(product.discountPercentage) >= 9
-    );
-    setTabsProducts(onSaleProducts);
-  }, [products]);
+  const onSaleProducts = useMemo(
+    () =>
+      products.filter((product) => Math.round(product.discountPercentage) >= 9),
+    [products]
+  );
 
   return (
     <section className="on-sale-products tabs-section">
       <div className="container">
         <h2 className="title under-line">On Sale Products</h2>
-        <TabsWithProducts tabs={tabsList} products={tabsProducts} />
+        <TabsWithProducts tabs={categories} products={onSaleProducts} />
       </div>
     </section>
   );

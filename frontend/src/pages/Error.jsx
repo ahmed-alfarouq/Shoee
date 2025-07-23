@@ -1,6 +1,6 @@
 import React from "react";
 
-function Error({ error, resetErrorBoundary, purgeStorage }) {
+const Error = ({ error, resetErrorBoundary }) => {
   return (
     <main className="error-page">
       <div className="container">
@@ -16,16 +16,10 @@ function Error({ error, resetErrorBoundary, purgeStorage }) {
               Try again
             </button>
           )}
-
-          {(!error || error.message.length <= 0) && (
-            <button className="btn" onClick={purgeStorage}>
-              Clear Storage
-            </button>
-          )}
         </div>
       </div>
     </main>
   );
-}
+};
 
 export default Error;

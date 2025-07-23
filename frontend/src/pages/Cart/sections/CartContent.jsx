@@ -1,14 +1,16 @@
 import React from "react";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import {
   decrementCartItem,
   incrementCartItem,
   removeFromCart,
-} from "../../../app/features/products/productsSlice";
+} from "app/features/products/productsSlice";
 
 // Components
-import BlurImage from "../../../components/BlurImage";
-import IncrementDecrementCounter from "../../../components/IncrementDecrementCounter";
+import BlurImage from "components/BlurImage";
+import IncrementDecrementCounter from "components/IncrementDecrementCounter";
 
 // Assets
 import { IoCloseCircleOutline } from "react-icons/io5";

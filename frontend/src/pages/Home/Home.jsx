@@ -6,7 +6,7 @@ import TopRatedProducts from "./sections/TopRatedProducts";
 import BaseCollection from "./sections/BaseCollection";
 import OnSaleProducts from "./sections/OnSaleProducts";
 import SecondaryBanner from "./sections/SecondaryBanner";
-import Reviews from "../../features/Reviews";
+import Reviews from "features/Reviews";
 
 const Home = () => {
   return (

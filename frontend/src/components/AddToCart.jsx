@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addItemToCart } from "../app/features/products/productsSlice";
 
+// Components
+import { addItemToCart } from "app/features/products/productsSlice";
+
+// Assets
 import { MdBookmarkAdded } from "react-icons/md";
 
-const AddToCart = ({ id, quantity, callback }) => {
+const AddToCart = ({ product, quantity, callback }) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("add to cart");
   const [added, setAdded] = useState(false);
@@ -14,7 +17,7 @@ const AddToCart = ({ id, quantity, callback }) => {
       return;
     }
 
-    dispatch(addItemToCart({ id, quantity }));
+    dispatch(addItemToCart({ product, quantity }));
     if (callback && typeof callback === "function") {
       callback();
     }

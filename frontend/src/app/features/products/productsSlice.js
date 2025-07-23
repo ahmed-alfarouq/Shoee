@@ -1,11 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { PURGE } from "redux-persist";
-
-import { fetchProducts } from "./productsAPI";
 
 const initialState = {
-  products: [],
-  lastUpdated: null,
   cart: [],
 };
 
@@ -14,59 +9,33 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     addItemToCart: (state, action) => {
-      const { id, quantity } = action.payload;
-      if (quantity <= 0) {
-        return;
-      }
+      const { product, quantity } = action.payload;
+      if (quantity <= 0) return;
 
-      let product = state.cart.find((product) => product.id === id);
-
-      if (product) {
-        state.cart = state.cart.map((item) => {
-          if (item.id === id) {
-            item.qty += quantity;
-          }
-          return item;
-        });
-        return;
-      }
-      product = state.products.find((product) => product.id === id);
-      if (product) {
+      const existing = state.cart.find((item) => item.id === product.id);
+      if (existing) {
+        existing.qty += quantity;
+      } else {
         state.cart.push({ ...product, qty: quantity });
       }
     },
     removeFromCart: (state, action) => {
       const ID = action.payload;
-      state.cart = state.cart.filter((product) => product.id !== ID);
+      state.cart = state.cart.filter((item) => item.id !== ID);
     },
     incrementCartItem: (state, action) => {
-      state.cart = state.cart.map((product) => {
-        if (product.id === action.payload) {
-          product.qty += 1;
-        }
-        return product;
-      });
+      const item = state.cart.find((i) => i.id === action.payload);
+      if (item) item.qty++;
     },
     decrementCartItem: (state, action) => {
-      state.cart = state.cart
-        .map((product) => {
-          if (product.id === action.payload) {
-            product.qty -= 1;
-          }
-          return product;
-        })
-        .filter((product) => product.qty > 0);
+      const item = state.cart.find((i) => i.id === action.payload);
+      if (item) {
+        item.qty -= 1;
+        if (item.qty <= 0) {
+          state.cart = state.cart.filter((i) => i.id !== item.id);
+        }
+      }
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.products = action.payload;
-        state.lastUpdated = Date.now();
-      })
-      .addCase(PURGE, (state) => {
-        state = initialState;
-      });
   },
 });
 

@@ -1,8 +1,11 @@
 import React from "react";
+
+// Redux
+import { useSelector } from "react-redux";
+
+// Components
 import CartContent from "./sections/CartContent";
 import CartTotals from "./sections/CartTotals";
-
-import { useSelector } from "react-redux";
 import Empty from "./sections/Empty";
 
 const Cart = () => {

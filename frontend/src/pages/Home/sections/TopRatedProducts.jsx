@@ -1,29 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useMemo } from "react";
 
 // Components
-import TabsWithProducts from "../../../components/TabsWithProducts";
+import TabsWithProducts from "components/TabsWithProducts";
+
+// Query
+import { useProducts } from "query/products/useProducts";
 
 // utils
-import filterProductsByRating from "../../../utils/filterProductsByRating";
+import filterProductsByRating from "utils/filterProductsByRating";
+
+// Contants
+import { categories } from "constants";
 
 const TopRatedProducts = () => {
-  const products = useSelector((state) => state.products.products);
-  const [tabsProducts, setTabsProducts] = useState([]);
+  const { data: products } = useProducts();
 
-  const tabsList = ["mens-shirts", "mens-shoes", "mens-watches"];
-
-  useEffect(() => {
-    const topRatedProducts = filterProductsByRating(products, 3.5);
-    setTabsProducts(topRatedProducts);
-  }, [products]);
+  const topRatedProducts = useMemo(
+    () => filterProductsByRating(products, 3.5),
+    [products]
+  );
 
   return (
     <section className="tabs-section top-rated-products">
       <div className="container">
         <h2 className="title under-line">Top Rated Products</h2>
 
-        <TabsWithProducts tabs={tabsList} products={tabsProducts} />
+        <TabsWithProducts tabs={categories} products={topRatedProducts} />
       </div>
     </section>
   );
