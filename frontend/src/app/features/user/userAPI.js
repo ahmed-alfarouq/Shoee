@@ -1,9 +1,9 @@
-import userApiClient from "../../../services/userApiClient";
+import userApiClient from "services/userApiClient";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { setLoading, setMessage } from "../main/mainSlice";
 
-import { handleAuthError } from "../../../utils/apiUtils";
+import { handleAuthError } from "utils/apiUtils";
 
 export const updateAvatar = createAsyncThunk(
   "user/updateAvatar",

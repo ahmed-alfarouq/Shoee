@@ -1,12 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 
 // Components
-import Card from "../../../components/Card";
-import QuickView from "../../../components/QuickView";
+import Card from "components/Card";
+import QuickView from "components/QuickView";
 
-const RelatedProducts = ({ productID, category }) => {
-  const products = useSelector((state) => state.products.products);
+const RelatedProducts = ({ products, productID, category }) => {
   const [modelItem, setModelItem] = useState({});
   const [isModelHidden, setIsModelHidden] = useState(true);
 

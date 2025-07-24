@@ -19,19 +19,17 @@ import SearchForm from "../components/SearchForm";
 import Cart from "./cart/Cart";
 import BGOverlay from "../components/BGOverlay";
 import { logout } from "../app/features/auth/authAPI";
+import { useProducts } from "query/products/useProducts";
 
 const Navbar = () => {
-  // Redux
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.products);
+  const { data: products } = useProducts();
   const cart = useSelector((state) => state.products.cart);
 
-  // Refs
   const menuRef = useRef(null);
   const searchBoxRef = useRef(null);
   const cartRef = useRef(null);
 
-  // State
   const [cartCount, setCartCount] = useState(0);
   const [overlayHidden, setOverlayHidden] = useState(true);
 

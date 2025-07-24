@@ -2,14 +2,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form } from "formik";
 
-import { updateBillingDetails } from "../../../app/features/user/userAPI";
-import { clearAll } from "../../../app/features/main/mainSlice";
+import { updateBillingDetails } from "app/features/user/userAPI";
+import { clearAll } from "app/features/main/mainSlice";
 
-import FormInput from "../../../components/FormInput";
-import FloatingAlert from "../../../components/FloatingAlert";
-import FormSelect from "../../../components/FormSelect";
+import FormInput from "components/FormInput";
+import FloatingAlert from "components/FloatingAlert";
+import FormSelect from "components/FormSelect";
 
-import customerInfoSchema from "../../../schema/customerInfo";
+import customerInfoSchema from "schema/customerInfo";
 
 const OrderInfoForm = () => {
   const billingDetails = useSelector((state) => state.user.billingDetails);

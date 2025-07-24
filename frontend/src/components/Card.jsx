@@ -1,41 +1,22 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
-import BlurImage from "./BlurImage";
+import Price from "./card/Price";
+import QuickView from "./QuickView";
+import Thumbnail from "./card/Thumbnail";
+import ReviewRating from "./ReviewRating";
 
 // Utils
-import calcOriginalPrice from "../utils/calcOriginalPrice";
-import formatCategory from "../utils/formatCategory";
-import ReviewRating from "./ReviewRating";
-import QuickView from "./QuickView";
+import formatCategory from "utils/formatCategory";
 
 const Card = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleModal = () => setIsOpen(!isOpen);
+  const toggleModal = useCallback(() => setIsOpen((prev) => !prev), []);
 
   return (
     <div className="card">
-      <div className="card-thumbnail">
-        <Link
-          to={`/products/${item.id}`}
-          aria-label={`View details for ${item.title}`}
-        >
-          <BlurImage
-            src={item.thumbnail}
-            placeholder="https://placehold.co/300x300"
-            alt={item.title}
-          />
-        </Link>
-        <button
-          type="button"
-          className="quick-view"
-          onClick={toggleModal}
-          aria-label={`Quick view for ${item.title}`}
-        >
-          quick view
-        </button>
-      </div>
+      <Thumbnail item={item} toggleModal={toggleModal} />
       <div className="card-content">
         {Math.round(item.discountPercentage) >= 9 && (
           <span className="onsale">Sale!</span>
@@ -50,23 +31,7 @@ const Card = ({ item }) => {
           </Link>
         </h2>
         <ReviewRating rating={item.rating} />
-        <div className="price">
-          {Math.round(item.discountPercentage) >= 9 && (
-            <>
-              <span className="sr-only">
-                Original price was: $
-                {calcOriginalPrice(item.price, item.discountPercentage)}.
-              </span>
-              <del aria-hidden="true" className="original-price">
-                ${calcOriginalPrice(item.price, item.discountPercentage)}
-              </del>
-            </>
-          )}
-          <span className="sr-only">Current price is: ${item.price}.</span>
-          <ins aria-hidden="true" className="current-price">
-            ${item.price}
-          </ins>
-        </div>
+        <Price item={item} />
       </div>
       <QuickView hidden={!isOpen} close={toggleModal} item={item} />
     </div>

@@ -1,6 +1,10 @@
 import React from "react";
-import ReviewRating from "../../../components/ReviewRating";
-import avatar from "../../../assets/images/avatar.png";
+
+// Components
+import ReviewRating from "components/ReviewRating";
+
+// Assets
+import avatar from "assets/images/avatar.png";
 
 const Reviews = ({ reviews }) => {
   return (

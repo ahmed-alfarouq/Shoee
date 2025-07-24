@@ -1,24 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
 
-import FormInput from "../../../components/FormInput";
-import { updatePassword } from "../../../app/features/user/userAPI";
-import FloatingAlert from "../../../components/FloatingAlert";
-import { clearAll } from "../../../app/features/main/mainSlice";
+import { Formik, Form } from "formik";
+
+import FormInput from "components/FormInput";
+import FloatingAlert from "components/FloatingAlert";
+
+import { clearAll } from "app/features/main/mainSlice";
+import { updatePassword } from "app/features/user/userAPI";
+
+import { updatePasswordSchema } from "schema/auth";
 
 const initialValues = { oldPassword: "", newPassword: "", confirmPassword: "" };
-
-const validation = Yup.object({
-  oldPassword: Yup.string().required("Old Password is required!"),
-  newPassword: Yup.string()
-    .min(8, "Must be at least 8 characters!")
-    .required("New Password is required!"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword"), null], "Passwords must match!")
-    .required("Confirm Password is required!"),
-});
 
 const SecurityForm = () => {
   const dispatch = useDispatch();
@@ -37,7 +30,7 @@ const SecurityForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validation}
+      validationSchema={updatePasswordSchema}
       onSubmit={submit}
     >
       {({ isSubmitting }) => (

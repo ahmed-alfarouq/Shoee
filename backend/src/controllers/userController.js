@@ -31,7 +31,9 @@ export const uploadAvatar = async (req, res) => {
     const user = req.user;
     const prevAvatar = user.avatar;
 
-    await del(prevAvatar, { token: BLOB_TOKEN });
+    if (prevAvatar) {
+      await del(prevAvatar, { token: BLOB_TOKEN });
+    }
 
     user.avatar = blob.url;
     await user.save();

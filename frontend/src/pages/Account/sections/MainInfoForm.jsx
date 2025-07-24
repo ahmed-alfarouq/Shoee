@@ -1,16 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { Formik, Form } from "formik";
 
-import FormInput from "../../../components/FormInput";
-import {
-  updateAvatar,
-  updateUsername,
-} from "../../../app/features/user/userAPI";
-import FloatingAlert from "../../../components/FloatingAlert";
-import { clearAll } from "../../../app/features/main/mainSlice";
+import FormInput from "components/FormInput";
+import FloatingAlert from "components/FloatingAlert";
+
+import { clearAll } from "app/features/main/mainSlice";
+import { updateAvatar, updateUsername } from "app/features/user/userAPI";
 
 const MainInfoForm = () => {
   const avatar = useSelector((state) => state.user.avatar);
@@ -35,8 +33,14 @@ const MainInfoForm = () => {
     }
   };
 
-  const submit = (values, { setSubmitting }) => {
+  const submit = (values, { setSubmitting, setErrors }) => {
     try {
+      if (values.username === username) {
+        setErrors({
+          username: "Username must be different from the current one.",
+        });
+        return;
+      }
       dispatch(updateUsername(values.username));
     } finally {
       setSubmitting(false);

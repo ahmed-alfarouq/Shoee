@@ -2,22 +2,22 @@ import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
+import Price from "./card/Price";
 import BGOverlay from "./BGOverlay";
-import IncrementDecrementCounter from "./IncrementDecrementCounter";
 import AddToCart from "./AddToCart";
+import ProductInfo from "./quikView/ProductInfo";
+import ProductImage from "./quikView/ProductImage";
+import IncrementDecrementCounter from "./IncrementDecrementCounter";
 
 // Utils
-import calcOriginalPrice from "../utils/calcOriginalPrice";
-import formatCategory from "../utils/formatCategory";
+import formatCategory from "utils/formatCategory";
 
 // Assets
-import { IoMdArrowDroprightCircle, IoMdClose } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 
 const QuickView = forwardRef(({ item, hidden, close }, ref) => {
   const [contentPaddingBottom, setContentPaddingBottom] = useState(72);
   const [quantity, setQuantity] = useState(0);
-
-  const onSale = Math.round(item.discountPercentage) >= 10;
 
   const contentFooterRef = useRef(null);
   const closeButtonRef = useRef(null);
@@ -29,7 +29,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
   useEffect(() => {
     setContentPaddingBottom(contentFooterRef.current.clientHeight + 2);
   }, []);
-  
+
   useEffect(() => {
     if (!hidden) {
       const closeButton = closeButtonRef.current;
@@ -53,10 +53,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
           tabIndex={0}
           ref={closeButtonRef}
         />
-        <div className="image">
-          <img src={item.thumbnail} alt={item.title} aria-hidden="false" />
-          {onSale && <span className="onsale">Sale!</span>}
-        </div>
+        <ProductImage item={item} />
         <div className="model-content">
           <div
             className="content-body"
@@ -65,45 +62,17 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
             <Link to={`/products/${item.id}`}>
               <h1 className="title">{item.title}</h1>
             </Link>
-            <div className="price">
-              {onSale && (
-                <>
-                  <span className="sr-only">
-                    Original price was: $
-                    {calcOriginalPrice(item.price, item.discountPercentage)}.
-                  </span>
-                  <del aria-hidden="true" className="original-price">
-                    ${calcOriginalPrice(item.price, item.discountPercentage)}
-                  </del>
-                </>
-              )}
-              <span className="sr-only">Current price is: ${item.price}.</span>
-              <ins aria-hidden="true" className="current-price">
-                ${item.price}
-              </ins>
-            </div>
-            <p className="description" tabIndex={0}>{item.description}</p>
+            <Price item={item} />
+            <p className="description" tabIndex={0}>
+              {item.description}
+            </p>
             <p className="category">
               Category:
               <Link to={`/products/category/${item.category}`}>
                 {formatCategory(item.category)}
               </Link>
             </p>
-            <ul className="info">
-              <li>Free shipping on orders over $100!</li>
-              <li>
-                <IoMdArrowDroprightCircle aria-hidden="true" />{" "}
-                {item.returnPolicy}
-              </li>
-              <li>
-                <IoMdArrowDroprightCircle aria-hidden="true" />{" "}
-                {item.shippingInformation}
-              </li>
-              <li>
-                <IoMdArrowDroprightCircle aria-hidden="true" />{" "}
-                {item.warrantyInformation}
-              </li>
-            </ul>
+            <ProductInfo item={item} />
           </div>
           <div className="content-footer" ref={contentFooterRef}>
             <IncrementDecrementCounter

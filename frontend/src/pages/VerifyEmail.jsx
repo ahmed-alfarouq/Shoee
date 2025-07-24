@@ -5,7 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   resendVerificationEmail,
   verifyEmail,
-} from "../app/features/auth/authAPI";
+} from "app/features/auth/authAPI";
 
 const VerifyEmail = () => {
   const [searchParams] = useSearchParams();
