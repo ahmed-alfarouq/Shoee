@@ -64,6 +64,10 @@
   overflow: auto;
 }
 
+.mx-auto {
+  margin: 0 auto;
+}
+
 @for $i from 0 through 10 {
   .mx-#{$i} {
     margin-left: $i * 4px;

@@ -19,3 +19,23 @@
     transform: translate(-50%, -20px);
   }
 }
+
+@keyframes slideRight {
+  from {
+    transform: translateX(0) rotate(15deg);
+  }
+
+  to {
+    transform: translateX(1000%) rotate(15deg);
+  }
+}
+
+@keyframes pulse {
+  from {
+    opacity: 20%;
+  }
+
+  to {
+    opacity: 100%;
+  }
+}
