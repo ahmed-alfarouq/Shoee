@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-// Components
 import Card from "./Card";
+import Tabs from "./Tabs";
+import TabContent from "./TabContent";
+import ProductsSkeleton from "./ProductsSkeleton";
 
-// utils
-import formatCategory from "../utils/formatCategory";
 import { useProducts } from "query/products/useProducts";
 
 const TabsWithProducts = ({ tabs, filters }) => {
-  console.log(filters)
   const [filterOptions, setFilterOptions] = useState(filters);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
@@ -19,7 +18,14 @@ const TabsWithProducts = ({ tabs, filters }) => {
     setFilterOptions({ ...filters, category: cat });
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return (
+    <>
+      <Tabs tabs={tabs} activeTab={activeTab} changeTab={changeTab} ariaLabel="products categories tabs" />
+      <TabContent activeTab={activeTab} gridTemplateColumns="1fr 1fr 1fr 1fr">
+        <ProductsSkeleton count={4} />
+      </TabContent>
+    </>
+  )
 
   if (error) return;
 
@@ -27,38 +33,12 @@ const TabsWithProducts = ({ tabs, filters }) => {
 
   return (
     <>
-      <div
-        className="tabs-wrapper"
-        role="tablist"
-        aria-label="Product categories"
-      >
-        {tabs.map((cat) => (
-          <button
-            type="button"
-            key={cat}
-            id={`tab-${cat}`}
-            aria-controls={`tabpanel-${cat}`}
-            className={`tab-btn ${activeTab === cat ? "active" : ""}`}
-            onClick={() => changeTab(cat)}
-          >
-            {formatCategory(cat)}
-          </button>
-        ))}
-      </div>
-      <div
-        id={`tabpanel-${activeTab}`}
-        role="tabpanel"
-        aria-labelledby={`tab-${activeTab}`}
-        className="cards-container tab-content"
-        style={{
-          gridTemplateColumns:
-            products.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr",
-        }}
-      >
+      <Tabs tabs={tabs} activeTab={activeTab} changeTab={changeTab} ariaLabel="products categories tabs" />
+      <TabContent activeTab={activeTab} gridTemplateColumns={products.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr"}>
         {products.map((product) => (
           <Card key={product._id} item={product} />
         ))}
-      </div>
+      </TabContent>
     </>
   );
 };
