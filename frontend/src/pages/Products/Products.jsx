@@ -14,6 +14,7 @@ import useFilterOptions from "hooks/useFilterOptions";
 
 import { categories } from "constants";
 import sortProducts from "utils/sortProducts";
+import ProductsSkeleton from "components/ProductsSkeleton";
 
 const Products = () => {
   const { filters, updateFilter, clearFilters } = useFilterOptions();
@@ -22,11 +23,9 @@ const Products = () => {
   const [sortType, setSortType] = useState("menu_order");
   const [isFilterHidden, setIsFilterHidden] = useState(true);
 
-  if (isLoading) return <p>Loading</p>;
+  const products = data?.pages.flatMap((p) => p.products);
 
-  const products = data.pages.flatMap((p) => p.products);
-
-  const { count, totalCount } = data.pages[data.pages.length - 1];
+  const metadata = data?.pages[data.pages.length - 1];
 
   const changeSortType = (e) => setSortType(e.target.value);
 
@@ -56,8 +55,8 @@ const Products = () => {
             Filter
           </button>
           <p className="result-count">
-            Showing {count} of{" "}
-            {totalCount} results
+            Showing {metadata?.count} of{" "}
+            {metadata?.totalCount} results
           </p>
           {(filters || sortType !== "menu_order") && (
             <button
@@ -71,7 +70,7 @@ const Products = () => {
           <SortList sortType={sortType} sort={changeSortType} />
         </div>
         <section className="products-container">
-          {sortedProducts.map((product) => (
+          {isLoading ? <ProductsSkeleton count={9} /> : sortedProducts.map((product) => (
             <Card key={product.id} item={product} />
           ))}
         </section>
