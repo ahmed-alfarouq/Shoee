@@ -48,7 +48,7 @@ const TabsWithProducts = ({ tabs, products }) => {
         }}
       >
         {tabProducts.map((product) => (
-          <Card key={product.id} item={product} />
+          <Card key={product._id} item={product} />
         ))}
       </div>
     </>
