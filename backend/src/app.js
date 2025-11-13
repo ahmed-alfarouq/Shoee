@@ -1,11 +1,15 @@
-import express from "express";
-import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
+import express from "express";
 import compression from "compression";
+import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import productsRoutes from "./routes/productsRoutes.js";
+
+import AppError from "./utils/error/appError.js";
+import handleError from "./middleware/handleError.js";
 
 const app = express();
 
@@ -29,13 +33,13 @@ const corsOptions = {
 };
 
 // Middleware
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(helmet());
 app.use(compression());
+app.use(cookieParser());
+app.use(express.json());
+app.use(cors(corsOptions));
 app.use("/public", express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.json({
@@ -46,12 +50,12 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/products", productsRoutes);
+
+// Catch all undefined routes
+app.all("*", (req, res, next) => next(new AppError(`Can't find ${req.originalUrl} on this server`, 404)))
 
 // Error handling
-app.use((err, req, res, next) => {
-  console.log(err.stack);
-  res.status(500).json({
-    message: "Something went wrong!",
-  });
-});
+app.use(handleError);
+
 export default app;
