@@ -5,7 +5,7 @@ import ReviewRating from "./ReviewRating";
 import PriceRangeSlider from "./PriceSlider";
 
 // Utils
-import formatCategory from "../utils/formatCategory";
+import formatText from "../utils/formatText";
 
 // Assets
 import { IoClose } from "react-icons/io5";
@@ -48,11 +48,11 @@ const Filter = ({ categories, close, filter, hidden }) => {
               <FaAngleRight aria-hidden="true" />
               <span
                 onClick={() => filter("category", category)}
-                aria-label={`Filter products by category ${formatCategory(
+                aria-label={`Filter products by category ${formatText(
                   category
                 )}`}
               >
-                {formatCategory(category)}
+                {formatText(category)}
               </span>
             </li>
           ))}
