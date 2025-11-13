@@ -5,7 +5,7 @@ const handleError = (error, req, res, next) => {
         return res.status(statusCode).json({ status: error.status, message, errorCode, stack });
     }
 
-    const production = process.env.NODE_ENV === "development";
+    const production = process.env.NODE_ENV === "production";
 
     // Programming or Unkown error
     if (production) return res.status(statusCode).json({ status: "error", message: "Something went wrong!", errorCode: null, stack: null })
