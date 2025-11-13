@@ -4,7 +4,7 @@ export const productSchema = new Schema(
   {
     title: { type: String, required: true, trim: true },
     description: { type: String, required: true },
-    brand: { type: String, trim: true },
+    brand: { type: String, required: true, trim: true },
     category: {
       type: String,
       required: true,
@@ -16,12 +16,14 @@ export const productSchema = new Schema(
       type: Schema.Types.Decimal128,
       required: true,
       min: 0,
+      get: (v) => parseFloat(v), // MongoDB return { "$numberDecimal": "119.99" }, so parseFloat(v) returns only value
     },
     discountPercentage: {
       type: Schema.Types.Decimal128,
       default: 0,
       min: 0,
       max: 100,
+      get: (v) => parseFloat(v),
     },
     stock: {
       type: Number,
@@ -38,11 +40,24 @@ export const productSchema = new Schema(
     weight: {
       type: Schema.Types.Decimal128,
       min: 0,
+      get: (v) => parseFloat(v),
     },
     dimensions: {
-      width: { type: Schema.Types.Decimal128, required: true },
-      height: { type: Schema.Types.Decimal128, required: true },
-      depth: { type: Schema.Types.Decimal128, required: true },
+      width: {
+        type: Schema.Types.Decimal128,
+        required: true,
+        get: (v) => parseFloat(v),
+      },
+      height: {
+        type: Schema.Types.Decimal128,
+        required: true,
+        get: (v) => parseFloat(v),
+      },
+      depth: {
+        type: Schema.Types.Decimal128,
+        required: true,
+        get: (v) => parseFloat(v),
+      },
     },
     shippingInformation: {
       type: String,
@@ -51,7 +66,7 @@ export const productSchema = new Schema(
     availabilityStatus: {
       type: String,
       required: true,
-      enum: ["In Stock", "Limited Stock", "Out of Stock"],
+      enum: ["In Stock", "Low Stock", "Limited Stock", "Out of Stock"],
       index: true,
     },
     returnPolicy: { type: String, default: "Has no return policy." },
@@ -66,17 +81,15 @@ export const productSchema = new Schema(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
+    toJSON: { virtuals: true, getters: true },
+    toObject: { virtuals: true, getters: true },
   }
 );
-
-productSchema.index({ category: 1 });
 
 productSchema.virtual("reviews", {
   ref: "Review",
   localField: "_id",
-  foreignField: "productId",
+  foreignField: "product",
 });
 
 const Product = model("Product", productSchema);
