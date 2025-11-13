@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import Product from "../models/ProductModel.js";
 import AppError from "../utils/error/appError.js";
 
 export const getProducts = async (req, res, next) => {
-  const { category, rating, minPrice, maxPrice, limit = 10, cursor } = req.query;
+  const { category, rating, minPrice, maxPrice, discountPercentage, limit = 10, cursor } = req.query;
 
   const filter = {};
 
@@ -19,6 +19,9 @@ export const getProducts = async (req, res, next) => {
     if (minPrice) filter.price.$gte = Number(minPrice);
     if (maxPrice) filter.price.$lte = Number(maxPrice);
   }
+
+  // On Sale
+  if (discountPercentage) filter.discountPercentage = { $gte: Types.Decimal128.fromString(discountPercentage) };
 
   if (cursor && cursor !== "undefined" && cursor !== "null") {
     if (!mongoose.Types.ObjectId.isValid(cursor)) {
