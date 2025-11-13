@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // Components
 import Card from "./Card";
 
 // utils
 import formatCategory from "../utils/formatCategory";
-import filterProductsByCategory from "../utils/filterProductsByCategory";
+import { useProducts } from "query/products/useProducts";
 
-const TabsWithProducts = ({ tabs, products }) => {
-  const [tabProducts, setTabProducts] = useState(products);
+const TabsWithProducts = ({ tabs, filters }) => {
+  console.log(filters)
+  const [filterOptions, setFilterOptions] = useState(filters);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  const changeTab = (cat) => setActiveTab(cat);
+  const { data, isLoading, error } = useProducts(filterOptions);
 
-  useEffect(() => {
-    setTabProducts(filterProductsByCategory(products, activeTab));
-  }, [products, activeTab]);
+  const changeTab = (cat) => {
+    setActiveTab(cat);
+    setFilterOptions({ ...filters, category: cat });
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+
+  if (error) return;
+
+  const products = data.pages[0].products;
 
   return (
     <>
@@ -44,10 +52,10 @@ const TabsWithProducts = ({ tabs, products }) => {
         className="cards-container tab-content"
         style={{
           gridTemplateColumns:
-            tabProducts.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr",
+            products.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr",
         }}
       >
-        {tabProducts.map((product) => (
+        {products.map((product) => (
           <Card key={product._id} item={product} />
         ))}
       </div>

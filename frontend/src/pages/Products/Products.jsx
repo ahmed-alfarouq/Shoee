@@ -1,74 +1,41 @@
-import { useEffect, useMemo, useState } from "react";
-import { debounce } from "lodash";
+import { useState } from "react";
 
 // Components
 import Card from "../../components/Card";
 import Filter from "../../components/Filter";
 import SortList from "../../components/SortList";
+
 // Assets
 import { IoMenuSharp } from "react-icons/io5";
 
 // Utils
-import filterProductsByCategory from "../../utils/filterProductsByCategory";
-import filterProductsByRating from "../../utils/filterProductsByRating";
-import filterProductsByPrice from "../../utils/filterProductsByPrice";
-import sortProducts from "../../utils/sortProducts";
 import { useProducts } from "../../query/products/useProducts";
+import useFilterOptions from "hooks/useFilterOptions";
 
-const CATEGORIES = ["mens-shirts", "mens-shoes", "mens-watches"];
+import { categories } from "constants";
+import sortProducts from "utils/sortProducts";
 
 const Products = () => {
-  const { data: products } = useProducts();
+  const { filters, updateFilter, clearFilters } = useFilterOptions();
+  const { data, isLoading, hasNextPage, fetchNextPage } = useProducts(filters);
 
-  const [filter, setFilter] = useState({ type: null, value: null });
   const [sortType, setSortType] = useState("menu_order");
-  const [shownProducts, setShownProducts] = useState(10);
   const [isFilterHidden, setIsFilterHidden] = useState(true);
 
-  const filteredProducts = useMemo(() => {
-    if (!filter.type) return products;
-    switch (filter.type) {
-      case "category":
-        return filterProductsByCategory(products, filter.value);
-      case "price":
-        return filterProductsByPrice(products, filter.value);
-      case "rating":
-        return filterProductsByRating(products, filter.value);
-      default:
-        return products;
-    }
-  }, [products, filter]);
+  if (isLoading) return <p>Loading</p>;
 
-  const sortedProducts = useMemo(() => {
-    return sortProducts(filteredProducts, sortType);
-  }, [filteredProducts, sortType]);
+  const products = data.pages.flatMap((p) => p.products);
 
-  const loadMore = () => {
-    setShownProducts((prev) => Math.min(prev + 5, filteredProducts.length));
-  };
+  const { count, totalCount } = data.pages[data.pages.length - 1];
 
   const changeSortType = (e) => setSortType(e.target.value);
 
-  const applyFilter = debounce((type, value) => {
-    setFilter({ type, value });
-  }, 300);
-
   const filterHandler = (type, value) => {
-    applyFilter(type, value);
+    updateFilter(type, value);
     setIsFilterHidden(true);
   };
 
-  const clearFilters = () => {
-    setFilter({ type: null, value: null });
-    setSortType("menu_order");
-    setShownProducts(10);
-  };
-
-  useEffect(() => {
-    shownProducts === 0
-      ? setShownProducts(Math.min(10, sortedProducts.length))
-      : setShownProducts(Math.min(shownProducts, sortedProducts.length));
-  }, [sortedProducts, shownProducts]);
+  const sortedProducts = sortProducts(products, sortType);
 
   return (
     <main className="products">
@@ -76,7 +43,7 @@ const Products = () => {
         <div className="filtering-container">
           <Filter
             hidden={isFilterHidden}
-            categories={CATEGORIES}
+            categories={categories}
             close={() => setIsFilterHidden(true)}
             filter={filterHandler}
           />
@@ -89,10 +56,10 @@ const Products = () => {
             Filter
           </button>
           <p className="result-count">
-            Showing {filteredProducts.length ? 1 : 0}–{shownProducts} of{" "}
-            {filteredProducts.length} results
+            Showing {count} of{" "}
+            {totalCount} results
           </p>
-          {(filter.type || sortType !== "menu_order") && (
+          {(filters || sortType !== "menu_order") && (
             <button
               type="button"
               className="btn clear-filters-btn"
@@ -104,16 +71,16 @@ const Products = () => {
           <SortList sortType={sortType} sort={changeSortType} />
         </div>
         <section className="products-container">
-          {sortedProducts.slice(0, shownProducts).map((product) => (
+          {sortedProducts.map((product) => (
             <Card key={product.id} item={product} />
           ))}
         </section>
-        {shownProducts >= filteredProducts.length ? (
-          <p className="no-more-products">No more products to show.</p>
-        ) : (
-          <button type="button" className="btn load-more" onClick={loadMore}>
+        {hasNextPage ? (
+          <button type="button" className="btn load-more" onClick={fetchNextPage}>
             Load More
           </button>
+        ) : (
+          <p className="no-more-products">No more products to show.</p>
         )}
       </div>
     </main>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 import ReviewRating from "./ReviewRating";
@@ -10,12 +10,23 @@ import formatCategory from "../utils/formatCategory";
 // Assets
 import { IoClose } from "react-icons/io5";
 import { FaAngleRight } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";
 
 const Filter = ({ categories, close, filter, hidden }) => {
-  const ratings = [5, 4, 3, 2, 1];
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [searchParams] = useSearchParams();
 
-  const applyFilter = () => filter("price", priceRange);
+  const ratings = [5, 4, 3, 2, 1];
+  const [priceRange, setPriceRange] = useState([0, 10000]);
+
+  const applyFilter = () => {
+    filter("price", priceRange);
+  };
+
+  useEffect(() => {
+    const minPrice = Number(searchParams.get("minPrice"))
+    const maxPrice = Number(searchParams.get("maxPrice"))
+    setPriceRange([minPrice || 0, maxPrice || 10000]);
+  }, [searchParams]);
 
   return (
     <div
@@ -50,10 +61,10 @@ const Filter = ({ categories, close, filter, hidden }) => {
       <div className="price">
         <h2 className="title">Filter by price</h2>
         <PriceRangeSlider
-          min={100}
+          min={0}
           max={10000}
+          value={priceRange}
           onChange={setPriceRange}
-          aria-label="Price range filter"
         />
         <button
           type="button"

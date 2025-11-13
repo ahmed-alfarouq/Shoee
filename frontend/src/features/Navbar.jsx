@@ -23,7 +23,7 @@ import { useProducts } from "query/products/useProducts";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { data: products } = useProducts();
+  const { data: products } = useProducts({});
   const cart = useSelector((state) => state.products.cart);
 
   const menuRef = useRef(null);
