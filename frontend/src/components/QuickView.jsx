@@ -59,7 +59,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
             className="content-body"
             style={{ paddingBottom: contentPaddingBottom }}
           >
-            <Link to={`/products/${item.id}`}>
+            <Link to={`/products/${item._id}`}>
               <h1 className="title">{item.title}</h1>
             </Link>
             <Price item={item} />

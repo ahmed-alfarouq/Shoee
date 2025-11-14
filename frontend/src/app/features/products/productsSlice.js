@@ -12,7 +12,7 @@ export const productsSlice = createSlice({
       const { product, quantity } = action.payload;
       if (quantity <= 0) return;
 
-      const existing = state.cart.find((item) => item.id === product.id);
+      const existing = state.cart.find((item) => item._id === product._id);
       if (existing) {
         existing.qty += quantity;
       } else {
@@ -21,18 +21,18 @@ export const productsSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       const ID = action.payload;
-      state.cart = state.cart.filter((item) => item.id !== ID);
+      state.cart = state.cart.filter((item) => item._id !== ID);
     },
     incrementCartItem: (state, action) => {
-      const item = state.cart.find((i) => i.id === action.payload);
+      const item = state.cart.find((i) => i._id === action.payload);
       if (item) item.qty++;
     },
     decrementCartItem: (state, action) => {
-      const item = state.cart.find((i) => i.id === action.payload);
+      const item = state.cart.find((i) => i._id === action.payload);
       if (item) {
         item.qty -= 1;
         if (item.qty <= 0) {
-          state.cart = state.cart.filter((i) => i.id !== item.id);
+          state.cart = state.cart.filter((i) => i._id !== item._id);
         }
       }
     },

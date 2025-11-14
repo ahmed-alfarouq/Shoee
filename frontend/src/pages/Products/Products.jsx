@@ -58,7 +58,7 @@ const Products = () => {
             Showing {metadata?.count} of{" "}
             {metadata?.totalCount} results
           </p>
-          {(filters || sortType !== "menu_order") && (
+          {(Object.values(filters).length !== 0 || sortType !== "menu_order") && (
             <button
               type="button"
               className="btn clear-filters-btn"

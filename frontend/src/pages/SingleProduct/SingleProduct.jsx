@@ -1,4 +1,3 @@
-import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 // Components
@@ -7,26 +6,23 @@ import Product from "./sections/Product";
 import RelatedProducts from "./sections/RelatedProducts";
 
 // Query
-import { useProducts } from "query/products/useProducts";
+import useProduct from "query/products/useProduct";
 
 const SingleProduct = () => {
   const { id } = useParams();
 
-  const { data: products } = useProducts();
+  const { data: product, isLoading, error } = useProduct(id);
 
-  const product = useMemo(
-    () => products.find((p) => p.id === parseInt(id)),
-    [products, id]
-  );
+  if (isLoading) return <p>Loading...</p>;
 
+  if (error) return <h1>{error.message}</h1>;
+  console.log(product)
   return (
     <main className="single_product">
       <div className="container">
         <Product product={product} sliderImages={product.images} />
-        <Reviews reviews={product.reviews} />
+        {product.reviews.length > 0 && <Reviews reviews={product.reviews} />}
         <RelatedProducts
-          products={products}
-          productID={product.id}
           category={product.category}
         />
       </div>

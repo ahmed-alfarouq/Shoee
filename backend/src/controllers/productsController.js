@@ -49,3 +49,17 @@ export const getProducts = async (req, res, next) => {
     hasMore: !!nextCursor,
   });
 };
+
+export const getProduct = async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!id) return next(new AppError("Id is required.", 400));
+
+  if (!Types.ObjectId.isValid(id)) return next(new AppError("Id is invalid.", 400, "BAD_REQUEST"));
+
+  const product = await Product.findById(id).populate("reviews");
+
+  if (!product) return next(new AppError("Product not found.", 404));
+
+  return res.json(product);
+}

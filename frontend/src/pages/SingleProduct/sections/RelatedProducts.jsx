@@ -1,24 +1,25 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
 // Components
 import Card from "components/Card";
 import QuickView from "components/QuickView";
 
-const RelatedProducts = ({ products, productID, category }) => {
+import { useProducts } from "query/products/useProducts";
+
+const RelatedProducts = ({ category }) => {
   const [modelItem, setModelItem] = useState({});
   const [isModelHidden, setIsModelHidden] = useState(true);
+  const { data, isLoading, error } = useProducts({ category, limit: 4 });
 
-  const productsMap = useMemo(() => {
-    return products.reduce((map, product) => {
-      if (product.category === category && product.id !== productID) {
-        map[product.id] = product;
-      }
-      return map;
-    }, {});
-  }, [products, productID, category]);
+  if (isLoading) return <h1>Loading..</h1>;
+
+  if (error) return <h1>{error.message}</h1>;
+
+  const products = data.pages[0].products;
 
   const openModel = (id) => {
-    setModelItem(productsMap[id] || {});
+    const product = products.find(p => p._id === id);
+    setModelItem(product);
     setIsModelHidden(false);
   };
 
@@ -31,8 +32,8 @@ const RelatedProducts = ({ products, productID, category }) => {
     <section className="related-products">
       <h2 className="title">Related Products</h2>
       <div className="products">
-        {Object.values(productsMap).map((product) => (
-          <Card key={product.id} item={product} quickView={openModel} />
+        {products.map((product) => (
+          <Card key={product._id} item={product} quickView={openModel} />
         ))}
       </div>
       <QuickView item={modelItem} hidden={isModelHidden} close={closeModel} />

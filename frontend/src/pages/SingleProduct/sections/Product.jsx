@@ -82,7 +82,7 @@ const Product = ({ product, sliderImages }) => {
               count={quantity}
             />
             <AddToCart
-              id={product.id}
+              product={product}
               quantity={quantity}
               callback={resetQuantity}
             />

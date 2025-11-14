@@ -24,7 +24,7 @@ const Card = ({ item }) => {
         <span className="category">{formatText(item.category)}</span>
         <h2 className="title">
           <Link
-            to={`/products/${item.id}`}
+            to={`/products/${item._id}`}
             aria-label={`View details for ${item.title}`}
           >
             {item.title}
