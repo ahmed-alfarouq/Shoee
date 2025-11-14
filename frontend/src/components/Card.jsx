@@ -8,7 +8,7 @@ import Thumbnail from "./card/Thumbnail";
 import ReviewRating from "./ReviewRating";
 
 // Utils
-import formatCategory from "utils/formatCategory";
+import formatText from "utils/formatText";
 
 const Card = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,10 +21,10 @@ const Card = ({ item }) => {
         {Math.round(item.discountPercentage) >= 9 && (
           <span className="onsale">Sale!</span>
         )}
-        <span className="category">{formatCategory(item.category)}</span>
+        <span className="category">{formatText(item.category)}</span>
         <h2 className="title">
           <Link
-            to={`/products/${item.id}`}
+            to={`/products/${item._id}`}
             aria-label={`View details for ${item.title}`}
           >
             {item.title}

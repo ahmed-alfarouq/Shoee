@@ -35,7 +35,7 @@ import { persistor } from "app/store";
 import { PersistGate } from "redux-persist/integration/react";
 
 const App = () => {
-  const { isLoading, error } = useProducts();
+  const { isLoading, error } = useProducts({});
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const verified = useSelector((state) => state.user.verified);

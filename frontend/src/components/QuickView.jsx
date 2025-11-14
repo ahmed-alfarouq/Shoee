@@ -10,7 +10,7 @@ import ProductImage from "./quikView/ProductImage";
 import IncrementDecrementCounter from "./IncrementDecrementCounter";
 
 // Utils
-import formatCategory from "utils/formatCategory";
+import formatText from "utils/formatText";
 
 // Assets
 import { IoMdClose } from "react-icons/io";
@@ -59,7 +59,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
             className="content-body"
             style={{ paddingBottom: contentPaddingBottom }}
           >
-            <Link to={`/products/${item.id}`}>
+            <Link to={`/products/${item._id}`}>
               <h1 className="title">{item.title}</h1>
             </Link>
             <Price item={item} />
@@ -69,7 +69,7 @@ const QuickView = forwardRef(({ item, hidden, close }, ref) => {
             <p className="category">
               Category:
               <Link to={`/products/category/${item.category}`}>
-                {formatCategory(item.category)}
+                {formatText(item.category)}
               </Link>
             </p>
             <ProductInfo item={item} />

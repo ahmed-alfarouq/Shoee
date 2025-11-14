@@ -11,7 +11,7 @@ import BlurImage from "../../../components/BlurImage";
 
 // Utils
 import calcOriginalPrice from "../../../utils/calcOriginalPrice";
-import formatCategory from "../../../utils/formatCategory";
+import formatText from "../../../utils/formatText";
 
 // Assets
 import { IoMdArrowDroprightCircle } from "react-icons/io";
@@ -82,7 +82,7 @@ const Product = ({ product, sliderImages }) => {
               count={quantity}
             />
             <AddToCart
-              id={product.id}
+              product={product}
               quantity={quantity}
               callback={resetQuantity}
             />
@@ -92,7 +92,7 @@ const Product = ({ product, sliderImages }) => {
           <p className="category">
             Category:
             <Link to={`/products/category/${product.category}`}>
-              {formatCategory(product.category)}
+              {formatText(product.category)}
             </Link>
           </p>
           <ul className="info">

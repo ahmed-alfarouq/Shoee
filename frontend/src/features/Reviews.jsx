@@ -1,26 +1,11 @@
-import React, { useMemo } from "react";
-
-import { v4 as uuidv4 } from "uuid";
-
 import ReviewCard from "../components/ReviewCard";
 
-import { useProducts } from "query/products/useProducts";
+import { useTopRatedReviews } from "query/products/useTopRatedReviews";
 
 const Reviews = () => {
-  const { data: products } = useProducts();
+  const { data: reviews } = useTopRatedReviews();
 
-  const reviews = useMemo(() => {
-    const allReviews = products.flatMap((product) =>
-      product.reviews.map((review) => ({
-        ...review,
-        id: uuidv4(),
-      }))
-    );
-
-    const sortedReviews = allReviews.sort((a, b) => b.rating - a.rating);
-
-    return sortedReviews.slice(0, 4);
-  }, [products]);
+  if (!reviews) return;
 
   return (
     <section className="reviews">
@@ -29,10 +14,10 @@ const Reviews = () => {
         <div className="reviews-cards">
           {reviews.map((review) => (
             <ReviewCard
-              key={review.id}
+              key={review._id}
               rating={review.rating}
               comment={review.comment}
-              reviewerName={review.reviewerName}
+              reviewerName={review.user.username}
             />
           ))}
         </div>

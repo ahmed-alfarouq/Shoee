@@ -1,56 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-// Components
 import Card from "./Card";
+import Tabs from "./Tabs";
+import TabContent from "./TabContent";
+import ProductsSkeleton from "./ProductsSkeleton";
 
-// utils
-import formatCategory from "../utils/formatCategory";
-import filterProductsByCategory from "../utils/filterProductsByCategory";
+import { useProducts } from "query/products/useProducts";
 
-const TabsWithProducts = ({ tabs, products }) => {
-  const [tabProducts, setTabProducts] = useState(products);
+const TabsWithProducts = ({ tabs, filters }) => {
+  const [filterOptions, setFilterOptions] = useState(filters);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  const changeTab = (cat) => setActiveTab(cat);
+  const { data, isLoading, error } = useProducts(filterOptions);
 
-  useEffect(() => {
-    setTabProducts(filterProductsByCategory(products, activeTab));
-  }, [products, activeTab]);
+  const changeTab = (cat) => {
+    setActiveTab(cat);
+    setFilterOptions({ ...filters, category: cat });
+  };
+
+  if (isLoading) return (
+    <>
+      <Tabs tabs={tabs} activeTab={activeTab} changeTab={changeTab} ariaLabel="products categories tabs" />
+      <TabContent activeTab={activeTab} gridTemplateColumns="1fr 1fr 1fr 1fr">
+        <ProductsSkeleton count={4} />
+      </TabContent>
+    </>
+  )
+
+  if (error) return;
+
+  const products = data.pages[0].products;
 
   return (
     <>
-      <div
-        className="tabs-wrapper"
-        role="tablist"
-        aria-label="Product categories"
-      >
-        {tabs.map((cat) => (
-          <button
-            type="button"
-            key={cat}
-            id={`tab-${cat}`}
-            aria-controls={`tabpanel-${cat}`}
-            className={`tab-btn ${activeTab === cat ? "active" : ""}`}
-            onClick={() => changeTab(cat)}
-          >
-            {formatCategory(cat)}
-          </button>
+      <Tabs tabs={tabs} activeTab={activeTab} changeTab={changeTab} ariaLabel="products categories tabs" />
+      <TabContent activeTab={activeTab} gridTemplateColumns={products.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr"}>
+        {products.map((product) => (
+          <Card key={product._id} item={product} />
         ))}
-      </div>
-      <div
-        id={`tabpanel-${activeTab}`}
-        role="tabpanel"
-        aria-labelledby={`tab-${activeTab}`}
-        className="cards-container tab-content"
-        style={{
-          gridTemplateColumns:
-            tabProducts.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr",
-        }}
-      >
-        {tabProducts.map((product) => (
-          <Card key={product.id} item={product} />
-        ))}
-      </div>
+      </TabContent>
     </>
   );
 };
