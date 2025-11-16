@@ -7,6 +7,7 @@ import { findTopRatedReviews } from "../controllers/ReviewsController.js";
 const router = Router();
 
 router.get("/", catchAsync(getProducts));
+router.get("/search", catchAsync(getProduct));
 router.get("/:id", catchAsync(getProduct));
 router.get("/reviews/top", catchAsync(findTopRatedReviews));
 
