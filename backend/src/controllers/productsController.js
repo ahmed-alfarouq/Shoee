@@ -3,9 +3,12 @@ import Product from "../models/ProductModel.js";
 import AppError from "../utils/error/appError.js";
 
 export const getProducts = async (req, res, next) => {
-  const { category, rating, minPrice, maxPrice, discountPercentage, limit = 10, cursor } = req.query;
+  const { s, category, rating, minPrice, maxPrice, discountPercentage, limit = 10, cursor } = req.query;
 
   const filter = {};
+
+  // Name filter
+  if (s) filter.title = { $regex: s, $options: "i" };
 
   // Category filter
   if (category) filter.category = category;

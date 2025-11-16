@@ -16,6 +16,7 @@ const app = express();
 const allowedOrigins = [
   "https://shoee.pages.dev",
   "http://localhost:3000",
+  "http://localhost:5173",
   "https://shoee-rho.vercel.app",
 ];
 
