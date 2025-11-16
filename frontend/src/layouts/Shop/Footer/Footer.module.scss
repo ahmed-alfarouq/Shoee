@@ -1,0 +1,31 @@
+@use "@/styles/base/variables";
+
+.footer {
+  color: #ffffff;
+  background-color: variables.$secondary-color;
+  .upper_footer_content {
+    padding: 60px 10px;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 120px;
+  }
+
+  .copyright {
+    background: #fff;
+    color: variables.$secondary-font-color;
+    font-weight: 500;
+    text-align: center;
+    padding: 25px;
+  }
+}
+
+// Start Media
+@media screen and (max-width: 687px) {
+  .footer {
+    .upper_footer_content {
+      flex-wrap: wrap;
+      gap: 50px;
+    }
+  }
+}

@@ -1,81 +1,29 @@
+@use "variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  min-height: calc(100svh - 250px);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
 .bg-overlay {
   position: fixed;
-  background-color: #00000050;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  background-color: rgba(0, 0, 0, 0.314);
+  inset: 0;
   transition: all 0.3s ease-in-out;
   z-index: 999;
   cursor: default;
-}
-
-.btn {
-  display: inline-block;
-  width: 100%;
-  padding-top: 13px;
-  padding-right: 30px;
-  padding-bottom: 13px;
-  padding-left: 5px;
-  border: 2px solid $secondary-border-color;
-  border-radius: 1px;
-  text-transform: uppercase;
-  color: $primary-font-color;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1em;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: $hover-font-color !important;
-    border-color: $hover-font-color !important;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-.increment-decrement-counter {
-  display: flex;
-  margin-top: 5px;
-  margin-bottom: 5px;
-
-  .increment-btn,
-  .decrement-btn,
-  .count {
-    border: 1px solid $primary-border-color;
-    outline: 0;
-    font-size: 18px;
-    font-weight: 400;
-    width: 38px;
-    padding: 5px;
-    background-color: transparent;
-    color: $primary-font-color;
-    text-align: center;
-
-    &:disabled {
-      background-color: $primary-color;
-      cursor: not-allowed;
-    }
-  }
-}
-
-.onsale {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 50px;
-  min-width: 50px;
-  font-size: 14px;
-  font-weight: 500;
-  background-color: $third-color;
-  color: #ffffff;
-  border-radius: 50%;
 }
 
 .title {
@@ -92,26 +40,8 @@
     display: block;
     height: 3px;
     width: 100px;
-    background-color: $hover-font-color;
+    background-color: variables.$hover-font-color;
     margin: -10px auto 0 auto;
     border-radius: 20px;
-  }
-}
-
-.loading-skeleton {
-  display: block;
-  width: 100%;
-  height: 15px;
-  border-radius: 3px;
-  background: rgb(238, 238, 238);
-  animation: pulse 0.8s linear infinite alternate;
-  &::after {
-    content: "";
-    display: block;
-    height: 110%;
-    width: 10%;
-    background: rgba(255, 255, 255, 0.3);
-    filter: blur(1px);
-    animation: slideRight 1s linear infinite;
   }
 }

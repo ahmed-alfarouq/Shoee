@@ -1,0 +1,29 @@
+@use "@/styles/base/variables";
+
+.form_control {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .label {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .search_input {
+    width: 100%;
+    height: 100%;
+    min-height: 50px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0px 4px 10px -2px rgba(255, 255, 255, 0.3);
+
+    font-size: 20px;
+    text-indent: 5px;
+    color: variables.$primary-font-color;
+  }
+}

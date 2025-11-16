@@ -1,0 +1,43 @@
+@import "@/styles/base/_variables";
+
+.form_control {
+  position: relative;
+  width: 100%;
+  .form_label {
+    position: absolute;
+    top: 30%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  .form_input {
+    background-color: transparent;
+    border: 1px solid $primary-border-color;
+    border-radius: 4px;
+    outline: none;
+    width: 100%;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 13px 12px;
+
+    &:focus + .form_label,
+    &:not(:placeholder-shown) + .form_label {
+      top: -1px;
+      left: 10px;
+      font-size: 12px;
+    }
+  }
+  .error {
+    font-size: 14px;
+    color: $hover-font-color;
+    text-align: left;
+    text-indent: 5px;
+    margin: 5px 0;
+    align-self: baseline;
+    min-height: 10px;
+  }
+}

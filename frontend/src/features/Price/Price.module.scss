@@ -1,0 +1,15 @@
+@use "@/styles/base/variables";
+
+.price {
+  font-weight: 500;
+
+  .original_price {
+    margin-right: 10px;
+    color: variables.$secondary-font-color;
+    opacity: 0.5;
+  }
+
+  .current_price {
+    color: variables.$primary-font-color;
+  }
+}

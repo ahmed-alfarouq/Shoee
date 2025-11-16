@@ -1,18 +1,3 @@
-.container {
-  width: 100%;
-  max-width: 1140px;
-  margin: 0 auto;
-  padding-top: 80px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.full-container {
-  max-width: 99%;
-}
-
 .text-center {
   text-align: center;
 }
@@ -30,13 +15,13 @@
 }
 
 .hidden {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .visible {
-  opacity: 1;
-  visibility: visible;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .flex {
@@ -91,11 +76,5 @@
 
   .gap-#{$i} {
     gap: $i * 4px;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .container {
-    max-width: 1240px;
   }
 }

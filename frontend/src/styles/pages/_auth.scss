@@ -1,9 +1,11 @@
+@use "../base/variables";
+
 .log_in,
 .sign_up,
 .forgot_password,
 .reset_password {
   text-align: center;
-  background: $primary-color;
+  background: variables.$primary-color;
   padding-bottom: 80px;
   .title {
     text-align: left;

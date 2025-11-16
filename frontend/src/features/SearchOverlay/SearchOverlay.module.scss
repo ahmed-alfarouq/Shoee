@@ -1,0 +1,59 @@
+@use "@/styles/base/_variables";
+
+.toggler {
+  font-size: 25px;
+  color: variables.$primary-font-color;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: variables.$hover-font-color;
+  }
+}
+
+.search_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding-inline: 30px;
+
+  position: fixed;
+  inset: 0;
+
+  opacity: 0;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  z-index: 10;
+
+  animation: FadeIn 0.2s linear forwards;
+
+  .close {
+    position: fixed;
+    top: 30px;
+    right: 35px;
+    color: #fff;
+    font-size: 35px;
+    z-index: 11;
+  }
+
+  .search_form {
+    transform: translateY(-50px);
+    position: relative;
+    width: 60%;
+    max-width: 800px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .search_box {
+    .search_form {
+      width: 90%;
+    }
+  }
+}
+
+@keyframes FadeIn {
+  to {
+    opacity: 100%;
+  }
+}

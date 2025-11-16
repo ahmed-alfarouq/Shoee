@@ -1,5 +1,7 @@
+@use "../base/variables";
+
 .single_product {
-  background-color: $primary-color;
+  background-color: variables.$primary-color;
   padding-bottom: 50px;
   .product {
     display: flex;
@@ -7,7 +9,7 @@
     .images {
       width: 50%;
       position: relative;
-      background-color: $primary-product-bg;
+      background-color: variables.$primary-product-bg;
       .onsale {
         z-index: 999;
         left: -10px;
@@ -20,7 +22,7 @@
         max-height: 550px;
         .swiper-button-next,
         .swiper-button-prev {
-          color: $secondary-color;
+          color: variables.$secondary-color;
           &::after {
             font-size: 25px;
           }
@@ -43,7 +45,7 @@
       .price {
         font-size: 25px;
         font-weight: 600;
-        color: $secondary-font-color;
+        color: variables.$secondary-font-color;
 
         .original-price {
           opacity: 0.5;
@@ -58,7 +60,7 @@
       .description {
         font-size: 17px;
         font-weight: 500;
-        color: $secondary-font-color;
+        color: variables.$secondary-font-color;
         margin-bottom: 15px;
       }
 
@@ -75,8 +77,8 @@
       }
 
       .category {
-        color: $secondary-font-color;
-        border-top: 1px solid $primary-border-color;
+        color: variables.$secondary-font-color;
+        border-top: 1px solid variables.$primary-border-color;
         padding-top: 0.5em;
         font-size: 15px;
         font-weight: 500;
@@ -84,7 +86,7 @@
 
         a {
           margin-left: 10px;
-          color: $primary-font-color;
+          color: variables.$primary-font-color;
           font-weight: 400;
         }
       }
@@ -96,7 +98,7 @@
           gap: 5px;
           font-size: 17px;
           font-weight: 500;
-          color: $secondary-font-color;
+          color: variables.$secondary-font-color;
         }
 
         li:first-child {
@@ -110,15 +112,15 @@
   .product-reviews {
     margin-bottom: 60px;
     .title-container {
-      border-top: 1px solid $primary-border-color;
+      border-top: 1px solid variables.$primary-border-color;
       .title {
-        font-family: $primary-font;
+        font-family: variables.$primary-font;
         font-size: 15px;
         font-weight: 700;
         padding: 10px 0;
         width: fit-content;
         line-height: 1;
-        border-top: 2px solid $secondary-border-color;
+        border-top: 2px solid variables.$secondary-border-color;
       }
     }
 
@@ -128,7 +130,7 @@
         gap: 20px;
         padding: 20px 0;
         &:not(:last-child) {
-          border-bottom: 1px solid $primary-border-color;
+          border-bottom: 1px solid variables.$primary-border-color;
         }
         img {
           width: 60px;

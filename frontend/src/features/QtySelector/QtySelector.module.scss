@@ -1,0 +1,25 @@
+@use "@/styles/base/_variables";
+
+.increment_decrement_counter {
+  display: flex;
+  margin-block: 5px;
+
+  .increment_btn,
+  .decrement_btn,
+  .count {
+    border: 1px solid variables.$primary-border-color;
+    outline: 0;
+    font-size: 18px;
+    font-weight: 400;
+    width: 38px;
+    padding: 5px;
+    background-color: transparent;
+    color: variables.$primary-font-color;
+    text-align: center;
+
+    &:disabled {
+      background-color: variables.$primary-color;
+      cursor: not-allowed;
+    }
+  }
+}

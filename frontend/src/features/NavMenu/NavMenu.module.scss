@@ -1,0 +1,20 @@
+@use "@/styles/base/_variables";
+
+.nav_menu {
+  display: flex;
+  gap: 5px;
+  .menu_item {
+    .menu_link {
+      font-size: 17px;
+      font-weight: 500;
+      text-wrap: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        color: variables.$hover-font-color;
+      }
+    }
+  }
+}

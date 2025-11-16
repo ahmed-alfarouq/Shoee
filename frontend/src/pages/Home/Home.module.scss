@@ -1,0 +1,154 @@
+@use "@/styles/base/variables";
+
+.base_collection {
+  margin-bottom: 50px;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+
+    img {
+      height: 70%;
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 20px;
+
+      text-align: center;
+      padding: 0 25px;
+      height: 40%;
+
+      span {
+        font-size: 12px;
+        color: variables.$secondary-font-color;
+      }
+
+      .title {
+        font-size: 40px;
+        line-height: 1;
+      }
+
+      .btn {
+        width: 40%;
+      }
+    }
+  }
+
+  .right {
+    width: 50%;
+    height: 610px;
+    max-height: 100%;
+    background-image: url("@/assets/images/collection-01.webp");
+    background-position: center;
+  }
+}
+
+.tabs_section {
+  margin-bottom: 50px;
+
+  .title {
+    font-size: 42px;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.secondary_banner {
+  margin-bottom: 50px;
+
+  background-image: url("@/assets/images/banner-2.webp");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+
+  height: 600px;
+
+  .inner {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    span {
+      font-size: 14px;
+    }
+
+    .title {
+      text-align: center;
+
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.5;
+      font-family: variables.$secondary-font;
+
+      span {
+        font-size: 30px;
+        display: block;
+      }
+    }
+
+    .btn {
+      width: 150px;
+      border-color: #fff;
+      color: #fff;
+
+      &:hover {
+        border-color: variables.$hover-font-color;
+      }
+    }
+  }
+}
+
+.reviews {
+  .reviews_cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px 20px 0 20px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .base_collection {
+    .right {
+      height: 550px;
+    }
+  }
+
+  .reviews {
+    .reviews_cards {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .reviews {
+    .reviews_cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .base_collection {
+    .right {
+      display: none;
+    }
+  }
+
+  .reviews {
+    .reviews_cards {
+      grid-template-columns: 1fr;
+    }
+  }
+}

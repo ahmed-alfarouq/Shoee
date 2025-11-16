@@ -1,3 +1,5 @@
+@use "../base/variables";
+
 .contact-us {
   display: flex;
   flex-wrap: wrap;
@@ -28,7 +30,7 @@
     }
   }
   .contact-form {
-    background-color: $primary-color;
+    background-color: variables.$primary-color;
     margin-top: 50px;
     max-width: 600px;
     .title {

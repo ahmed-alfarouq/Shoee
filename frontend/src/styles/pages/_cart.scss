@@ -1,5 +1,7 @@
+@use "../base/variables";
+
 .cart-page {
-  background-color: $primary-color;
+  background-color: variables.$primary-color;
   .container {
     .title {
       text-align: left;
@@ -17,7 +19,7 @@
         &,
         thead,
         tbody {
-          border: 1px solid $primary-border-color;
+          border: 1px solid variables.$primary-border-color;
         }
 
         thead,
@@ -48,13 +50,13 @@
       }
 
       .cart-totals {
-        border: 1px solid $primary-border-color;
+        border: 1px solid variables.$primary-border-color;
         min-width: 350px;
         margin-bottom: 80px;
         .title {
           font-size: 20px;
           padding: 10px 20px;
-          border-bottom: 1px solid $primary-border-color;
+          border-bottom: 1px solid variables.$primary-border-color;
           background-color: #fbfbfb;
         }
         .totals-table {
@@ -65,15 +67,15 @@
             width: 90%;
             margin: 5px auto;
             padding: 10px 20px;
-            border-bottom: 1px solid $primary-border-color;
+            border-bottom: 1px solid variables.$primary-border-color;
           }
         }
 
         .coupon {
           padding: 10px 25px;
           .have-coupon-btn {
-            font-family: $primary-font;
-            color: $secondary-font-color;
+            font-family: variables.$primary-font;
+            color: variables.$secondary-font-color;
             font-weight: 500;
           }
           .coupon_form {
@@ -115,13 +117,13 @@
 
       .cart-icon {
         font-size: 80px;
-        color: $hover-font-color;
+        color: variables.$hover-font-color;
       }
 
       h2 {
         font-size: 24px;
         font-weight: bold;
-        color: $primary-font-color;
+        color: variables.$primary-font-color;
       }
 
       p {
@@ -149,7 +151,7 @@
             display: grid;
             grid-template-columns: 1fr;
             td {
-              border-bottom: 1px solid $primary-border-color;
+              border-bottom: 1px solid variables.$primary-border-color;
               .remove {
                 float: right;
                 &::after {

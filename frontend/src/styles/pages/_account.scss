@@ -1,5 +1,7 @@
+@use "../base/variables";
+
 .account-page {
-  background: $primary-color;
+  background: variables.$primary-color;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -22,7 +24,7 @@
 
       &.active,
       &:hover {
-        background: $third-color;
+        background: variables.$third-color;
         color: #ffffff !important;
       }
     }
@@ -43,9 +45,9 @@
       border: none;
       select {
         width: 100%;
-        border: 1px solid $primary-border-color;
+        border: 1px solid variables.$primary-border-color;
         padding: 10px;
-        color: $primary-font-color;
+        color: variables.$primary-font-color;
         outline: none;
       }
       .error {

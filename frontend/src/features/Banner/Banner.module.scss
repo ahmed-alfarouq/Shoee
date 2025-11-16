@@ -1,0 +1,43 @@
+@use "@/styles/base/variables";
+
+.banner {
+  .left_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+
+    .title {
+      font-size: 88px;
+      line-height: 90px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .description {
+      color: variables.$primary-font-color;
+      font-weight: 500;
+    }
+  }
+
+  .right_wrap {
+    img {
+      max-width: 450px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    padding-top: 50px;
+
+    .left_wrap {
+      width: 100%;
+      text-align: center;
+    }
+
+    .right_wrap {
+      display: none;
+    }
+  }
+}

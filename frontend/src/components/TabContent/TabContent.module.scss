@@ -1,0 +1,23 @@
+.tab {
+  display: grid;
+  gap: 20px;
+}
+
+@media screen and (max-width: 991px) {
+  .tab {
+    grid-template-columns: 1fr 1fr 1fr !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tab {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .tab {
+    place-items: center;
+    grid-template-columns: 1fr !important;
+  }
+}

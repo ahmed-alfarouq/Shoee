@@ -1,10 +1,12 @@
+@use "../base/variables";
+
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid $primary-border-color;
+  border: 1px solid variables.$primary-border-color;
   border-radius: 5px;
   padding: 40px;
   margin: 20px auto;
@@ -28,7 +30,7 @@
     }
     .form_input {
       background-color: transparent;
-      border: 1px solid $primary-border-color;
+      border: 1px solid variables.$primary-border-color;
       border-radius: 4px;
       outline: none;
       width: 100%;
@@ -45,7 +47,7 @@
     }
     .error {
       font-size: 14px;
-      color: $hover-font-color;
+      color: variables.$hover-font-color;
       text-align: left;
       text-indent: 5px;
       margin: 5px 0;

@@ -1,37 +1,29 @@
 // Base styles
-@import "base/typography";
-@import "base/variables";
-@import "base/animations";
-@import "base/reset";
-@import "base/globals";
+@use "base/variables";
+@use "base/typography";
+
+@use "base/animations";
+@use "base/reset";
+@use "base/globals";
 
 // Utilities
-@import "utilities/helpers";
+@use "utilities/helpers";
 
 // Components
-@import "./components/navbar";
-@import "./components/spinner";
-@import "./components/search_form";
-@import "./components/cart";
-@import "./components/blur_image";
-@import "./components/zoom_image";
-@import "./components/add_to_cart";
-@import "./components/form";
-@import "./components/card";
-@import "./components/filter";
-@import "./components/review_card";
-@import "./components/quick_view";
-@import "./components/floating_alert";
-@import "./components/footer";
+@use "components/spinner";
+@use "components/add_to_cart";
+@use "components/form";
+@use "components/filter";
+@use "components/review_card";
+@use "components/floating_alert";
 
 // Pages
-@import "./pages/home.scss";
-@import "./pages/products.scss";
-@import "./pages/single_product.scss";
-@import "./pages/cart.scss";
-@import "./pages/checkout.scss";
-@import "./pages/contact_us.scss";
-@import "./pages/auth.scss";
-@import "./pages/account.scss";
-@import "./pages/error.scss";
-@import "./pages/not_found.scss";
+@use "pages/products.scss";
+@use "pages/single_product.scss";
+@use "pages/cart.scss";
+@use "pages/checkout.scss";
+@use "pages/contact_us.scss";
+@use "pages/auth.scss";
+@use "pages/account.scss";
+@use "pages/error.scss";
+@use "pages/not_found.scss";
