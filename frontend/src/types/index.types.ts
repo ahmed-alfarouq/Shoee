@@ -1,7 +1,29 @@
-/**
- * DATA
- */
-export interface ProductProps {
+// DATA
+export type ROLES = "admin" | "customer";
+
+export type BillingDetails = {
+  first_name: string;
+  last_name: string;
+  country: string;
+  city: string;
+  state: string;
+  zip_code: string;
+  street_name: string;
+  apartment: string;
+  phone_number: string;
+};
+
+export type User = {
+  id: string;
+  username: string;
+  avatar: string | null;
+  email: string;
+  role: ROLES;
+  billing_details: BillingDetails;
+  isVerified: boolean;
+};
+
+export type Product = {
   id: string;
   qty: number;
   title: string;
@@ -25,14 +47,23 @@ export interface ProductProps {
   warrantyInformation: string;
   images: string[];
   thumbnail: string;
-}
+  reviews: Review[];
+};
+
+export type Review = {
+  id: string;
+  user: User;
+  product: Product;
+  rating: number;
+  comment: string;
+};
 
 // API Responses
 export interface ProductsResponse {
   /**
    * The array of returned products for the current page.
    */
-  products: ProductProps[];
+  products: Product[];
 
   /**
    * Cursor for fetching the next page.

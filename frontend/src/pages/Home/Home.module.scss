@@ -47,7 +47,8 @@
   }
 }
 
-.tabs_section {
+.tabs_section,
+.reviews {
   margin-bottom: 50px;
 
   .title {
@@ -108,12 +109,14 @@
 }
 
 .reviews {
+  margin-bottom: 50px;
+
   .reviews_cards {
-    width: 100%;
+    margin-top: 20px;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    padding: 20px 20px 0 20px;
   }
 }
 
@@ -148,7 +151,8 @@
 
   .reviews {
     .reviews_cards {
-      grid-template-columns: 1fr;
+      grid-template-columns: 100%;
+      justify-items: center;
     }
   }
 }
