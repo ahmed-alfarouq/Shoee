@@ -1,0 +1,11 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .info_item {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+}
