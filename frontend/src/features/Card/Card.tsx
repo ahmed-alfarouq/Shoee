@@ -17,32 +17,32 @@ const Card = ({ item }: CardProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  const onSale = Math.round(item.discountPercentage) >= 10;
+  const onSale = Math.round(item.discountPercentage) >= 9;
 
   return (
-    <div className={styles.card}>
+    <article className={styles.card}>
       <Thumbnail
         to={`/products/${item.id}`}
         src={item.thumbnail}
         alt={item.title}
         onQuickView={toggleModal}
       />
-      <div className={styles.card_content}>
-        {Math.round(item.discountPercentage) >= 9 && <Badge text="sale!" />}
+      <section className={styles.card_content}>
+        {onSale && <Badge text="sale!" />}
         <span className={styles.category}>{formatText(item.category)}</span>
         <h2 className={styles.title}>
-          <Link
-            to={`/products/${item.id}`}
-            aria-label={`View details for ${item.title}`}
-          >
-            {item.title}
-          </Link>
+          <Link to={`/products/${item.id}`}>{item.title}</Link>
         </h2>
-        <RatingStars rating={item.rating} />
+        <RatingStars title={item.title} rating={item.rating} />
         <Price item={item} hasDiscount={onSale} />
-      </div>
-      <QuickView hidden={!isOpen} close={toggleModal} item={item} />
-    </div>
+      </section>
+      <QuickView
+        item={item}
+        onSale={onSale}
+        hidden={!isOpen}
+        close={toggleModal}
+      />
+    </article>
   );
 };
 
