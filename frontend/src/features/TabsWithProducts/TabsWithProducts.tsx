@@ -47,12 +47,7 @@ const TabsWithProducts = ({ tabs, filters }: TabsWithProductsProps) => {
         changeTab={changeTab}
         ariaLabel="products categories tabs"
       />
-      <TabContent
-        activeTab={activeTab}
-        gridTemplateColumns={
-          products.length >= 4 ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr"
-        }
-      >
+      <TabContent activeTab={activeTab} gridTemplateColumns="1fr 1fr 1fr 1fr">
         {products.map((product) => (
           <Card key={product.id} item={product} />
         ))}
