@@ -45,10 +45,9 @@ const userSchema = new Schema({
   },
   billing_details: { type: billingDetailsSchema },
   isVerified: { type: Boolean, default: false },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+}, {
+  timestamps: true,
+  toJSON: { virtuals: true }
 });
 
 const User = model("User", userSchema);
