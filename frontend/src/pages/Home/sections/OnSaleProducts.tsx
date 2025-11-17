@@ -1,13 +1,18 @@
-import TabsWithProducts from "components/TabsWithProducts";
+import styles from "../Home.module.scss";
 
-import { categories } from "constants";
+import { TabsWithProducts } from "@features/TabsWithProducts";
+
+import { categories } from "@/constants";
 
 const OnSaleProducts = () => {
   return (
-    <section className="on-sale-products tabs-section">
+    <section className={styles.tabs_section}>
       <div className="container">
-        <h2 className="title under-line">On Sale Products</h2>
-        <TabsWithProducts tabs={categories} filters={{ limit: 4, discountPercentage: 9, category: categories[0] }} />
+        <h2 className={`${styles.title} under-line`}>On Sale Products</h2>
+        <TabsWithProducts
+          tabs={categories}
+          filters={{ limit: 4, discountPercentage: 9, category: categories[0] }}
+        />
       </div>
     </section>
   );

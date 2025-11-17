@@ -2,10 +2,9 @@ import bannerImage from "@/assets/images/boy.webp";
 
 import { Banner } from "@/features/Banner";
 import BaseCollection from "./sections/BaseCollection";
+import OnSaleProducts from "./sections/OnSaleProducts";
 import TopRatedProducts from "./sections/TopRatedProducts";
 import SecondaryBanner from "./sections/SecondaryBanner";
-
-// import OnSaleProducts from "./sections/OnSaleProducts";
 
 // import Reviews from "features/Reviews";
 
@@ -23,11 +22,12 @@ const Home = () => {
       <BaseCollection />
       <TopRatedProducts />
       <SecondaryBanner />
+      <OnSaleProducts />
 
       {/* 
       
       
-      <OnSaleProducts />
+      
       <Reviews /> */}
     </>
   );
