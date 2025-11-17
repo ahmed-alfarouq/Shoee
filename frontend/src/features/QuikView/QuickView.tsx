@@ -14,10 +14,8 @@ import formatText from "@/utils/formatText";
 
 import type { QuickViewProps } from "./QuickView.types";
 
-const QuickView = ({ item, hidden, close }: QuickViewProps) => {
+const QuickView = ({ item, onSale, hidden, close }: QuickViewProps) => {
   const [quantity, setQuantity] = useState(0);
-
-  const onSale = Math.round(item.discountPercentage) >= 10;
 
   const increment = () => setQuantity(quantity + 1);
   const decrement = () => setQuantity(quantity - 1);
@@ -25,12 +23,12 @@ const QuickView = ({ item, hidden, close }: QuickViewProps) => {
 
   return (
     <Modal isOpen={!hidden} onClose={close} className={styles.modal_container}>
-      <div className={styles.image}>
-        <img src={item.thumbnail} alt={item.title} aria-hidden="false" />
+      <figure className={styles.image}>
+        <img src={item.thumbnail} alt={item.title} />
         {onSale && <Badge text="sale!" position="tl" />}
-      </div>
-      <div className={styles.modal_content}>
-        <div className={styles.content_body}>
+      </figure>
+      <article className={styles.modal_content}>
+        <section className={styles.content_body}>
           <h2 className={styles.title}>
             <Link to={`/products/${item.id}`}>{item.title}</Link>
           </h2>
@@ -46,8 +44,8 @@ const QuickView = ({ item, hidden, close }: QuickViewProps) => {
             </Link>
           </p>
           <ProductInfo item={item} />
-        </div>
-        <div className={styles.content_footer}>
+        </section>
+        <section className={styles.content_footer}>
           <QtySelector
             increment={increment}
             decrement={decrement}
@@ -58,8 +56,8 @@ const QuickView = ({ item, hidden, close }: QuickViewProps) => {
             quantity={quantity}
             callback={resetQuantity}
           />
-        </div>
-      </div>
+        </section>
+      </article>
     </Modal>
   );
 };
