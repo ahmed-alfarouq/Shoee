@@ -3,9 +3,6 @@
 .spinner {
   display: block;
 
-  width: 30px;
-  height: 30px;
-
   border: 2.5px solid variables.$secondary-color;
   border-top-color: transparent;
   border-radius: 50%;
@@ -14,6 +11,26 @@
   margin-inline: auto;
 
   animation: Spinner 0.8s linear infinite;
+}
+
+.xs {
+  width: 10px;
+  height: 10px;
+}
+
+.sm {
+  width: 20px;
+  height: 20px;
+}
+
+.md {
+  width: 30px;
+  height: 30px;
+}
+
+.lg {
+  width: 40px;
+  height: 40px;
 }
 
 @keyframes Spinner {
