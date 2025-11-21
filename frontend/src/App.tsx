@@ -11,8 +11,9 @@ import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
 // Public Pages
 import { Home } from "@pages/Home";
-// import Cart from "@pages/Cart/Cart";
-// import Products from "@pages/Products/Products";
+// import {Cart} from "@pages/Cart";
+import { Products } from "@pages/Products";
+
 // import Checkout from "@pages/Checkout/Checkout";
 // import ContactUs from "@pages/ContactUs/ContactUs";
 // import SingleProduct from "@pages/SingleProduct/SingleProduct";
@@ -46,8 +47,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<ShopLayout />}>
             <Route index element={<Home />} />
-            {/* 
             <Route path="/products" element={<Products />} />
+            {/* 
+            
             <Route path="/products/:id" element={<SingleProduct />} />
             <Route path="/cart" element={<Cart />} /> */}
 
