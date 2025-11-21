@@ -33,7 +33,7 @@
   align-items: center;
 }
 
-.flex-between {
+.justify-between {
   justify-content: space-between;
 }
 
@@ -54,6 +54,22 @@
 }
 
 @for $i from 0 through 10 {
+  .mt-#{$i} {
+    margin-top: $i * 4px;
+  }
+
+  .mr-#{$i} {
+    margin-top: $i * 4px;
+  }
+
+  .mb-#{$i} {
+    margin-top: $i * 4px;
+  }
+
+  .ml-#{$i} {
+    margin-top: $i * 4px;
+  }
+
   .mx-#{$i} {
     margin-left: $i * 4px;
     margin-right: $i * 4px;
