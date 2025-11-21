@@ -13,14 +13,14 @@ import formatText from "@/utils/formatText";
 
 import type { CardProps } from "./Card.types";
 
-const Card = ({ item }: CardProps) => {
+const Card = ({ item, className }: CardProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = useCallback(() => setIsOpen((prev) => !prev), []);
 
   const onSale = Math.round(item.discountPercentage) >= 9;
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${className}`}>
       <Thumbnail
         to={`/products/${item.id}`}
         src={item.thumbnail}
