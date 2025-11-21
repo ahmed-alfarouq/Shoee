@@ -13,12 +13,10 @@
 @use "components/spinner";
 @use "components/add_to_cart";
 @use "components/form";
-@use "components/filter";
 @use "components/review_card";
 @use "components/floating_alert";
 
 // Pages
-@use "pages/products.scss";
 @use "pages/single_product.scss";
 @use "pages/cart.scss";
 @use "pages/checkout.scss";
