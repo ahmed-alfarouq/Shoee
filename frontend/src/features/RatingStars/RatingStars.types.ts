@@ -1,8 +1,10 @@
-export interface RatingStarsProps {
+import type { ComponentProps } from "react";
+
+export interface RatingStarsProps extends ComponentProps<"div"> {
   /**
-   * REQUIRED: Product title used exclusively for screen readers.
+   * OPTIONAL: Product title used exclusively for screen readers.
    */
-  title: string;
+  title?: string;
 
   /**
    * REQUIRED: The product’s rating value.

@@ -11,6 +11,7 @@ const RatingStars = ({
   rating,
   maxRating = 5,
   className,
+  ...props
 }: RatingStarsProps) => {
   const stars = useMemo(
     () =>
@@ -54,6 +55,7 @@ const RatingStars = ({
     <div
       className={`${styles.rating_container} ${className}`}
       aria-live="polite"
+      {...props}
     >
       <span className="sr-only">
         The rating of {title} is {rating} out of {maxRating}
