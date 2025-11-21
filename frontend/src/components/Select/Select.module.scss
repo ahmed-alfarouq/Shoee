@@ -1,0 +1,21 @@
+@use "@/styles/base/variables";
+
+.select {
+  background: transparent;
+
+  border-radius: 3px;
+
+  color: variables.$primary-font-color;
+
+  font-weight: 500;
+  text-align: left;
+  text-transform: lowercase;
+  font-family: variables.$primary-font;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: transparent;
+    color: variables.$primary-font-color;
+  }
+}
