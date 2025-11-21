@@ -1,0 +1,25 @@
+.products_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: space-between;
+  gap: 20px;
+}
+
+@media screen and (max-width: 991px) {
+  .products_container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 855px) {
+  .products_container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .products_container {
+    grid-template-columns: repeat(1, minmax(250px, 330px));
+    justify-content: center;
+  }
+}
