@@ -17,7 +17,7 @@ const TabsWithProducts = ({ tabs, filters }: TabsWithProductsProps) => {
 
   const changeTab = (cat: string) => {
     setActiveTab(cat);
-    setFilterOptions({ ...filters, category: cat });
+    setFilterOptions({ ...filters, category: [cat] });
   };
 
   if (isLoading || !data)
