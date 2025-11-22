@@ -11,7 +11,11 @@ const ProductsContainer = ({
   products,
 }: ProductsContainerProps) => {
   return (
-    <section className={styles.products_container}>
+    <section
+      className={`${styles.products_container} ${
+        !isLoading && !products.length && styles.empty_products_container
+      }`}
+    >
       {isLoading ? (
         <ProductsSkeleton count={skeletonCount} />
       ) : products.length ? (
@@ -23,7 +27,9 @@ const ProductsContainer = ({
           />
         ))
       ) : (
-        <p>No products to show.</p>
+        <p className="mx-auto">
+          No products match your search. Try adjusting the filters.
+        </p>
       )}
     </section>
   );
