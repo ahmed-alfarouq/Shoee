@@ -48,6 +48,8 @@ export type Product = {
   images: string[];
   thumbnail: string;
   reviews: Review[];
+
+  createdAt: string;
 };
 
 export type Review = {
@@ -94,10 +96,9 @@ export interface ProductsResponse {
 export interface FilterOptions {
   s?: string;
   limit?: number;
-  rating?: number;
+  rating?: string[];
   cursor?: string;
-  category?: string;
-  minPrice?: string;
-  maxPrice?: string;
+  category?: string[];
+  price?: number[];
   discountPercentage?: number;
 }
