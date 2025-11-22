@@ -12,7 +12,7 @@ const TopRatedProducts = () => {
 
         <TabsWithProducts
           tabs={categories}
-          filters={{ limit: 4, rating: 3.5, category: categories[0] }}
+          filters={{ limit: 4, rating: ["3.5"], category: [categories[0]] }}
         />
       </div>
     </section>

@@ -11,7 +11,11 @@ const OnSaleProducts = () => {
         <h2 className={`${styles.title} under-line`}>On Sale Products</h2>
         <TabsWithProducts
           tabs={categories}
-          filters={{ limit: 4, discountPercentage: 9, category: categories[0] }}
+          filters={{
+            limit: 4,
+            discountPercentage: 9,
+            category: [categories[0]],
+          }}
         />
       </div>
     </section>
