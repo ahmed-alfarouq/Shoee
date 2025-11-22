@@ -9,8 +9,7 @@ export const fetchProducts = async ({
   s,
   category,
   rating,
-  minPrice,
-  maxPrice,
+  price,
   discountPercentage,
   cursor,
   limit,
@@ -23,10 +22,18 @@ export const fetchProducts = async ({
 
   if (limit) params.set("limit", String(limit));
 
-  if (rating) params.set("rating", String(rating));
-  if (category) params.set("category", category);
-  if (minPrice) params.set("minPrice", minPrice);
-  if (maxPrice) params.set("maxPrice", maxPrice);
+  if (Array.isArray(rating) && rating.length) {
+    rating.forEach((r) => params.append("rating", r));
+  }
+
+  if (Array.isArray(category) && category.length) {
+    category.forEach((c) => params.append("category", c));
+  }
+
+  if (Array.isArray(price) && price.length === 2) {
+    price.forEach((p) => params.append("price", String(p)));
+  }
+
   if (discountPercentage)
     params.set("discountPercentage", String(discountPercentage));
 
@@ -43,8 +50,7 @@ export const useProducts = ({
   s,
   category,
   rating,
-  minPrice,
-  maxPrice,
+  price,
   discountPercentage,
   limit,
 }: FilterOptions) =>
@@ -60,8 +66,7 @@ export const useProducts = ({
       s,
       category,
       rating,
-      minPrice,
-      maxPrice,
+      price,
       discountPercentage,
       limit,
     ],
@@ -70,10 +75,9 @@ export const useProducts = ({
         s,
         limit,
         cursor: pageParam,
-        rating,
         category,
-        minPrice,
-        maxPrice,
+        rating,
+        price,
         discountPercentage,
       }),
     initialPageParam: undefined,
