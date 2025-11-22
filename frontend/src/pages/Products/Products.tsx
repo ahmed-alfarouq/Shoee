@@ -1,88 +1,63 @@
-import { useState } from "react";
+import { useMemo, useState, type ChangeEventHandler } from "react";
 
-// Components
-import Card from "../../components/Card";
-import Filter from "../../components/Filter";
-import SortList from "../../components/SortList";
+import styles from "./Products.module.scss";
 
-// Assets
-import { IoMenuSharp } from "react-icons/io5";
+import { LoadMoreButton } from "@/features/LoadMoreButton";
+import { FiltersContainer } from "@/features/FiltersContainer";
+import { ProductsContainer } from "@/features/ProductsContainer";
 
-// Utils
-import { useProducts } from "../../query/products/useProducts";
-import useFilterOptions from "hooks/useFilterOptions";
+import { useProducts } from "@/query/products/useProducts";
 
-import { categories } from "constants";
-import sortProducts from "utils/sortProducts";
-import ProductsSkeleton from "components/ProductsSkeleton";
+import useFilterOptions from "@/hooks/useFilters";
+
+import sortProducts from "@/utils/sortProducts";
 
 const Products = () => {
-  const { filters, updateFilter, clearFilters } = useFilterOptions();
-  const { data, isLoading, hasNextPage, fetchNextPage } = useProducts(filters);
-
+  const { filters } = useFilterOptions();
   const [sortType, setSortType] = useState("menu_order");
-  const [isFilterHidden, setIsFilterHidden] = useState(true);
 
-  const products = data?.pages.flatMap((p) => p.products);
+  const changeSortType: ChangeEventHandler<HTMLSelectElement> = (e) =>
+    setSortType(e.target.value);
 
-  const metadata = data?.pages[data.pages.length - 1];
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useProducts(filters);
 
-  const changeSortType = (e) => setSortType(e.target.value);
+  const products = useMemo(
+    () => data?.pages.flatMap((p) => p.products) ?? [],
+    [data]
+  );
 
-  const filterHandler = (type, value) => {
-    updateFilter(type, value);
-    setIsFilterHidden(true);
-  };
+  const totalReturnedCount = useMemo(
+    () => data?.pages.reduce((acc, p) => acc + p.count, 0),
+    [data?.pages]
+  );
 
-  const sortedProducts = sortProducts(products, sortType);
+  const totalCount = data?.pages[0]?.totalCount ?? 0;
+
+  const sortedProducts = useMemo(
+    () => products && sortProducts(products, sortType),
+    [products, sortType]
+  );
 
   return (
-    <main className="products">
+    <section className={styles.products}>
       <div className="container">
-        <div className="filtering-container">
-          <Filter
-            hidden={isFilterHidden}
-            categories={categories}
-            close={() => setIsFilterHidden(true)}
-            filter={filterHandler}
-          />
-          <button
-            type="button"
-            className="btn filter-btn"
-            onClick={() => setIsFilterHidden(false)}
-          >
-            <IoMenuSharp />
-            Filter
-          </button>
-          <p className="result-count">
-            Showing {metadata?.count} of{" "}
-            {metadata?.totalCount} results
-          </p>
-          {(Object.values(filters).length !== 0 || sortType !== "menu_order") && (
-            <button
-              type="button"
-              className="btn clear-filters-btn"
-              onClick={clearFilters}
-            >
-              Clear Filters
-            </button>
-          )}
-          <SortList sortType={sortType} sort={changeSortType} />
-        </div>
-        <section className="products-container">
-          {isLoading ? <ProductsSkeleton count={9} /> : sortedProducts.map((product) => (
-            <Card key={product.id} item={product} />
-          ))}
-        </section>
-        {hasNextPage ? (
-          <button type="button" className="btn load-more" onClick={fetchNextPage}>
-            Load More
-          </button>
-        ) : (
-          <p className="no-more-products">No more products to show.</p>
-        )}
+        <FiltersContainer sortType={sortType} setSortType={changeSortType} />
+        <p className={styles.result_count}>
+          Showing {totalReturnedCount} of {totalCount} results
+        </p>
+        <ProductsContainer
+          skeletonCount={9}
+          isLoading={isLoading}
+          products={sortedProducts}
+        />
+        <LoadMoreButton
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+        />
       </div>
-    </main>
+    </section>
   );
 };
 
