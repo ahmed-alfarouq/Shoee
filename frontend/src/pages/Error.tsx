@@ -3,7 +3,7 @@ const Error = ({
   resetErrorBoundary,
 }: {
   error: Error;
-  resetErrorBoundary: () => void;
+  resetErrorBoundary?: () => void;
 }) => {
   return (
     <main className="error-page">

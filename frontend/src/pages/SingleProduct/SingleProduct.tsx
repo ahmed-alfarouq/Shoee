@@ -1,30 +1,32 @@
 import { useParams } from "react-router-dom";
 
-// Components
-import Reviews from "./sections/Reviews";
+import styles from "./SingleProduct.module.scss";
+
+import Error from "@/pages/Error";
 import Product from "./sections/Product";
+import { Reviews } from "@/features/Reviews";
 import RelatedProducts from "./sections/RelatedProducts";
 
-// Query
-import useProduct from "query/products/useProduct";
+import useProduct from "@/query/products/useProduct";
+import { Activity } from "react";
 
 const SingleProduct = () => {
   const { id } = useParams();
 
-  const { data: product, isLoading, error } = useProduct(id);
+  const { data: product, isLoading, error } = useProduct(id!);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return null;
 
-  if (error) return <h1>{error.message}</h1>;
-  console.log(product)
+  if (error) return <Error error={error} />;
+
   return (
-    <main className="single_product">
+    <main className={styles.single_product}>
       <div className="container">
         <Product product={product} sliderImages={product.images} />
-        {product.reviews.length > 0 && <Reviews reviews={product.reviews} />}
-        <RelatedProducts
-          category={product.category}
-        />
+        <Activity mode={product.reviews.length ? "visible" : "hidden"}>
+          <Reviews reviews={product.reviews} />
+        </Activity>
+        <RelatedProducts id={product.id} category={product.category} />
       </div>
     </main>
   );

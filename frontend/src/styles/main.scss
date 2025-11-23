@@ -9,6 +9,10 @@
 // Utilities
 @use "utilities/helpers";
 
+// Swiper
+@use "swiper/css";
+@use "swiper/css/navigation";
+
 // Components
 @use "components/spinner";
 @use "components/add_to_cart";
@@ -17,10 +21,25 @@
 @use "components/floating_alert";
 
 // Pages
-@use "pages/single_product.scss";
 @use "pages/checkout.scss";
 @use "pages/contact_us.scss";
 @use "pages/auth.scss";
 @use "pages/account.scss";
 @use "pages/error.scss";
 @use "pages/not_found.scss";
+
+.swiper {
+  
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: variables.$secondary-color;
+    &::after {
+      font-size: 25px;
+    }
+  }
+
+  .swiper-notification {
+    display: none;
+  }
+}

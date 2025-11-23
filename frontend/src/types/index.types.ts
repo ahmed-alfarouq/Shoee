@@ -98,6 +98,7 @@ export interface FilterOptions {
   limit?: number;
   rating?: string[];
   cursor?: string;
+  exclude?: string[];
   category?: string[];
   price?: number[];
   discountPercentage?: number;

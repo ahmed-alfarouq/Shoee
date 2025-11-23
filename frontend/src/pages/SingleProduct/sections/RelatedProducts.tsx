@@ -1,42 +1,30 @@
-import React, { useState } from "react";
+import styles from "../SingleProduct.module.scss";
 
-// Components
-import Card from "components/Card";
-import QuickView from "components/QuickView";
+import { ProductsContainer } from "@/features/ProductsContainer";
 
-import { useProducts } from "query/products/useProducts";
+import { useProducts } from "@/query/products/useProducts";
 
-const RelatedProducts = ({ category }) => {
-  const [modelItem, setModelItem] = useState({});
-  const [isModelHidden, setIsModelHidden] = useState(true);
-  const { data, isLoading, error } = useProducts({ category, limit: 4 });
+import type { RelatedProductsProps } from "../SingleProduct.type";
 
-  if (isLoading) return <h1>Loading..</h1>;
+const RelatedProducts = ({ category, id }: RelatedProductsProps) => {
+  const { data, isLoading, error } = useProducts({
+    exclude: [id],
+    category: [category],
+    limit: 4,
+  });
 
-  if (error) return <h1>{error.message}</h1>;
+  if (error) return null;
 
-  const products = data.pages[0].products;
-
-  const openModel = (id) => {
-    const product = products.find(p => p._id === id);
-    setModelItem(product);
-    setIsModelHidden(false);
-  };
-
-  const closeModel = () => {
-    setModelItem({});
-    setIsModelHidden(true);
-  };
+  const products = data?.pages[0].products;
 
   return (
-    <section className="related-products">
-      <h2 className="title">Related Products</h2>
-      <div className="products">
-        {products.map((product) => (
-          <Card key={product._id} item={product} quickView={openModel} />
-        ))}
-      </div>
-      <QuickView item={modelItem} hidden={isModelHidden} close={closeModel} />
+    <section className={styles.related_products}>
+      <h2 className={styles.title}>Related Products</h2>
+      <ProductsContainer
+        skeletonCount={4}
+        products={products || []}
+        isLoading={isLoading}
+      />
     </section>
   );
 };

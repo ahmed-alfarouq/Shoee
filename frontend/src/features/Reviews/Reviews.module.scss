@@ -1,0 +1,43 @@
+@use "@/styles/base/variables";
+
+.reviews {
+  margin-block: 20px;
+
+  .title_container {
+    border-top: 1px solid variables.$primary-border-color;
+
+    .title {
+      font-family: variables.$primary-font;
+      font-size: 15px;
+
+      width: fit-content;
+
+      padding-block: 10px;
+      border-top: 2px solid variables.$secondary-border-color;
+    }
+  }
+
+  .reviews_container {
+    .review {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid variables.$primary-border-color;
+      }
+
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+
+      .content {
+        .comment {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
