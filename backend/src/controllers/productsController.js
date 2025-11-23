@@ -3,7 +3,7 @@ import Product from "../models/ProductModel.js";
 import AppError from "../utils/error/appError.js";
 
 export const getProducts = async (req, res, next) => {
-  const { s, category, rating, price, discountPercentage, limit = 10, cursor } = req.query;
+  const { s, exclude, category, rating, price, discountPercentage, limit = 10, cursor } = req.query;
 
   const filter = {};
 
@@ -30,6 +30,13 @@ export const getProducts = async (req, res, next) => {
       $gte: Number(price[0]),
       $lte: Number(price[1]),
     };
+  }
+
+  // Exclude
+  if (exclude?.length) {
+    filter._id = {
+      $nin: exclude,
+    }
   }
 
   // On Sale

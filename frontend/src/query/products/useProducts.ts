@@ -7,6 +7,7 @@ const PRODUCTS_API = import.meta.env.VITE_BASE_API_URL;
 
 export const fetchProducts = async ({
   s,
+  exclude,
   category,
   rating,
   price,
@@ -34,6 +35,10 @@ export const fetchProducts = async ({
     price.forEach((p) => params.append("price", String(p)));
   }
 
+  if (Array.isArray(exclude) && exclude.length) {
+    exclude.forEach((i) => params.append("exclude", i));
+  }
+
   if (discountPercentage)
     params.set("discountPercentage", String(discountPercentage));
 
@@ -48,6 +53,7 @@ export const fetchProducts = async ({
 
 export const useProducts = ({
   s,
+  exclude,
   category,
   rating,
   price,
@@ -68,12 +74,14 @@ export const useProducts = ({
       rating,
       price,
       discountPercentage,
+      exclude,
       limit,
     ],
     queryFn: async ({ pageParam }: { pageParam?: string }) =>
       await fetchProducts({
         s,
         limit,
+        exclude,
         cursor: pageParam,
         category,
         rating,
