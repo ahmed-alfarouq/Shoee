@@ -1,15 +1,17 @@
 import { useState } from "react";
+import { useCartDispatch } from "@/hooks/useCart";
 
-// Components
-// import { addItemToCart } from "app/features/products/productsSlice";
+import styles from "./AddToCart.module.scss";
+
+import { Button } from "@/components/Button";
 
 import { MdBookmarkAdded } from "react-icons/md";
 
 import type { AddToCartProps } from "./AddToCart.types";
-import { Button } from "@/components/Button";
 
 const AddToCart = ({ product, quantity, callback }: AddToCartProps) => {
-  // const dispatch = useDispatch();
+  const dispatch = useCartDispatch();
+
   const [text, setText] = useState("add to cart");
   const [added, setAdded] = useState(false);
 
@@ -18,7 +20,7 @@ const AddToCart = ({ product, quantity, callback }: AddToCartProps) => {
       return;
     }
 
-    // dispatch(addItemToCart({ product, quantity }));
+    dispatch({ type: "ADD_ITEM", payload: { item: product, qty: quantity } });
 
     callback?.();
 
@@ -33,12 +35,16 @@ const AddToCart = ({ product, quantity, callback }: AddToCartProps) => {
 
   return (
     <Button
-      className={added ? "added" : ""}
+      size="lg"
+      className={added ? styles.added : ""}
       onClick={addToCart}
       aria-live="polite"
+      style={{
+        paddingBlock: 8,
+      }}
     >
       {text}
-      <MdBookmarkAdded aria-hidden="true" />
+      <MdBookmarkAdded className={styles.icon} aria-hidden="true" />
     </Button>
   );
 };

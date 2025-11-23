@@ -1,4 +1,5 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useCartState } from "@/hooks/useCart";
 
 import styles from "./Cart.module.scss";
 
@@ -10,19 +11,21 @@ import CartToggler from "./components/CartToggler";
 
 import { IoMdClose } from "react-icons/io";
 
-import type { ProductProps } from "@/types/index.types";
-
 const Cart = () => {
+  const { items, total } = useCartState();
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const cartItems: ProductProps[] = [];
-  const subtotal = 0;
-
   const switchCart = useCallback(() => setIsOpen((prev) => !prev), []);
+  
+  const itemsCount = useMemo(
+    () => items.reduce((PV, CV) => PV + CV.qty, 0),
+    [items]
+  );
 
   return (
     <div className={styles.cart_container}>
-      <CartToggler switchCart={switchCart} itemCount={cartItems.length} />
+      <CartToggler switchCart={switchCart} itemCount={itemsCount} />
       <aside className={`${styles.cart} ${isOpen && styles.open}`}>
         <div className={styles.cart_header}>
           <span aria-hidden="true">Shopping Cart</span>
@@ -35,14 +38,14 @@ const Cart = () => {
             <IoMdClose />
           </Button>
         </div>
-        {cartItems.length ? (
+        {items.length ? (
           <>
             <ul className={styles.cart_items}>
-              {cartItems.map((item) => (
+              {items.map((item) => (
                 <CartItem key={item.id} item={item} />
               ))}
             </ul>
-            <CartFooter subtotal={subtotal} switchCart={switchCart} />
+            <CartFooter subtotal={total} switchCart={switchCart} />
           </>
         ) : (
           <EmptyCart switchCart={switchCart} />

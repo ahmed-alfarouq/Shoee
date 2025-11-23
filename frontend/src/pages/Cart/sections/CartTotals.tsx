@@ -1,46 +1,45 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import CouponForm from "./CouponForm";
-import { useSelector } from "react-redux";
+import { Activity, useState } from "react";
+
+import styles from "../Cart.module.scss";
+
+import { Button } from "@/components/Button";
+import { CouponForm } from "@/features/CouponForm";
+
+import { useCartState } from "@/hooks/useCart";
 
 const CartTotals = () => {
+  const { total } = useCartState();
   const [showCouponForm, setShowCouponForm] = useState(false);
-
-  const cart = useSelector((state) => state.products.cart);
 
   const toggleCouponForm = () => setShowCouponForm(!showCouponForm);
 
-  const handleCouponSubmit = (values) => console.log(values);
-
-  const totalPrice = cart.reduce(
-    (prevValue, product) => prevValue + product.price * product.qty,
-    0
-  );
+  const handleCouponSubmit = () => console.log("Coupon submited!");
 
   return (
-    <div className="cart-totals">
-      <h2 className="title">Cart Totals</h2>
-      <table className="totals-table">
+    <section className={styles.cart_total}>
+      <h2 className={styles.title}>Cart Totals</h2>
+      <table className={styles.total_table}>
         <tbody>
-          <tr className="cart-subtotal">
+          <tr className={styles.cart_subtotal}>
             <th scope="row">Subtotal</th>
             <td>
-              <span className="amount">
+              <span className={styles.amount}>
                 <bdi>
-                  <span className="currency-symbol">$</span>
-                  {totalPrice.toFixed(2)}
+                  <span className={styles.currency_symbol}>$</span>
+                  {total.toFixed(2)}
                 </bdi>
               </span>
             </td>
           </tr>
-          <tr className="order-total">
+          <tr className={styles.order_total}>
             <th scope="row">Total</th>
             <td>
               <strong>
-                <span className="amount">
+                <span className={styles.amount}>
                   <bdi>
-                    <span className="currency-symbol">$</span>
-                    {totalPrice.toFixed(2)}
+                    <span className={styles.currency_symbol}>$</span>
+                    {total.toFixed(2)}
                   </bdi>
                 </span>
               </strong>
@@ -49,24 +48,26 @@ const CartTotals = () => {
         </tbody>
       </table>
 
-      <div className="coupon">
+      <div className={styles.footer}>
         {!showCouponForm && (
-          <button
-            className="have-coupon-btn"
+          <Button
+            size="sm"
+            variant="ghost"
             aria-expanded={showCouponForm ? "true" : "false"}
             onClick={toggleCouponForm}
             aria-controls="coupon-form"
           >
             Have a coupon?
-          </button>
+          </Button>
         )}
-        {showCouponForm && <CouponForm submit={handleCouponSubmit} />}
+        <Activity mode={showCouponForm ? "visible" : "hidden"}>
+          <CouponForm onSuccess={handleCouponSubmit} />
+        </Activity>
+        <Button asChild>
+          <Link to="/checkout">Proceed to checkout</Link>
+        </Button>
       </div>
-
-      <Link to="/checkout" className="btn">
-        Proceed to checkout
-      </Link>
-    </div>
+    </section>
   );
 };
 

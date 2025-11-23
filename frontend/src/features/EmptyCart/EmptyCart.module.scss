@@ -1,0 +1,35 @@
+@use "@/styles/base/variables";
+
+.empty_cart {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+
+  margin-block: auto;
+  .icon {
+    font-size: 80px;
+    color: variables.$hover-font-color;
+  }
+
+  h2 {
+    font-size: 24px;
+    color: variables.$primary-font-color;
+  }
+
+  p {
+    color: variables.$secondary-font-color;
+  }
+}
+
+@media screen and (max-width: 921px) {
+  .empty_cart {
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+}

@@ -10,8 +10,8 @@ const CartFooter = ({ switchCart, subtotal }: CartFooterProps) => {
   return (
     <div className={styles.cart_footer}>
       <p className={styles.total}>
-        <strong>Subtotal:</strong>
-        <span className="amount">
+        <strong>Total:</strong>
+        <span>
           <bdi>
             <span className={styles.currency_symbol}>$</span>
             {subtotal.toFixed(2)}
@@ -19,10 +19,10 @@ const CartFooter = ({ switchCart, subtotal }: CartFooterProps) => {
         </span>
       </p>
       <div className={styles.buttons}>
-        <Button asChild onClick={switchCart}>
+        <Button asChild size="lg" onClick={switchCart}>
           <Link to="/cart">View Cart</Link>
         </Button>
-        <Button asChild onClick={switchCart}>
+        <Button asChild size="lg" onClick={switchCart}>
           <Link to="/checkout">Checkout</Link>
         </Button>
       </div>

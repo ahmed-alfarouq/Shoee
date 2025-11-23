@@ -1,30 +1,29 @@
-// Redux
-import { useSelector } from "react-redux";
+import styles from "./Cart.module.scss";
 
-// Components
-import CartContent from "./sections/CartContent";
 import CartTotals from "./sections/CartTotals";
-import Empty from "./sections/Empty";
+import { EmptyCart } from "@/features/EmptyCart";
 
-import type { RootState } from "@/app/store";
+import { ProductsTable } from "@/features/ProductsTable";
+
+import { useCartState } from "@/hooks/useCart";
 
 const Cart = () => {
-  const cart = useSelector((state: RootState) => state.products.cart);
+  const { items } = useCartState();
 
   return (
-    <main className="cart-page">
-      <section className="container">
-        <h1 className="title">Cart</h1>
-        {cart.length ? (
-          <div className="content">
-            <CartContent />
+    <section className={styles.cart_page}>
+      <div className="container">
+        <h1 className={styles.title}>Cart</h1>
+        {items.length ? (
+          <div className={styles.content}>
+            <ProductsTable products={items} />
             <CartTotals />
           </div>
         ) : (
-          <Empty />
+          <EmptyCart />
         )}
-      </section>
-    </main>
+      </div>
+    </section>
   );
 };
 
