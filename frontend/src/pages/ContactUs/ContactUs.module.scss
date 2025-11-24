@@ -1,0 +1,48 @@
+@use "@/styles/base/variables";
+
+.contact_us {
+  padding-block: 50px;
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 20px;
+
+    .title {
+      font-size: 90px;
+      line-height: 1;
+    }
+
+    .left {
+      width: 35%;
+
+      p {
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+
+      .info {
+        font-weight: 700;
+      }
+    }
+    .map_container {
+      width: 55%;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contact_us {
+    .content {
+      flex-direction: column;
+      .left {
+        width: 100%;
+      }
+      .map_container {
+        width: 100%;
+      }
+    }
+  }
+}

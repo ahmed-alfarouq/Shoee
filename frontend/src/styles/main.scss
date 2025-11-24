@@ -22,15 +22,12 @@
 
 // Pages
 @use "pages/checkout.scss";
-@use "pages/contact_us.scss";
 @use "pages/auth.scss";
 @use "pages/account.scss";
 @use "pages/error.scss";
 @use "pages/not_found.scss";
 
 .swiper {
-  
-
   .swiper-button-next,
   .swiper-button-prev {
     color: variables.$secondary-color;

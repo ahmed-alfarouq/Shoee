@@ -13,10 +13,10 @@ import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import { Home } from "@pages/Home";
 import { Cart } from "@pages/Cart";
 import { Products } from "@pages/Products";
+import { ContactUs } from "@pages/ContactUs";
 import { SingleProduct } from "@pages/SingleProduct";
 
 // import Checkout from "@pages/Checkout/Checkout";
-// import ContactUs from "@pages/ContactUs/ContactUs";
 
 // Protected Pages
 // import Account from "@pages/Account/Account";
@@ -49,6 +49,7 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/contactus" element={<ContactUs />} />
             <Route path="/products/:id" element={<SingleProduct />} />
 
             {/* <Route
@@ -71,7 +72,7 @@ const App = () => {
                 )
               }
             /> */}
-            {/* <Route path="/contactus" element={<ContactUs />} /> */}
+            {/*  */}
             {/* <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
