@@ -26,6 +26,28 @@
   }
 }
 
+// Sizes
+.sm {
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+.md {
+  font-size: 16px;
+  padding: 5px 20px;
+}
+
+.lg {
+  font-size: 18px;
+  padding: 5px 20px;
+}
+
+.icon {
+  font-size: 20px;
+  padding: 0;
+}
+
+// Variants
 .secondary {
   width: 100%;
 
@@ -56,23 +78,11 @@
   border: none;
 }
 
-// Sizes
-.sm {
-  font-size: 14px;
-  padding: 5px 10px;
-}
-
-.md {
-  font-size: 16px;
-  padding: 5px 20px;
-}
-
-.lg {
-  font-size: 18px;
-  padding: 5px 20px;
-}
-
-.icon {
-  font-size: 20px;
+.link {
   padding: 0;
+  text-transform: lowercase;
+
+  &:hover {
+    color: variables.$hover-font-color;
+  }
 }
