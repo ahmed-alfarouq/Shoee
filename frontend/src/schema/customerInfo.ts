@@ -14,7 +14,6 @@ const customerInfoSchema = Yup.object({
   phone_number: Yup.string()
     .required("Phone Number is required!")
     .matches(/^\+?[1-9]\d{1,3}(\s)?\d{1,14}$/, "Phone number is not valid!"),
-  notes: Yup.string(),
 });
 
 export default customerInfoSchema;

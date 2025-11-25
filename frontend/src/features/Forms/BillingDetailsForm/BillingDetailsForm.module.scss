@@ -1,0 +1,17 @@
+@use "@/styles/base/variables";
+
+.customer_info_form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  margin-block: 30px;
+
+  .title {
+    font-size: 20px;
+    line-height: 1;
+    border-bottom: 1px solid variables.$primary-border-color;
+    width: fit-content;
+    padding-bottom: 5px;
+  }
+}

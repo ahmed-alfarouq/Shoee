@@ -12,11 +12,10 @@ import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 // Public Pages
 import { Home } from "@pages/Home";
 import { Cart } from "@pages/Cart";
+import { Checkout } from "@pages/Checkout";
 import { Products } from "@pages/Products";
 import { ContactUs } from "@pages/ContactUs";
 import { SingleProduct } from "@pages/SingleProduct";
-
-// import Checkout from "@pages/Checkout/Checkout";
 
 // Protected Pages
 // import Account from "@pages/Account/Account";
@@ -48,31 +47,11 @@ const App = () => {
           <Route path="/" element={<ShopLayout />}>
             <Route index element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/products" element={<Products />} />
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/products/:id" element={<SingleProduct />} />
 
-            {/* <Route
-              path="/checkout"
-              element={
-                isAuthenticated ? (
-                  verified ? (
-                    <Checkout />
-                  ) : (
-                    <Navigate to="/verify-email" replace={true} />
-                  )
-                ) : (
-                  <Navigate
-                    to="/login"
-                    replace={true}
-                    state={{
-                      message: "You need to login before checking out!",
-                    }}
-                  />
-                )
-              }
-            /> */}
-            {/*  */}
             {/* <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/verify-email" element={<VerifyEmail />} />

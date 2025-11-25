@@ -1,23 +1,26 @@
-import React from "react";
+import styles from "../Checkout.module.scss";
 
-const PaymentMethod = () => (
-  <div className="payment-method">
-    <h3 className="title">Payment Method</h3>
-    <div className="payments">
+import type { PaymentMethodProps } from "../Checkout.types";
+
+const PaymentMethod = ({ setMethod }: PaymentMethodProps) => (
+  <section className={styles.payment_method}>
+    <h3 className={styles.title}>Payment Method</h3>
+    <div className={styles.payments}>
       <label>
-        <input type="radio" name="payment" value="credit-card" />
+        <input type="radio" name="payment" value="cash" onChange={setMethod} />
         Cash on delivery
       </label>
       <label>
-        <input type="radio" name="payment" value="credit-card" />
-        Credit Card
-      </label>
-      <label>
-        <input type="radio" name="payment" value="paypal" />
-        PayPal
+        <input
+          type="radio"
+          name="payment"
+          value="stripe"
+          onChange={setMethod}
+        />
+        Stripe
       </label>
     </div>
-  </div>
+  </section>
 );
 
 export default PaymentMethod;

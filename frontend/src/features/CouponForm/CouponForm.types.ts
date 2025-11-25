@@ -4,4 +4,10 @@ export interface CouponFormProps {
    * @param discount
    * */
   onSuccess: (discount: number) => void;
+
+  /**
+   * OPTIONAL: An extra className for the form container
+   * */
+
+  className?: string;
 }

@@ -13,7 +13,7 @@ const initialValues = {
   coupon: "",
 };
 
-const CouponForm = ({ onSuccess }: CouponFormProps) => {
+const CouponForm = ({ onSuccess, className }: CouponFormProps) => {
   const onSubmit = () => {
     /**
      * TODO: check code in the backend
@@ -27,7 +27,7 @@ const CouponForm = ({ onSuccess }: CouponFormProps) => {
       validationSchema={couponSchema}
       onSubmit={onSubmit}
     >
-      <Form className={styles.coupon_form}>
+      <Form className={`${styles.coupon_form} ${className}`}>
         <Input type="text" name="coupon" placeholder=" " label="Coupon Code" />
         <Button type="submit" style={{ maxHeight: 48 }}>
           Apply Coupon

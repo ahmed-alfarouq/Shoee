@@ -1,34 +1,40 @@
-import React from "react";
-import BlurImage from "../../../components/BlurImage";
+import { truncate } from "lodash";
 
-const OrderSummary = ({ cart }) => {
-  const total = cart.reduce(
+import styles from "../Checkout.module.scss";
+
+import { Image } from "@/features/Image";
+
+import { useCartState } from "@/hooks/useCart";
+
+const OrderSummary = () => {
+  const { items } = useCartState();
+
+  const total = items.reduce(
     (sum, product) => sum + product.price * product.qty,
     0
   );
 
   return (
-    <div className="order-summary">
-      <h3 className="title">Order Summary</h3>
-      {cart.map((product) => (
-        <div key={product.id} className="product-summary">
-          <BlurImage
-            src={product.thumbnail}
-            placeholder="https://placehold.co/300x300"
+    <section className={styles.order_summary}>
+      <h3 className={styles.title}>Order Summary</h3>
+      {items.map((product) => (
+        <div key={product.id} className={styles.product_summary}>
+          <Image
             alt={product.title}
-            className="thumbnail"
+            src={product.thumbnail}
+            className={styles.thumbnail}
+            placeholder="https://placehold.co/300x300"
           />
-          <div className="product-details">
+          <div className={styles.product_details}>
             <p>
-              {product.title} x {product.qty}
+              {truncate(product.title, { length: 20 })} x {product.qty}
             </p>
           </div>
         </div>
       ))}
-      <div className="total">
-        <h4>Total: £{total.toFixed(2)}</h4>
-      </div>
-    </div>
+
+      <strong>Subtotal: ${total.toFixed(2)}</strong>
+    </section>
   );
 };
 
