@@ -1,4 +1,4 @@
-import { debounce } from "lodash";
+import { debounce, truncate } from "lodash";
 import { useCartDispatch } from "@/hooks/useCart";
 
 import styles from "../Cart.module.scss";
@@ -7,8 +7,6 @@ import { Button } from "@/components/Button";
 import { QtySelector } from "@features/QtySelector";
 
 import { IoCloseCircleOutline } from "react-icons/io5";
-
-import truncate from "@/utils/truncate";
 
 import type { Product } from "@/types/index.types";
 
@@ -39,7 +37,9 @@ const CartItem = ({ item }: { item: Product }) => {
     <li className={styles.cart_item}>
       <img src={item.thumbnail} alt={item.title} />
       <div className={styles.content}>
-        <span className={styles.title}>{truncate(item.title, 4)}</span>
+        <span className={styles.title}>
+          {truncate(item.title, { length: 20 })}
+        </span>
         <QtySelector
           count={item.qty}
           increment={increment}
