@@ -21,7 +21,7 @@ const Sidebar = () => {
   const applyCoupon = (d: number) => {
     const afterDiscount = Number((total - (total * d) / 100).toFixed(2));
     setDiscount(d);
-    setSubTotal(afterDiscount);
+    setSubTotal(afterDiscount + (isCash ? 10 : 0));
   };
 
   const updateMethod: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -29,13 +29,13 @@ const Sidebar = () => {
 
     if (val === "cash") {
       setIsCash(true);
-      setSubTotal((prev) => prev + 10);
+      setSubTotal((prev) => Number((prev + 10).toFixed(2)));
       return;
     }
 
     if (isCash) {
       setIsCash(false);
-      setSubTotal((prev) => prev - 10);
+      setSubTotal((prev) => Number((prev - 10).toFixed(2)));
     }
 
     setMethod(val);
