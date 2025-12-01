@@ -12,6 +12,7 @@
       "@/*": ["src/*"],
       "@pages/*": ["src/pages/*"],
       "@shared/*": ["src/shared/*"],
+      "@layouts/*": ["src/layouts/*"],
       "@features/*": ["src/features/*"],
       "@components/*": ["src/components/*"]
     },
@@ -32,5 +33,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "routers.ts"]
 }
