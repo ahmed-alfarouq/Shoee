@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 
-import { clearAll } from "app/features/main/mainSlice";
-
-import { settingsTabs } from "constants";
+import { settingsTabs } from "@/constants";
 
 const Account = () => {
-  const dispatch = useDispatch();
-
   const [activeTab, setActiveTab] = useState(settingsTabs[0].id);
 
-  const ActiveComponent =
+  const ActiveComponent: React.ReactNode =
     settingsTabs.find((tab) => tab.id === activeTab)?.component || null;
 
-  const changeTabs = (id) => {
+  const changeTabs = (id: string) => {
     setActiveTab(id);
-    dispatch(clearAll());
   };
 
   return (
