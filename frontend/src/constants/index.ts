@@ -12,11 +12,11 @@ import {
 
 export const categories = ["mens-shirts", "mens-shoes", "mens-watches"];
 
-// export const settingsTabs = [
-//   { id: "main", label: "Main Info", component: MainInfoForm },
-//   { id: "security", label: "Security", component: SecurityForm },
-//   { id: "order", label: "Order Info", component: OrderInfoForm },
-// ];
+export const settingsTabs = [
+  { id: "main", label: "Main Info", component: null },
+  { id: "security", label: "Security", component: null },
+  { id: "order", label: "Order Info", component: null },
+];
 
 export const footerFirstMenu = [
   {

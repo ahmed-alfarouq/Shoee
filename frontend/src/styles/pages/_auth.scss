@@ -1,17 +1,17 @@
 @use "../base/variables";
 
-.log_in,
-.sign_up,
-.forgot_password,
-.reset_password {
-  text-align: center;
+.auth {
+  min-height: calc(100svh - 200px);
+
   background: variables.$primary-color;
-  padding-bottom: 80px;
+  padding-block: 30px;
+
   .title {
     text-align: left;
     font-size: 30px;
     line-height: 1.1;
   }
+
   .description,
   .message,
   .error {

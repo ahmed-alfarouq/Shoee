@@ -7,13 +7,18 @@ import { DashboardLayout } from "@/layouts/Dashboard";
 
 import { Cart } from "@/pages/Cart";
 import { Error } from "@/pages/Error";
-import { SignIn } from "@/pages/SignIn";
 import { Account } from "@/pages/Account";
 import { Checkout } from "@/pages/Checkout";
 import { Products } from "@/pages/Products";
 import { NotFound } from "@/pages/NotFound";
 import { ContactUs } from "@/pages/ContactUs";
 import { SingleProduct } from "@/pages/SingleProduct";
+
+import { SignUp } from "@/pages/SignUp";
+import { SignIn } from "@/pages/SignIn";
+import { VerifyEmail } from "@/pages/VerifyEmail";
+import { ResetPassword } from "@/pages/ResetPassword";
+import { ForgotPassword } from "@/pages/ForgotPassword";
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +52,9 @@ export const router = createBrowserRouter([
         loader: () => {
           const isLoggedIn = false;
           if (!isLoggedIn) {
-            return redirect("/signin?message=You must login first to access checkout");
+            return redirect(
+              "/signin?message=You must login first to access checkout"
+            );
           }
           return null;
         },
@@ -70,6 +77,22 @@ export const router = createBrowserRouter([
       {
         path: "/signin",
         Component: SignIn,
+      },
+      {
+        path: "/signup",
+        Component: SignUp,
+      },
+      {
+        path: "/forgot-password",
+        Component: ForgotPassword,
+      },
+      {
+        path: "/reset-password",
+        Component: ResetPassword,
+      },
+      {
+        path: "/verify-email",
+        Component: VerifyEmail,
       },
       {
         path: "*",

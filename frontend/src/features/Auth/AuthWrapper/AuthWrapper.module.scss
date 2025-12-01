@@ -1,0 +1,40 @@
+@use "@/styles/base/variables";
+
+.auth {
+  min-height: calc(100svh - 200px);
+
+  background: variables.$primary-color;
+  padding-block: 30px;
+
+  .title {
+    text-align: left;
+    font-size: 30px;
+    line-height: 1.1;
+  }
+
+  .error,
+  .message,
+  .description {
+    width: 60%;
+    margin: auto;
+
+    font-size: 17px;
+    font-weight: 500;
+    text-align: center;
+
+    padding-block: 20px;
+  }
+
+  .message {
+    color: #b3b303;
+    font-weight: 500;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .error {
+    color: #666;
+  }
+}
