@@ -1,8 +1,11 @@
+import type { FormikValues } from "formik";
+
 export interface BillingDetailsFormProps {
   /**
    * OPTIONAL: Callback triggered when the form is submitted
+   * @returns values
    */
-  onSubmit?: () => void;
+  onSubmit?: (values: FormikValues) => void;
 
   /**
    * OPTIONAL: Unique identifier for the form

@@ -65,15 +65,17 @@
           gap: 5px;
 
           label {
-            input {
-              margin-right: 5px;
-            }
+            width: fit-content;
 
             color: variables.$primary-font-color;
             font-family: variables.$primary-font;
             font-weight: 500;
 
             cursor: pointer;
+
+            input {
+              margin-right: 5px;
+            }
           }
         }
       }

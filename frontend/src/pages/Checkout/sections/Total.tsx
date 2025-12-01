@@ -1,18 +1,21 @@
 import styles from "../Checkout.module.scss";
 
-import type { TotalProps } from "../Checkout.types";
+import { useCheckoutState } from "@/hooks/useCheckout";
 
-const Total = ({ total, cash, amount = 10, discount = 0 }: TotalProps) => {
+const Total = () => {
+  const { total, discount, paymentMethod } = useCheckoutState();
+  const isCash = paymentMethod === "cash";
+
   return (
     <div className={styles.total}>
       <strong className={styles.price}>Total: ${total}</strong>
-      {cash && (
+      {isCash && (
         <span className={styles.note}>
-          A ${amount} fee applies for cash on delivery.
+          A $10 fee applies for cash on delivery.
         </span>
       )}
 
-      {discount > 0 && (
+      {discount && (
         <span className={styles.note}>A {discount}% discount applied.</span>
       )}
     </div>

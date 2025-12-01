@@ -1,4 +1,4 @@
-import { Formik, Form } from "formik";
+import { Formik, Form, type FormikValues } from "formik";
 
 import styles from "./BillingDetailsForm.module.scss";
 
@@ -9,15 +9,15 @@ import customerInfoSchema from "@/schema/customerInfo";
 import type { BillingDetailsFormProps } from "./BillingDetailsForm.types";
 
 const initialValues = {
-  first_name: "",
-  last_name: "",
+  firstName: "",
+  lastName: "",
   country: "",
   city: "",
   state: "",
-  zip_code: "",
-  street_name: "",
+  zipCode: "",
+  streetName: "",
   apartment: "",
-  phone_number: "",
+  phoneNumber: "",
 };
 
 const BillingDetailsForm = ({
@@ -25,7 +25,10 @@ const BillingDetailsForm = ({
   onSubmit,
   className,
 }: BillingDetailsFormProps) => {
-  const handleSubmit = () => onSubmit?.();
+  const handleSubmit = (values: FormikValues) => {
+    console.log(values);
+    onSubmit?.(values);
+  };
 
   return (
     <Formik
@@ -35,14 +38,14 @@ const BillingDetailsForm = ({
     >
       <Form className={`${styles.customer_info_form} ${className}`} id={id}>
         <h3 className={styles.title}>Billing Details</h3>
-        <Input label="First Name" name="first_name" placeholder=" " />
-        <Input label="Last Name" name="last_name" placeholder=" " />
+        <Input label="First Name" name="firstName" placeholder=" " />
+        <Input label="Last Name" name="lastName" placeholder=" " />
         <Input label="Town / City" name="city" placeholder=" " />
         <Input label="State" name="state" placeholder=" " />
-        <Input label="Street Name" name="street_name" placeholder=" " />
-        <Input label="Zip Code" name="zip_code" placeholder=" " />
+        <Input label="Street Name" name="streetName" placeholder=" " />
+        <Input label="Zip Code" name="zipCode" placeholder=" " />
         <Input label="Apartment (optional)" name="apartment" placeholder=" " />
-        <Input label="Phone Number" name="phone_number" placeholder=" " />
+        <Input label="Phone Number" name="phoneNumber" placeholder=" " />
       </Form>
     </Formik>
   );

@@ -2,15 +2,15 @@
 export type ROLES = "admin" | "customer";
 
 export type BillingDetails = {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   country: string;
   city: string;
   state: string;
-  zip_code: string;
-  street_name: string;
+  zipCode: string;
+  streetName: string;
   apartment: string;
-  phone_number: string;
+  phoneNumber: string;
 };
 
 export type User = {

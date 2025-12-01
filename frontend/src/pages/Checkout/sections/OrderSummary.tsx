@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { truncate } from "lodash";
 
 import styles from "../Checkout.module.scss";
@@ -9,9 +10,9 @@ import { useCartState } from "@/hooks/useCart";
 const OrderSummary = () => {
   const { items } = useCartState();
 
-  const total = items.reduce(
-    (sum, product) => sum + product.price * product.qty,
-    0
+  const subtotal = useMemo(
+    () => items.reduce((sum, product) => sum + product.price * product.qty, 0),
+    [items]
   );
 
   return (
@@ -33,7 +34,7 @@ const OrderSummary = () => {
         </div>
       ))}
 
-      <strong>Subtotal: ${total.toFixed(2)}</strong>
+      <strong>Subtotal: ${subtotal.toFixed(2)}</strong>
     </section>
   );
 };
