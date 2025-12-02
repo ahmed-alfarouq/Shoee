@@ -1,23 +1,20 @@
+import { Activity } from "react";
 import { useParams } from "react-router-dom";
 
 import styles from "./SingleProduct.module.scss";
 
-import Error from "@/pages/Error";
 import Product from "./sections/Product";
 import { Reviews } from "@/features/Reviews";
 import RelatedProducts from "./sections/RelatedProducts";
 
 import useProduct from "@/query/products/useProduct";
-import { Activity } from "react";
 
 const SingleProduct = () => {
   const { id } = useParams();
 
-  const { data: product, isLoading, error } = useProduct(id!);
+  const { data: product, isLoading } = useProduct(id!);
 
   if (isLoading) return null;
-
-  if (error) return <Error error={error} />;
 
   return (
     <main className={styles.single_product}>
