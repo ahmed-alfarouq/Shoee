@@ -75,11 +75,11 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: "/signin",
+        path: "/sign-in",
         Component: SignIn,
       },
       {
-        path: "/signup",
+        path: "/sign-up",
         Component: SignUp,
       },
       {
