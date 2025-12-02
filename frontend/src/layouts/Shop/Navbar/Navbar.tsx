@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import styles from "./Navbar.module.scss";
 
@@ -16,10 +16,16 @@ const Navbar = () => {
 
   const [overlayHidden, setOverlayHidden] = useState(true);
 
+  const location = useLocation();
+
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
     setOverlayHidden(!overlayHidden);
   };
+
+  useEffect(() => {
+    if (isOpen) { toggleMenu(); }
+  }, [location.pathname]);
 
   return (
     <header className={`${styles.navbar} container`}>
