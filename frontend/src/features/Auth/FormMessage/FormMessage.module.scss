@@ -1,0 +1,19 @@
+@use "@/styles/base/variables";
+
+.form_error {
+  color: variables.$red-500;
+  font-size: 14px;
+  font-weight: 500;
+
+  &.success {
+    color: variables.$green-500;
+  }
+
+  &.info {
+    color: variables.$blue-500;
+  }
+
+  &.error {
+    color: variables.$red-500;
+  }
+}
