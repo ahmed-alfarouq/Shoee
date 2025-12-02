@@ -9,11 +9,10 @@ import { Dropdown } from "@/components/Dropdown";
 import { SearchInput } from "@/components/SearchInput";
 
 import { BiSearch } from "react-icons/bi";
-import { IoMdClose } from "react-icons/io";
 
 import { useProducts } from "@/query/products/useProducts";
 
-import type { ProductProps } from "@/types/index.types";
+import type { Product } from "@/types/index.types";
 
 const SearchOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,10 +27,10 @@ const SearchOverlay = () => {
 
   const { data, isLoading, error } = useProducts({ s: searchValue });
 
-  const products = searchValue && data?.pages[0].products;
+  const products = searchValue.length ? data?.pages[0].products : [];
 
   const renderItem = (item: unknown) => {
-    const product = item as ProductProps;
+    const product = item as Product;
     return (
       <Link to={`/products/${product.id}`} onClick={switchSearchBox}>
         {product.title}
@@ -48,7 +47,7 @@ const SearchOverlay = () => {
         className={styles.toggler}
         aria-label="Open search overlay"
       >
-        <BiSearch />
+        <BiSearch aria-hidden="true" />
       </Button>
 
       <Activity mode={isOpen ? "visible" : "hidden"}>
@@ -58,15 +57,6 @@ const SearchOverlay = () => {
           role="dialog"
           aria-modal="true"
         >
-          <Button
-            variant="ghost"
-            size="icon"
-            className={styles.close}
-            onClick={switchSearchBox}
-            aria-label="Close search overlay"
-          >
-            <IoMdClose />
-          </Button>
           <section
             className={styles.search_form}
             onClick={(e) => e.stopPropagation()}
@@ -77,9 +67,9 @@ const SearchOverlay = () => {
               placeholder="Search..."
               style={{
                 borderBottomRightRadius:
-                  searchValue || isLoading || !products.length ? 0 : 3,
+                  searchValue || isLoading || !products?.length ? 0 : 3,
                 borderBottomLeftRadius:
-                  searchValue || isLoading || !products.length ? 0 : 3,
+                  searchValue || isLoading || !products?.length ? 0 : 3,
               }}
               onChange={handleInputChange}
             />

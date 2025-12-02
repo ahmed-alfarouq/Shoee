@@ -27,15 +27,6 @@
 
   animation: FadeIn 0.2s linear forwards;
 
-  .close {
-    position: fixed;
-    top: 30px;
-    right: 35px;
-    color: #fff;
-    font-size: 35px;
-    z-index: 11;
-  }
-
   .search_form {
     transform: translateY(-50px);
     position: relative;
