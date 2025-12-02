@@ -1,10 +1,9 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 
-import { Home } from "@pages/Home";
-
 import { ShopLayout } from "@/layouts/Shop";
 import { DashboardLayout } from "@/layouts/Dashboard";
 
+import { Home } from "@pages/Home";
 import { Cart } from "@/pages/Cart";
 import { Error } from "@/pages/Error";
 import { Account } from "@/pages/Account";
