@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 
-import { Button } from "@/components/Button";
+import styles from "../Form.module.scss";
 
 import { Input } from "@/components/Input";
+import { Button } from "@/components/Button";
+import { FormMessage } from "../FormMessage";
+
 import { resetPasswordSchema, type ResetPasswordSchema } from "@/schema/auth";
 
 const initialValues = {
@@ -20,11 +23,11 @@ const ResetPasswordForm = () => {
 
   return (
     <Formik
-      initialValues={initialValues}
       onSubmit={onSubmit}
+      initialValues={initialValues}
       validationSchema={resetPasswordSchema}
     >
-      <Form name="reset_password" className="reset_password_form form">
+      <Form className={styles.form} name="resetPassword">
         <Input type="password" label="Password" name="password" />
         <Input
           type="password"
@@ -32,7 +35,7 @@ const ResetPasswordForm = () => {
           name="confirmPassword"
         />
 
-        <span className="error">{formError}</span>
+        <FormMessage type="error" message={formError} />
         <Button type="submit">Reset Password</Button>
       </Form>
     </Formik>

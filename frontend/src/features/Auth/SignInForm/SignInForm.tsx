@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
-import { Link } from "react-router-dom";
 
 import styles from "../Form.module.scss";
 
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
+import { FormMessage } from "../FormMessage";
 
 import { loginSchema, type LoginSchema } from "@/schema/auth";
+
 
 const initialValues = {
   email: "",
@@ -15,7 +16,7 @@ const initialValues = {
 };
 
 const SignInForm = () => {
-  const [formError, setFormError] = useState("");
+  const [formError, setFormError] = useState("we are having some error");
 
   const onSubmit = (values: LoginSchema) => {
     setFormError("");
@@ -28,8 +29,7 @@ const SignInForm = () => {
       initialValues={initialValues}
       validationSchema={loginSchema}
     >
-      <Form name="log_in" className={styles.form}>
-        <h2 className="title">Sign In</h2>
+      <Form className={styles.form} name="logIn">
         <Input type="email" label="Email" name="email" placeholder=" " />
         <Input
           type="password"
@@ -37,10 +37,8 @@ const SignInForm = () => {
           name="password"
           placeholder=" "
         />
-        <span className={styles.error}>{formError}</span>
+        <FormMessage type="error" message={formError} />
         <Button type="submit">Sign In</Button>
-        <Link to="/forgot-password">Forgot password?</Link>
-        <Link to="/signup">Don't have an account?</Link>
       </Form>
     </Formik>
   );

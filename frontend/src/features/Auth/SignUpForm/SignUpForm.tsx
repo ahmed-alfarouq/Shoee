@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
-import { Link } from "react-router-dom";
+
+import styles from "../Form.module.scss";
 
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
+import { FormMessage } from "../FormMessage";
 
 import { registerSchema, type RegisterSchema } from "@/schema/auth";
+
 
 const initialValues = {
   email: "",
@@ -23,23 +26,21 @@ const SignUpForm = () => {
 
   return (
     <Formik
-      initialValues={initialValues}
       onSubmit={onSubmit}
+      initialValues={initialValues}
       validationSchema={registerSchema}
     >
-      <Form name="log_in" className="log_in_form form">
-        <h2 className="title">signup</h2>
-        <Input label="Username" name="username" />
-        <Input type="email" label="Email" name="email" />
-        <Input type="password" label="Password" name="password" />
+      <Form className={styles.form} name="signUp">
+        <Input label="Username" name="username" placeholder=" " />
+        <Input type="email" label="Email" name="email" placeholder=" " />
+        <Input type="password" label="Password" name="password" placeholder=" " />
         <Input
           type="password"
-          name="confirm_password"
+          name="confirmPassword"
           label="Confirm Password"
-        />
-        <span className="error">{formError}</span>
+          placeholder=" " />
+        <FormMessage type="error" message={formError} />
         <Button type="submit">Sign Up</Button>
-        <Link to="/signin">Already have an account!</Link>
       </Form>
     </Formik>
   );

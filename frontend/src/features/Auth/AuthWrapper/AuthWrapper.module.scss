@@ -37,4 +37,34 @@
   .error {
     color: #666;
   }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border: 1px solid variables.$primary-border-color;
+    border-radius: 5px;
+
+    padding: 20px;
+    margin: 10px auto;
+    max-width: 460px;
+
+    .form_title {
+      font-size: 42px;
+    }
+
+    .bottom_links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .bottom_link {
+        font-size: 18px;
+        color: variables.$secondary-font-color;
+      }
+    }
+  }
 }
