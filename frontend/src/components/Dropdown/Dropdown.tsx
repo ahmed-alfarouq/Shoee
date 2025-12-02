@@ -1,6 +1,6 @@
 import styles from "./Dropdown.module.scss";
 
-import Spinner from "../../shared/Spinner/Spinner";
+import { Spinner } from "@shared/Spinner";
 
 import type { DropdownProps } from "./Dropdown.types";
 
@@ -42,9 +42,8 @@ const Dropdown = ({
           key={index}
           role="option"
           onClick={() => onSelect?.(item)}
-          className={`${styles.dropdown_item} ${
-            selectedValue === item && styles.active
-          }`}
+          className={`${styles.dropdown_item} ${selectedValue === item && styles.active
+            }`}
           aria-selected={selectedValue === item}
         >
           {renderItem?.(item) ?? String(item)}
