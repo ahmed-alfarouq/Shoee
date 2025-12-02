@@ -14,17 +14,11 @@
 @use "swiper/css/navigation";
 
 // Components
-@use "components/spinner";
-@use "components/add_to_cart";
-@use "components/form";
 @use "components/review_card";
-@use "components/floating_alert";
 
 // Pages
-@use "pages/auth.scss";
 @use "pages/account.scss";
 @use "pages/error.scss";
-@use "pages/not_found.scss";
 
 .swiper {
   .swiper-button-next,

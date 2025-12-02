@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
           const isLoggedIn = false;
           if (!isLoggedIn) {
             return redirect(
-              "/signin?message=You must login first to access checkout"
+              "/sign-in?message=You must login first to access checkout"
             );
           }
           return null;
@@ -69,7 +69,7 @@ export const router = createBrowserRouter([
         loader: () => {
           const isLoggedIn = false;
           if (!isLoggedIn) {
-            return redirect("/signin");
+            return redirect("/sign-in");
           }
           return null;
         },

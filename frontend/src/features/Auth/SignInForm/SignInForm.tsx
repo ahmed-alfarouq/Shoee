@@ -16,7 +16,7 @@ const initialValues = {
 };
 
 const SignInForm = () => {
-  const [formError, setFormError] = useState("we are having some error");
+  const [formError, setFormError] = useState("");
 
   const onSubmit = (values: LoginSchema) => {
     setFormError("");
