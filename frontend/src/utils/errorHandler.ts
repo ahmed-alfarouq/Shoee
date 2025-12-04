@@ -1,21 +1,7 @@
 import { AxiosError } from "axios";
 
 const errorHandler = (error: unknown): Error => {
-  if (error instanceof Error) {
-    return error;
-  }
-
   if (error instanceof AxiosError) {
-    if (
-      error.response &&
-      error.response.data &&
-      typeof error.response.data === "string"
-    ) {
-      return new Error(error.response.data, {
-        cause: error.cause,
-      });
-    }
-
     if (
       error.response &&
       error.response.data &&
@@ -27,6 +13,26 @@ const errorHandler = (error: unknown): Error => {
         cause: error.cause,
       });
     }
+
+    if (
+      error.response &&
+      error.response.data &&
+      typeof error.response.data === "string"
+    ) {
+      return new Error(error.response.data, {
+        cause: error.cause,
+      });
+    }
+
+    if (error.message) {
+      return new Error(error.message, {
+        cause: error.cause,
+      });
+    }
+  }
+
+  if (error instanceof Error) {
+    return error;
   }
 
   return new Error("An unknown error occurred");
