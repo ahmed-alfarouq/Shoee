@@ -1,11 +1,10 @@
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import { ShopLayout } from "@/layouts/Shop";
 import { DashboardLayout } from "@/layouts/Dashboard";
 
 import { Home } from "@pages/Home";
 import { Cart } from "@/pages/Cart";
-import { Error } from "@/pages/Error";
 import { Account } from "@/pages/Account";
 import { Checkout } from "@/pages/Checkout";
 import { Products } from "@/pages/Products";
@@ -19,83 +18,77 @@ import { VerifyEmail } from "@/pages/VerifyEmail";
 import { ResetPassword } from "@/pages/ResetPassword";
 import { ForgotPassword } from "@/pages/ForgotPassword";
 
+import authLoader from "@/loaders/authLoader";
+
+import { ErrorProvider } from "@/providers/ErrorProvider";
+
 export const router = createBrowserRouter([
   {
-    path: "/admin",
-    Component: DashboardLayout,
-  },
-  {
-    path: "/",
-    Component: ShopLayout,
-    ErrorBoundary: Error,
+    Component: ErrorProvider,
     children: [
       {
-        index: true,
-        Component: Home,
+        path: "/admin",
+        Component: DashboardLayout,
       },
       {
-        path: "/products",
-        Component: Products,
-      },
-      {
-        path: "/products/:id",
-        Component: SingleProduct,
-      },
-      {
-        path: "/cart",
-        Component: Cart,
-      },
-      {
-        path: "/checkout",
-        Component: Checkout,
-        loader: () => {
-          const isLoggedIn = false;
-          if (!isLoggedIn) {
-            return redirect(
-              "/sign-in?message=You must login first to access checkout"
-            );
-          }
-          return null;
-        },
-      },
-      {
-        path: "/contactus",
-        Component: ContactUs,
-      },
-      {
-        path: "/account",
-        Component: Account,
-        loader: () => {
-          const isLoggedIn = false;
-          if (!isLoggedIn) {
-            return redirect("/sign-in");
-          }
-          return null;
-        },
-      },
-      {
-        path: "/sign-in",
-        Component: SignIn,
-      },
-      {
-        path: "/sign-up",
-        Component: SignUp,
-      },
-      {
-        path: "/forgot-password",
-        Component: ForgotPassword,
-      },
-      {
-        path: "/reset-password",
-        Component: ResetPassword,
-      },
-      {
-        path: "/verify-email",
-        Component: VerifyEmail,
-      },
-      {
-        path: "*",
-        Component: NotFound,
+        path: "/",
+        Component: ShopLayout,
+        children: [
+          {
+            index: true,
+            Component: Home,
+          },
+          {
+            path: "/products",
+            Component: Products,
+          },
+          {
+            path: "/products/:id",
+            Component: SingleProduct,
+          },
+          {
+            path: "/cart",
+            Component: Cart,
+          },
+          {
+            path: "/checkout",
+            Component: Checkout,
+            loader: authLoader,
+          },
+          {
+            path: "/contactus",
+            Component: ContactUs,
+          },
+          {
+            path: "/account",
+            Component: Account,
+            loader: authLoader,
+          },
+          {
+            path: "/sign-in",
+            Component: SignIn,
+          },
+          {
+            path: "/sign-up",
+            Component: SignUp,
+          },
+          {
+            path: "/forgot-password",
+            Component: ForgotPassword,
+          },
+          {
+            path: "/reset-password",
+            Component: ResetPassword,
+          },
+          {
+            path: "/verify-email",
+            Component: VerifyEmail,
+          },
+          {
+            path: "*",
+            Component: NotFound,
+          },
+        ],
       },
     ],
   },
