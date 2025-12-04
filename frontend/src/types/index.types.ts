@@ -15,12 +15,13 @@ export type BillingDetails = {
 
 export type User = {
   id: string;
-  username: string;
-  avatar: string | null;
-  email: string;
   role: ROLES;
-  billing_details: BillingDetails;
+  email: string;
+  username: string;
+  createdAt: string;
   isVerified: boolean;
+  avatar: string | null;
+  billingDetails: BillingDetails;
 };
 
 export type Product = {
