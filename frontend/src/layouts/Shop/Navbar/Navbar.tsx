@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useUserActions, useUserToken } from "@/stores/user";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./Navbar.module.scss";
 
@@ -8,15 +9,24 @@ import NavItems from "./components/NavItems";
 import { Button } from "@/components/Button";
 import { SearchOverlay } from "@/features/SearchOverlay";
 
+import { LuLogOut } from "react-icons/lu";
 import { IoMdClose } from "react-icons/io";
 import { CiMenuBurger } from "react-icons/ci";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const [overlayHidden, setOverlayHidden] = useState(true);
 
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const token = useUserToken();
+  const { logout } = useUserActions();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/sign-in", { replace: true });
+  };
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -24,7 +34,10 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (isOpen) { toggleMenu(); }
+    if (isOpen) {
+      toggleMenu();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   return (
@@ -50,6 +63,16 @@ const Navbar = () => {
       <div className={styles.icons_container}>
         <Cart />
         <SearchOverlay />
+        {token && (
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Log out"
+            onClick={handleLogout}
+          >
+            <LuLogOut aria-hidden="true" />
+          </Button>
+        )}
       </div>
       <Button
         size="icon"

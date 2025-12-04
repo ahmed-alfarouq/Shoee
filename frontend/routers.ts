@@ -24,7 +24,9 @@ import { ErrorProvider } from "@/providers/ErrorProvider";
 
 export const router = createBrowserRouter([
   {
+    loader: authLoader,
     Component: ErrorProvider,
+    shouldRevalidate: () => true, // Run loader on every navigation
     children: [
       {
         path: "/admin",
@@ -52,8 +54,8 @@ export const router = createBrowserRouter([
           },
           {
             path: "/checkout",
+
             Component: Checkout,
-            loader: authLoader,
           },
           {
             path: "/contactus",
@@ -61,8 +63,8 @@ export const router = createBrowserRouter([
           },
           {
             path: "/account",
+
             Component: Account,
-            loader: authLoader,
           },
           {
             path: "/sign-in",
