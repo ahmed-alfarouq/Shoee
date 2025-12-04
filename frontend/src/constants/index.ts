@@ -1,6 +1,9 @@
 // import MainInfoForm from "pages/Account/sections/MainInfoForm";
 // import SecurityForm from "pages/Account/sections/SecurityForm";
 // import OrderInfoForm from "pages/Account/sections/OrderInfoForm";
+import useUserStore from "@/stores/user";
+
+const user = useUserStore.getState().user;
 
 import {
   FaFacebook,
@@ -24,16 +27,16 @@ export const footerFirstMenu = [
     to: "/",
   },
   {
-    name: "My Account",
-    to: "/account",
-  },
-  {
     name: "All Products",
     to: "/products",
   },
   {
     name: "Contact",
     to: "/contact",
+  },
+  {
+    name: user ? "My Account" : "Sign In",
+    to: user ? "/account" : "/sign-in",
   },
 ];
 

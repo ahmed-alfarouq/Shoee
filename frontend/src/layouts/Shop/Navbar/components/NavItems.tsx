@@ -1,9 +1,13 @@
+import { useUser } from "@/stores/user";
 import { Link, useLocation } from "react-router-dom";
 
 import styles from "../Navbar.module.scss";
 
 const NavItems = () => {
   const pathname = useLocation().pathname;
+
+  const user = useUser();
+
   return (
     <ul className={styles.menu}>
       <li className={styles.nav_item}>
@@ -37,16 +41,31 @@ const NavItems = () => {
         </Link>
       </li>
 
-      <li className={styles.nav_item}>
-        <Link
-          to="/account"
-          className={`${styles.nav_link} ${
-            pathname === "/account" ? styles.active : ""
-          }`}
-        >
-          My account
-        </Link>
-      </li>
+      {user && (
+        <li className={styles.nav_item}>
+          <Link
+            to="/account"
+            className={`${styles.nav_link} ${
+              pathname === "/account" ? styles.active : ""
+            }`}
+          >
+            My account
+          </Link>
+        </li>
+      )}
+
+      {!user && (
+        <li className={styles.nav_item}>
+          <Link
+            to="/sign-in"
+            className={`${styles.nav_link} ${
+              pathname === "/account" ? styles.active : ""
+            }`}
+          >
+            Sign In
+          </Link>
+        </li>
+      )}
     </ul>
   );
 };
