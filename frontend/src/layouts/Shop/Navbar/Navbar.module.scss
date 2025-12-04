@@ -40,7 +40,7 @@
           display: block;
 
           &.active {
-            border-bottom: 3px solid variables.$secondary-color;
+            border-bottom: 2px solid variables.$secondary-color;
             color: variables.$hover-font-color;
           }
         }
@@ -129,6 +129,11 @@
 
           .nav_link {
             padding: 25px;
+
+            &.active {
+              background-color: variables.$secondary-color;
+              color: #fff;
+            }
           }
         }
       }
