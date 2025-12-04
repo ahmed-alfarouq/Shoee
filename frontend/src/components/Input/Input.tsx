@@ -45,8 +45,13 @@ const Input = ({ label, type, name, placeholder, ...props }: InputProps) => {
           size="icon"
           className={styles.toggle_password}
           onClick={() => setShowPassword((prev) => !prev)}
+          aria-label={showPassword ? "Hide password" : "Show password"}
         >
-          {showPassword ? <BsEye /> : <BsEyeSlash />}
+          {showPassword ? (
+            <BsEye aria-hidden="true" />
+          ) : (
+            <BsEyeSlash aria-hidden="true" />
+          )}
         </Button>
       )}
     </div>

@@ -61,4 +61,8 @@
     right: 10px;
     transform: translateY(-50%);
   }
+
+  .error ~ .toggle_password {
+    top: 35%;
+  }
 }
