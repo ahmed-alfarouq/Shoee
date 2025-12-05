@@ -30,6 +30,13 @@ export type Actions = {
       } | null
     ]
   >;
+  forgotPassword: (
+    email: string
+  ) => Promise<[Error | null, { msg: string } | null]>;
+  resetPassword: (
+    token: string,
+    password: string
+  ) => Promise<[Error | null, { msg: string } | null]>;
 };
 
 export interface UserStoreState {
@@ -49,4 +56,13 @@ export interface SignUpAction {
   email: string;
   password: string;
   username: string;
+}
+
+export interface ForgotPasswordAction {
+  email: string;
+}
+
+export interface ResetPasswordAction {
+  token: string;
+  password: string;
 }

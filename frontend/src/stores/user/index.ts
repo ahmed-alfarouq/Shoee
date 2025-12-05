@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { signIn, signUp } from "./actions";
+import { signIn, signUp, resetPassword, forgotPassword } from "./actions";
 
 import asyncCatch from "@/utils/asyncCatch";
 
@@ -19,6 +19,10 @@ const useUserStore = create<UserStoreState>()(
           asyncCatch(() => signIn({ set, email, password })),
         signUp: (username: string, email: string, password: string) =>
           asyncCatch(() => signUp({ email, password, username })),
+        forgotPassword: (email: string) =>
+          asyncCatch(() => forgotPassword({ email })),
+        resetPassword: (token: string, password: string) =>
+          asyncCatch(() => resetPassword({ token, password })),
       },
     }),
     {
