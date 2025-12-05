@@ -4,9 +4,20 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
 import sendEmail from "../utils/sendEmail.js";
+import sendVerification from "../utils/sendVerification.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/tokens.js";
 
+const FRONT = process.env.FRONT_END_URL;
+const ADMIN_EMAIL = process.env.EMAIL_USER;
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN_SECRET;
+
+export const cookieOptions = {
+  path: "/",
+  httpOnly: true,
+  sameSite: "strict",
+  maxAge: 15 * 24 * 60 * 60 * 1000,
+  secure: process.env.NODE_ENV === "production",
+};
 
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
@@ -17,7 +28,7 @@ export const signup = async (req, res) => {
 
     if (existingUser) {
       return res.status(409).json({
-        msg: "User already exists!",
+        msg: "An account with this email or username already exists.",
       });
     }
 
@@ -27,35 +38,27 @@ export const signup = async (req, res) => {
     newUser = new User({
       email,
       username,
-      role: process.env.EMAIL_USER === email ? "admin" : "customer",
-      isVerified: process.env.EMAIL_USER === email,
+      role: ADMIN_EMAIL === email ? "admin" : "customer",
+      isVerified: ADMIN_EMAIL === email,
       password: hashedPassword,
     });
 
     await newUser.save();
 
-    const verificationToken = generateAccessToken({ email });
-    const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
+    if (email !== ADMIN_EMAIL) {
+      await sendVerification(email);
+    }
 
-    process.env.EMAIL_USER != email &&
-      sendEmail(
-        newUser.email,
-        "Verify Your Email",
-        `Click here to verify your email: ${verificationLink}`
-      );
-
-    const refreshToken = generateAccessToken({ email: newUser.email });
     const token = generateAccessToken({ email: newUser.email });
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 15 * 24 * 60 * 60 * 1000,
-    });
+    const refreshToken = generateRefreshToken({ email: newUser.email });
 
-    res.status(201).json({ user: newUser, token });
-  } catch (error) {
-    res.status(500).json({ msg: `Something went wrong: ${error.message}` });
+    res.cookie("refreshToken", refreshToken, cookieOptions);
+
+    res.status(200).json({ user: newUser, token });
+  } catch {
+    res
+      .status(500)
+      .json({ msg: "An unexpected error occurred. Please try again later." });
   }
 };
 
@@ -65,53 +68,37 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ msg: "User not found!" });
+      return res.status(404).json({ msg: "Invalid email or password." });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ msg: "Invalid credentials!" });
+      return res.status(401).json({ msg: "Invalid email or password." });
     }
 
     if (!user.isVerified) {
-      const verificationToken = generateAccessToken({ email });
-      const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
-
-      await sendEmail(
-        email,
-        "Verify Your Email",
-        `Click here to verify your email: ${verificationLink}`
-      );
+      sendVerification(email);
       return res.status(403).json({
-        msg: "Please verify your email before logging in. we have sent you another email",
+        msg: "Your email is not verified. A new verification email has been sent.",
       });
     }
 
-    const refreshToken = generateRefreshToken({ email: user.email });
     const accessToken = generateAccessToken({ email: user.email });
+    const refreshToken = generateRefreshToken({ email: user.email });
 
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 15 * 24 * 60 * 60 * 1000,
-    });
+    res.cookie("refreshToken", refreshToken, cookieOptions);
 
     res.status(200).json({ user, token: accessToken });
-  } catch (error) {
-    res.status(500).json({ msg: `Something went wrong: ${error.message}` });
+  } catch {
+    res
+      .status(500)
+      .json({ msg: "An unexpected error occurred. Please try again later." });
   }
 };
 
 export const logout = async (req, res) => {
-  res.clearCookie("refreshToken", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 15 * 24 * 60 * 60 * 1000,
-    path: "/",
-  });
-  res.status(200).json({ msg: "Logged out successfully" });
+  res.clearCookie("refreshToken", cookieOptions);
+  res.status(200).json({ msg: "You have been logged out successfully." });
 };
 
 export const verifyEmail = async (req, res) => {
@@ -122,13 +109,13 @@ export const verifyEmail = async (req, res) => {
     const user = await User.findOne({ email: decoded.email });
 
     if (!user) {
-      return res.status(400).json({ msg: "User not found" });
+      return res.status(400).json({ msg: "Unable to verify this email." });
     }
 
     user.isVerified = true;
     await user.save();
 
-    res.status(200).json({ user });
+    res.status(200).json({ msg: "Email verified successfully." });
   } catch (error) {
     if (error.message === "jwt expired") {
       const decoded = jwt.decode(token);
@@ -137,46 +124,18 @@ export const verifyEmail = async (req, res) => {
         const user = await User.findOne({ email: decoded.email });
 
         if (user) {
-          const verificationToken = generateAccessToken({
-            email: user.email,
-          });
-          const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
-
-          sendEmail(
-            user.email,
-            "Verify Your Email",
-            `Click here to verify your email: ${verificationLink}`
-          );
+          sendVerification(user.email);
           return res.status(400).json({
-            msg: "Token expired. We've sent another one.",
+            msg: "This verification link has expired. A new one has been sent to your email.",
             email: decoded.email,
           });
         }
       }
     }
 
-    return res.status(400).json({ msg: "Invalid or expired token" });
-  }
-};
-
-export const resendEmail = async (req, res) => {
-  try {
-    const { email } = req.body;
-    const verificationToken = generateAccessToken({ email });
-    const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
-
-    await sendEmail(
-      email,
-      "Verify Your Email",
-      `Click here to verify your email: ${verificationLink}`
-    );
-    res.status(200).json({
-      msg: "The email has been successfully resent. Please check your inbox.",
-    });
-  } catch (error) {
-    res.status(400).json({
-      msg: "There was an issue resending the email. Please try again later.",
-    });
+    return res
+      .status(400)
+      .json({ msg: "The verification link is invalid or expired." });
   }
 };
 
@@ -186,11 +145,13 @@ export const forgotPassword = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+      return res
+        .status(404)
+        .json({ msg: "No account is associated with this email." });
     }
 
     const resetToken = generateAccessToken({ email: user.email });
-    const resetLink = `${process.env.FRONT_END_URL}/reset-password?token=${resetToken}`;
+    const resetLink = `${FRONT}/reset-password?token=${resetToken}`;
     await sendEmail(
       user.email,
       "Reset Your Password",
@@ -198,10 +159,12 @@ export const forgotPassword = async (req, res) => {
     );
 
     res.status(200).json({
-      msg: "A password reset email has been sent successfully. Please check your inbox (and spam/junk folder) for further instructions.",
+      msg: "A password reset email has been sent. Please check your inbox.",
     });
-  } catch (error) {
-    res.status(400).json({ msg: "Server error: Something went wrong!" });
+  } catch {
+    res
+      .status(400)
+      .json({ msg: "An unexpected error occurred. Please try again later." });
   }
 };
 
@@ -213,14 +176,18 @@ export const resetPassword = async (req, res) => {
     const user = await User.findOne({ email: decoded.email });
 
     if (!user) {
-      return res.status(400).json({ msg: "User not found" });
+      return res
+        .status(400)
+        .json({ msg: "Unable to reset password for this account." });
     }
 
     user.password = await bcrypt.hash(password, 10);
     await user.save();
 
-    res.status(200).json({ msg: "Password reset successfully, please login." });
+    res.status(200).json({
+      msg: "Your password has been reset successfully. Please sign in.",
+    });
   } catch (error) {
-    res.status(400).json({ msg: "Invalid or expired token!" });
+    res.status(400).json({ msg: "The reset link is invalid or expired." });
   }
 };
