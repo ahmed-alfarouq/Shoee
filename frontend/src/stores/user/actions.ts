@@ -5,6 +5,7 @@ import type { User } from "@/types/index.types";
 import type {
   SignInAction,
   SignUpAction,
+  VerifyEmailProps,
   ResetPasswordAction,
   ForgotPasswordAction,
 } from "./userStore.types";
@@ -29,6 +30,14 @@ export const signUp = async ({ email, password, username }: SignUpAction) => {
   const { token, user } = res.data as { token: string; user: User };
 
   return { token, user };
+};
+
+export const verifyEmail = async ({ token }: VerifyEmailProps) => {
+  const res = await authApiClient.get(`verify-email?token=${token}`);
+
+  const { msg } = res.data as { msg: string };
+
+  return { msg };
 };
 
 export const forgotPassword = async ({ email }: ForgotPasswordAction) => {

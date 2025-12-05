@@ -1,49 +1,58 @@
-import { useEffect, useState } from "react";
+import { useUserActions } from "@/stores/user";
+import { useEffect, useEffectEvent, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { Toast } from "@/components/Toast";
-import { Button } from "@/components/Button";
+import { Spinner } from "@/shared/Spinner";
 import { AuthWrapper } from "@/features/Auth/AuthWrapper";
+import { FormMessage } from "@/features/Auth/FormMessage";
 
-import type { AlertVariant } from "@/components/Toast/Toast.types";
+import type { FormMessageProps } from "@/features/Auth/FormMessage/FormMessage.types";
 
 const VerifyEmail = () => {
-  const [disabled, setDisabled] = useState(false);
-  const [message, setMessage] = useState<{ text: string; type: AlertVariant }>({
-    text: "",
-    type: "success",
+  const [message, setMessage] = useState<{
+    type: FormMessageProps["type"];
+    text: string;
+  }>({
+    type: "info",
+    text: "We are verifing your email, please don't close the tab",
   });
 
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const resendEmail = () => {
+  const token = searchParams.get("token");
+
+  const { verifyEmail } = useUserActions();
+
+  const verifyEmailEvent = useEffectEvent(async (token: string) => {
+    const [err, data] = await verifyEmail(token);
+
+    if (err) {
+      setMessage({ type: "error", text: err.message });
+      return;
+    }
+
     setMessage({
-      text: "Your email has been sent successfully.",
       type: "success",
+      text: data?.msg || "Your email has been verified successfully",
     });
-    setDisabled(true);
-  };
+  });
 
   useEffect(() => {
-    const token = searchParams.get("token");
-    const email = searchParams.get("email");
-    if (!token || !email) navigate("/");
-  }, [searchParams, navigate]);
+    if (!token) {
+      navigate("/", { replace: true });
+      return;
+    }
+
+    verifyEmailEvent(token);
+  }, [navigate, token]);
 
   return (
-    <AuthWrapper
-      title="Verify Email"
-      message="We've sent you an email. Please verify your email address to continue. If you didn't receive it, click the 'Resend Email' button"
-    >
-      <Button
-        className="mx-auto my-4"
-        onClick={resendEmail}
-        disabled={disabled}
-      >
-        Resend Email
-      </Button>
-      <Toast message={message.text} variant={message.type} />
+    <AuthWrapper title="Verify Email">
+      {message.type === "success" || message.type === "error" ? null : (
+        <Spinner />
+      )}
+      <FormMessage type={message.type} message={message.text} />
     </AuthWrapper>
   );
 };

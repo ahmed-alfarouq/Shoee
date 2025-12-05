@@ -2,6 +2,8 @@ import type { User } from "@/types/index.types";
 
 export type UserSet = (partial: Partial<UserStoreState>) => void;
 
+type SuccessResponse = Promise<[Error | null, { msg: string } | null]>;
+
 export type Actions = {
   logout: () => void;
   setToken: (token: string | null) => void;
@@ -30,13 +32,9 @@ export type Actions = {
       } | null
     ]
   >;
-  forgotPassword: (
-    email: string
-  ) => Promise<[Error | null, { msg: string } | null]>;
-  resetPassword: (
-    token: string,
-    password: string
-  ) => Promise<[Error | null, { msg: string } | null]>;
+  verifyEmail: (token: string) => SuccessResponse;
+  forgotPassword: (email: string) => SuccessResponse;
+  resetPassword: (token: string, password: string) => SuccessResponse;
 };
 
 export interface UserStoreState {
@@ -56,6 +54,10 @@ export interface SignUpAction {
   email: string;
   password: string;
   username: string;
+}
+
+export interface VerifyEmailProps {
+  token: string;
 }
 
 export interface ForgotPasswordAction {

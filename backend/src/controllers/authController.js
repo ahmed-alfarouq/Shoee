@@ -14,6 +14,7 @@ export const signup = async (req, res) => {
   try {
     const existingUser =
       (await User.findOne({ email })) || (await User.findOne({ username }));
+
     if (existingUser) {
       return res.status(409).json({
         msg: "User already exists!",
@@ -22,25 +23,18 @@ export const signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     let newUser;
-    if (process.env.EMAIL_USER === email) {
-      newUser = new User({
-        username,
-        email,
-        password: hashedPassword,
-        isVerified: true,
-        role: "admin",
-      });
-    } else {
-      newUser = new User({
-        username,
-        email,
-        password: hashedPassword,
-        role: "customer",
-      });
-    }
+
+    newUser = new User({
+      email,
+      username,
+      role: process.env.EMAIL_USER === email ? "admin" : "customer",
+      isVerified: process.env.EMAIL_USER === email,
+      password: hashedPassword,
+    });
+
     await newUser.save();
 
-    const verificationToken = generateAccessToken({ email: req.body.email });
+    const verificationToken = generateAccessToken({ email });
     const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
 
     process.env.EMAIL_USER != email &&
@@ -77,6 +71,20 @@ export const login = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ msg: "Invalid credentials!" });
+    }
+
+    if (!user.isVerified) {
+      const verificationToken = generateAccessToken({ email });
+      const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
+
+      await sendEmail(
+        email,
+        "Verify Your Email",
+        `Click here to verify your email: ${verificationLink}`
+      );
+      return res.status(403).json({
+        msg: "Please verify your email before logging in. we have sent you another email",
+      });
     }
 
     const refreshToken = generateRefreshToken({ email: user.email });
@@ -122,7 +130,32 @@ export const verifyEmail = async (req, res) => {
 
     res.status(200).json({ user });
   } catch (error) {
-    res.status(400).json({ msg: "Invalid or expired token" });
+    if (error.message === "jwt expired") {
+      const decoded = jwt.decode(token);
+
+      if (decoded?.email) {
+        const user = await User.findOne({ email: decoded.email });
+
+        if (user) {
+          const verificationToken = generateAccessToken({
+            email: user.email,
+          });
+          const verificationLink = `${process.env.FRONT_END_URL}/verify-email?token=${verificationToken}`;
+
+          sendEmail(
+            user.email,
+            "Verify Your Email",
+            `Click here to verify your email: ${verificationLink}`
+          );
+          return res.status(400).json({
+            msg: "Token expired. We've sent another one.",
+            email: decoded.email,
+          });
+        }
+      }
+    }
+
+    return res.status(400).json({ msg: "Invalid or expired token" });
   }
 };
 

@@ -30,18 +30,13 @@ const SignInForm = () => {
     startTransition(async () => {
       setFormError("");
 
-      const [err, data] = await signIn(email, password);
+      const [err] = await signIn(email, password);
 
       if (err) {
         setFormError(err.message);
         return;
       }
-
-      if (data?.user && !data.user.isVerified) {
-        setFormError("Please verify your email before logging in.");
-        return;
-      }
-
+    
       const redirectTo = URLSearchParams.get("redirectTo") || "/";
       navigate(redirectTo, { replace: true });
     });
