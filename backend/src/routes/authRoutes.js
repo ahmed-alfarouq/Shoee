@@ -12,12 +12,12 @@ import signupValidator from "../middleware/signupValidator.js";
 
 const router = express.Router();
 
-router.post("/signup", signupValidator, signup);
 router.post("/login", login);
+router.post("/logout", logout);
 router.get("/verify-email", verifyEmail);
 router.post("/resend-email", resendEmail);
-router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
-router.post("/logout", logout);
+router.post("/signup", signupValidator, signup);
+router.post("/forgot-password", forgotPassword);
 
 export default router;

@@ -146,6 +146,7 @@ export const resendEmail = async (req, res) => {
     });
   }
 };
+
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -172,7 +173,7 @@ export const forgotPassword = async (req, res) => {
 };
 
 export const resetPassword = async (req, res) => {
-  const { token, newPassword } = req.body;
+  const { token, password } = req.body;
 
   try {
     const decoded = jwt.verify(token, ACCESS_TOKEN);
@@ -182,10 +183,10 @@ export const resetPassword = async (req, res) => {
       return res.status(400).json({ msg: "User not found" });
     }
 
-    user.password = await bcrypt.hash(newPassword, 10);
+    user.password = await bcrypt.hash(password, 10);
     await user.save();
 
-    res.status(200).json({ msg: "Password reset successful" });
+    res.status(200).json({ msg: "Password reset successfully, please login." });
   } catch (error) {
     res.status(400).json({ msg: "Invalid or expired token!" });
   }
