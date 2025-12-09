@@ -1,35 +1,39 @@
 import { useState } from "react";
 
+import styles from "./Account.module.scss";
+
+import { Tabs } from "@/components/Tabs";
+
 import { settingsTabs } from "@/constants";
 
-const Account = () => {
-  const [activeTab, setActiveTab] = useState(settingsTabs[0].id);
+const tabs = settingsTabs.map((t) => t.label);
 
-  const ActiveComponent: React.ReactNode =
-    settingsTabs.find((tab) => tab.id === activeTab)?.component || null;
+const Account = () => {
+  const [activeTab, setActiveTab] = useState(settingsTabs[0].label);
+
+  const ActiveComponent = settingsTabs.find(
+    (tab) => tab.label === activeTab
+  )?.component;
 
   const changeTabs = (id: string) => {
     setActiveTab(id);
   };
 
   return (
-    <div className="account-page">
-      <aside className="account-sidebar">
-        {settingsTabs.map((tab) => (
-          <button
-            key={tab.id}
-            className={`btn ${activeTab === tab.id ? "active" : ""}`}
-            onClick={() => changeTabs(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </aside>
+    <section className={styles.account}>
+      <div className="container">
+        <Tabs
+          tabs={tabs}
+          activeTab={activeTab}
+          changeTab={changeTabs}
+          ariaLabel="Account Settings"
+        />
 
-      <section className="account-content">
-        {ActiveComponent && <ActiveComponent />}
-      </section>
-    </div>
+        <section className={styles.account_content}>
+          {ActiveComponent && <ActiveComponent />}
+        </section>
+      </div>
+    </section>
   );
 };
 

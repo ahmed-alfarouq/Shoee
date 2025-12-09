@@ -1,24 +1,25 @@
-// import MainInfoForm from "pages/Account/sections/MainInfoForm";
 // import SecurityForm from "pages/Account/sections/SecurityForm";
 // import OrderInfoForm from "pages/Account/sections/OrderInfoForm";
+import { MainInfoForm } from "@/features/Settings/MainInfoForm";
+
 import useUserStore from "@/stores/user";
 
 const user = useUserStore.getState().user;
 
 import {
-  FaFacebook,
   FaGoogle,
-  FaInstagram,
   FaTwitter,
   FaYoutube,
+  FaFacebook,
+  FaInstagram,
 } from "react-icons/fa";
 
 export const categories = ["mens-shirts", "mens-shoes", "mens-watches"];
 
 export const settingsTabs = [
-  { id: "main", label: "Main Info", component: null },
-  { id: "security", label: "Security", component: null },
-  { id: "order", label: "Order Info", component: null },
+  { label: "Main Info", component: MainInfoForm },
+  { label: "Security", component: null },
+  { label: "Order Info", component: null },
 ];
 
 export const footerFirstMenu = [

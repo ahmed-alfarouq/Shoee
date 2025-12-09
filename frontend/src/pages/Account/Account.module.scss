@@ -1,0 +1,33 @@
+@use "@/styles/base/variables";
+
+.account {
+  padding-block: 30px;
+
+  min-height: calc(100svh - 200px);
+
+  background-color: variables.$primary-color;
+
+  .account_content {
+    min-height: calc(100vh - 200px);
+
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+
+    box-shadow: 0 0 10px rgba(255, 54, 54, 0.1);
+
+    .account-form,
+    .billing-form {
+      gap: 15px;
+      padding: 0;
+      border: none;
+      select {
+        width: 100%;
+        border: 1px solid variables.$primary-border-color;
+        padding: 10px;
+        color: variables.$primary-font-color;
+        outline: none;
+      }
+    }
+  }
+}
