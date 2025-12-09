@@ -5,6 +5,7 @@ import styles from "./Spinner.module.scss";
 const spinnerVariants = cva(styles.spinner, {
   variants: {
     size: {
+      xs: styles.xs,
       sm: styles.sm,
       md: styles.md,
       lg: styles.lg,
@@ -14,6 +15,7 @@ const spinnerVariants = cva(styles.spinner, {
     size: "md",
   },
 });
+
 const Spinner = ({ size }: VariantProps<typeof spinnerVariants>) => {
   return <span className={spinnerVariants({ size })}></span>;
 };
