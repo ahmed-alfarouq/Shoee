@@ -22,4 +22,9 @@ export interface TabsProps {
    * Used to improve screen-reader navigation.
    */
   ariaLabel: string;
+
+  /**
+   * OPTIONAL: Extra className for the tabs wrapper
+   */
+  className?: string;
 }
