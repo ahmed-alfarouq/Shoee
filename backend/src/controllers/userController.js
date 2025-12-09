@@ -51,7 +51,9 @@ export const updateUsername = async (req, res) => {
   try {
     const user = req.user;
     const { newUsername } = req.body;
+
     const existingUser = await User.findOne({ username: newUsername });
+
     if (existingUser) {
       return res.status(409).json({
         msg: "Username already exists!",
@@ -63,7 +65,7 @@ export const updateUsername = async (req, res) => {
 
     return res
       .status(200)
-      .json({ msg: "Username updated successfully.", newUsername });
+      .json({ msg: "Username updated successfully.", username: newUsername });
   } catch (error) {
     res.status(500).json({ msg: "Something went wrong!" });
   }
