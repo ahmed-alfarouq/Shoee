@@ -1,3 +1,4 @@
+import userApiClient from "@/services/userApiClient";
 import authApiClient from "@/services/authApiClient";
 
 import type { User } from "@/types/index.types";
@@ -8,6 +9,8 @@ import type {
   VerifyEmailProps,
   ResetPasswordAction,
   ForgotPasswordAction,
+  UpdateAvatarAction,
+  UpdateUsernameAction,
 } from "./userStore.types";
 
 export const signIn = async ({ set, email, password }: SignInAction) => {
@@ -58,6 +61,43 @@ export const resetPassword = async ({
     password,
   });
   const { msg } = res.data as { msg: string };
+
+  return { msg };
+};
+
+// User Settings
+export const updateAvatar = async ({ set, file }: UpdateAvatarAction) => {
+  const data = new FormData();
+  data.append("avatar", file);
+
+  const res = await userApiClient.post("upload-avatar", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  const { msg, avatar } = res.data as { msg: string; avatar: string };
+
+  set((state) => {
+    if (!state.user) return;
+    state.user.avatar = avatar;
+  });
+
+  return { msg };
+};
+
+export const updateUsername = async ({
+  set,
+  newUsername,
+}: UpdateUsernameAction) => {
+  const res = await userApiClient.post("username", { newUsername });
+
+  const { msg, username } = res.data as { msg: string; username: string };
+
+  set((state) => {
+    if (!state.user) return;
+    state.user.username = username;
+  });
 
   return { msg };
 };

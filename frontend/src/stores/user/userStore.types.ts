@@ -1,6 +1,15 @@
 import type { User } from "@/types/index.types";
+import type { WritableDraft } from "immer";
 
-export type UserSet = (partial: Partial<UserStoreState>) => void;
+export type UserSet = (
+  nextStateOrUpdater:
+    | UserStoreState
+    | Partial<UserStoreState>
+    | ((state: WritableDraft<UserStoreState>) => void),
+  shouldReplace?: false
+) => unknown;
+
+// (nextStateOrUpdater: UserStoreState | Partial<UserStoreState> | ((state: WritableDraft<UserStoreState>) => void), shouldReplace?: false) => unknown
 
 type SuccessResponse = Promise<[Error | null, { msg: string } | null]>;
 
@@ -35,6 +44,9 @@ export type Actions = {
   verifyEmail: (token: string) => SuccessResponse;
   forgotPassword: (email: string) => SuccessResponse;
   resetPassword: (token: string, password: string) => SuccessResponse;
+
+  updateAvatar: (avatar: File) => SuccessResponse;
+  updateUsername: (username: string) => SuccessResponse;
 };
 
 export interface UserStoreState {
@@ -67,4 +79,14 @@ export interface ForgotPasswordAction {
 export interface ResetPasswordAction {
   token: string;
   password: string;
+}
+
+export interface UpdateAvatarAction {
+  set: UserSet;
+  file: File;
+}
+
+export interface UpdateUsernameAction {
+  set: UserSet;
+  newUsername: string;
 }

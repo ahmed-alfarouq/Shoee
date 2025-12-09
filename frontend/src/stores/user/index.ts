@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 
 import {
   signIn,
@@ -7,6 +8,8 @@ import {
   verifyEmail,
   resetPassword,
   forgotPassword,
+  updateAvatar,
+  updateUsername,
 } from "./actions";
 
 import asyncCatch from "@/utils/asyncCatch";
@@ -15,7 +18,7 @@ import type { UserStoreState } from "./userStore.types";
 
 const useUserStore = create<UserStoreState>()(
   persist(
-    (set) => ({
+    immer((set) => ({
       user: null,
       token: null,
       actions: {
@@ -31,8 +34,13 @@ const useUserStore = create<UserStoreState>()(
           asyncCatch(() => resetPassword({ token, password })),
         verifyEmail: (token: string) =>
           asyncCatch(() => verifyEmail({ token })),
+
+        updateAvatar: (avatar: File) =>
+          asyncCatch(() => updateAvatar({ set, file: avatar })),
+        updateUsername: (username: string) =>
+          asyncCatch(() => updateUsername({ set, newUsername: username })),
       },
-    }),
+    })),
     {
       name: "user-storage",
       partialize: (state) => ({
