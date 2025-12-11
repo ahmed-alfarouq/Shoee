@@ -39,6 +39,8 @@ userApiClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       const logout = useUserStore.getState().actions.logout;
       logout();
+
+      window.location.href = "/sign-in";
     }
     return Promise.reject(error);
   }
