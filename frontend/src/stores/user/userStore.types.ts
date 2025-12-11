@@ -9,8 +9,6 @@ export type UserSet = (
   shouldReplace?: false
 ) => unknown;
 
-// (nextStateOrUpdater: UserStoreState | Partial<UserStoreState> | ((state: WritableDraft<UserStoreState>) => void), shouldReplace?: false) => unknown
-
 type SuccessResponse = Promise<[Error | null, { msg: string } | null]>;
 
 export type Actions = {
@@ -47,6 +45,7 @@ export type Actions = {
 
   updateAvatar: (avatar: File) => SuccessResponse;
   updateUsername: (username: string) => SuccessResponse;
+  updatePassword: (oldPassword: string, newPassword: string) => SuccessResponse;
 };
 
 export interface UserStoreState {
@@ -89,4 +88,9 @@ export interface UpdateAvatarAction {
 export interface UpdateUsernameAction {
   set: UserSet;
   newUsername: string;
+}
+
+export interface UpdatePasswordAction {
+  oldPassword: string;
+  newPassword: string;
 }

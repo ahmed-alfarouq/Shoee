@@ -24,7 +24,7 @@ export const updatePasswordSchema = Yup.object({
     .min(8, "Must be at least 8 characters!")
     .required("New Password is required!"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match!")
+    .oneOf([Yup.ref("newPassword")], "Passwords must match!")
     .required("Confirm Password is required!"),
 });
 

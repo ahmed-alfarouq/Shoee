@@ -1,6 +1,7 @@
 // import SecurityForm from "pages/Account/sections/SecurityForm";
 // import OrderInfoForm from "pages/Account/sections/OrderInfoForm";
-import { MainInfoForm } from "@/features/Settings/MainInfoForm";
+import { MainInfoForm } from "@features/Settings/MainInfoForm";
+import { SecurityForm } from "@features/Settings/SecurityForm";
 
 import useUserStore from "@/stores/user";
 
@@ -18,7 +19,7 @@ export const categories = ["mens-shirts", "mens-shoes", "mens-watches"];
 
 export const settingsTabs = [
   { label: "Main Info", component: MainInfoForm },
-  { label: "Security", component: null },
+  { label: "Security", component: SecurityForm },
   { label: "Order Info", component: null },
 ];
 

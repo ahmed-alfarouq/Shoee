@@ -6,10 +6,11 @@ import {
   signIn,
   signUp,
   verifyEmail,
+  updateAvatar,
   resetPassword,
   forgotPassword,
-  updateAvatar,
   updateUsername,
+  updatePassword,
 } from "./actions";
 
 import asyncCatch from "@/utils/asyncCatch";
@@ -39,6 +40,8 @@ const useUserStore = create<UserStoreState>()(
           asyncCatch(() => updateAvatar({ set, file: avatar })),
         updateUsername: (username: string) =>
           asyncCatch(() => updateUsername({ set, newUsername: username })),
+        updatePassword: (oldPassword: string, newPassword: string) =>
+          asyncCatch(() => updatePassword({ oldPassword, newPassword })),
       },
     })),
     {

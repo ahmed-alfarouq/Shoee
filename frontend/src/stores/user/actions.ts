@@ -7,10 +7,11 @@ import type {
   SignInAction,
   SignUpAction,
   VerifyEmailProps,
+  UpdateAvatarAction,
   ResetPasswordAction,
   ForgotPasswordAction,
-  UpdateAvatarAction,
   UpdateUsernameAction,
+  UpdatePasswordAction,
 } from "./userStore.types";
 
 export const signIn = async ({ set, email, password }: SignInAction) => {
@@ -98,6 +99,20 @@ export const updateUsername = async ({
     if (!state.user) return;
     state.user.username = username;
   });
+
+  return { msg };
+};
+
+export const updatePassword = async ({
+  oldPassword,
+  newPassword,
+}: UpdatePasswordAction) => {
+  const res = await userApiClient.post("password", {
+    oldPassword,
+    newPassword,
+  });
+
+  const { msg } = res.data as { msg: string };
 
   return { msg };
 };
