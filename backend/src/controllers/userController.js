@@ -77,6 +77,7 @@ export const updatePassword = async (req, res) => {
     const { oldPassword, newPassword } = req.body;
 
     const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    
     if (!isPasswordValid) {
       return res.status(401).json({ msg: "Invalid credentials!" });
     }
@@ -84,10 +85,10 @@ export const updatePassword = async (req, res) => {
     user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
 
-    return res.status(200).json({ msg: "password updated successfully." });
+    return res.status(200).json({ msg: "Password has been updated successfully." });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "something went wrong!" });
+    res.status(500).json({ msg: "Something went wrong!" });
   }
 };
 
