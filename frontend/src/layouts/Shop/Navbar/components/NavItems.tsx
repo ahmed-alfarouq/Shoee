@@ -59,7 +59,7 @@ const NavItems = () => {
           <Link
             to="/sign-in"
             className={`${styles.nav_link} ${
-              pathname === "/account" ? styles.active : ""
+              pathname === "/sign-in" ? styles.active : ""
             }`}
           >
             Sign In
