@@ -4,7 +4,7 @@ import styles from "./BillingDetailsForm.module.scss";
 
 import { Input } from "@/components/Input";
 
-import customerInfoSchema from "@/schema/customerInfo";
+import customerInfoSchema from "@/schema/billingDetails";
 
 import type { BillingDetailsFormProps } from "./BillingDetailsForm.types";
 

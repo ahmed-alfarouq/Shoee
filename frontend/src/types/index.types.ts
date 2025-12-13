@@ -2,6 +2,8 @@
 export type ROLES = "admin" | "customer";
 
 export type BillingDetails = {
+  id: string;
+  default: boolean;
   firstName: string;
   lastName: string;
   country: string;

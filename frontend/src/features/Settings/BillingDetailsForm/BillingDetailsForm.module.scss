@@ -1,0 +1,9 @@
+@use "@/styles/base/variables";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  padding: 40px 30px;
+}
