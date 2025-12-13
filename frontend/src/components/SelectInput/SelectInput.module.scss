@@ -1,0 +1,43 @@
+@use "@/styles/base/variables";
+
+.form_control {
+  position: relative;
+  width: 100%;
+
+  .form_label {
+    position: absolute;
+    top: -11px;
+    left: 10px;
+    
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    pointer-events: none;
+
+    transition: all 0.3s ease;
+  }
+
+  .form_input {
+    background-color: transparent;
+
+    border: 1px solid variables.$primary-border-color;
+    border-radius: 4px;
+    outline: none;
+
+    width: 100%;
+
+    font-size: 17px;
+    font-weight: 500;
+    text-transform: capitalize;
+    
+    padding: 13px 12px;
+  }
+
+  .error {
+    font-size: 14px;
+    color: variables.$hover-font-color;
+    margin: 5px 0;
+    align-self: baseline;
+    min-height: 10px;
+  }
+}
