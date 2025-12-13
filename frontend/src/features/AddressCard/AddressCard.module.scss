@@ -1,0 +1,63 @@
+@use "@/styles/base/variables";
+
+.card {
+  background: #fff;
+
+  padding: 15px 10px;
+  margin-block: 15px;
+
+  border-radius: 5px;
+
+  box-shadow: 0 0 5px #0000000e;
+
+  border: 1px solid transparent;
+
+  transition: all linear 0.1s;
+
+  &.selected,
+  &.select:hover {
+    border-color: variables.$third-color;
+    cursor: pointer;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+
+    .name {
+      font-size: 18px;
+      font-weight: 600;
+      color: variables.$primary-font-color;
+    }
+
+    .badge {
+      background: variables.$third-color;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .line {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .phone {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 10px;
+  }
+}
