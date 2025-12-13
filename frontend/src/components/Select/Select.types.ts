@@ -1,6 +1,6 @@
 import type { ChangeEventHandler, ComponentProps } from "react";
 
-type Option = {
+export type Option = {
   /**
    * REQUIRED: The visible label shown to the user
    */
