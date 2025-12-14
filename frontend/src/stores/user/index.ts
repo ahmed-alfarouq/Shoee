@@ -8,9 +8,13 @@ import {
   verifyEmail,
   updateAvatar,
   resetPassword,
+  createAddress,
+  removeAddress,
+  updateAddress,
   forgotPassword,
   updateUsername,
   updatePassword,
+  setDefaultAddress,
 } from "./actions";
 
 import asyncCatch from "@/utils/asyncCatch";
@@ -24,24 +28,30 @@ const useUserStore = create<UserStoreState>()(
       token: null,
       actions: {
         logout: () => set({ token: null, user: null }),
-        setToken: (token: string | null) => set({ token }),
-        signIn: (email: string, password: string) =>
+        setToken: (token) => set({ token }),
+        signIn: (email, password) =>
           asyncCatch(() => signIn({ set, email, password })),
         signUp: (username: string, email: string, password: string) =>
           asyncCatch(() => signUp({ email, password, username })),
-        forgotPassword: (email: string) =>
-          asyncCatch(() => forgotPassword({ email })),
-        resetPassword: (token: string, password: string) =>
+        forgotPassword: (email) => asyncCatch(() => forgotPassword({ email })),
+        resetPassword: (token, password) =>
           asyncCatch(() => resetPassword({ token, password })),
-        verifyEmail: (token: string) =>
-          asyncCatch(() => verifyEmail({ token })),
+        verifyEmail: (token) => asyncCatch(() => verifyEmail({ token })),
 
-        updateAvatar: (avatar: File) =>
+        updateAvatar: (avatar) =>
           asyncCatch(() => updateAvatar({ set, file: avatar })),
-        updateUsername: (username: string) =>
+        updateUsername: (username) =>
           asyncCatch(() => updateUsername({ set, newUsername: username })),
-        updatePassword: (oldPassword: string, newPassword: string) =>
+        updatePassword: (oldPassword, newPassword) =>
           asyncCatch(() => updatePassword({ oldPassword, newPassword })),
+
+        createAddress: (address) =>
+          asyncCatch(() => createAddress({ set, address })),
+        updateAddress: (address) =>
+          asyncCatch(() => updateAddress({ set, address })),
+        removeAddress: (id) => asyncCatch(() => removeAddress({ set, id })),
+        setDefaultAddress: (id) =>
+          asyncCatch(() => setDefaultAddress({ set, id })),
       },
     })),
     {

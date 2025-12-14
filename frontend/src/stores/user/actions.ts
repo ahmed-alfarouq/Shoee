@@ -1,17 +1,21 @@
 import userApiClient from "@/services/userApiClient";
 import authApiClient from "@/services/authApiClient";
 
-import type { User } from "@/types/index.types";
+import type { Address, User } from "@/types/index.types";
 
 import type {
   SignInAction,
   SignUpAction,
   VerifyEmailProps,
   UpdateAvatarAction,
+  CreateAddressAction,
+  UpdateAddressAction,
   ResetPasswordAction,
   ForgotPasswordAction,
   UpdateUsernameAction,
   UpdatePasswordAction,
+  SetDefaultAddressAction,
+  RemoveAddressAction,
 } from "./userStore.types";
 
 export const signIn = async ({ set, email, password }: SignInAction) => {
@@ -113,6 +117,61 @@ export const updatePassword = async ({
   });
 
   const { msg } = res.data as { msg: string };
+
+  return { msg };
+};
+
+export const createAddress = async ({ set, address }: CreateAddressAction) => {
+  const res = await userApiClient.post("create-address", address);
+
+  const { msg, addresses } = res.data as { msg: string; addresses: Address[] };
+
+  set((state) => {
+    if (!state.user) return;
+    state.user.addresses = addresses;
+  });
+
+  return { msg };
+};
+
+export const updateAddress = async ({ set, address }: UpdateAddressAction) => {
+  const res = await userApiClient.post("update-address", address);
+
+  const { msg, addresses } = res.data as { msg: string; addresses: Address[] };
+
+  set((state) => {
+    if (!state.user) return;
+    state.user.addresses = addresses;
+  });
+
+  return { msg };
+};
+
+export const removeAddress = async ({ set, id }: RemoveAddressAction) => {
+  const res = await userApiClient.post("remove-address", { id });
+
+  const { msg, addresses } = res.data as { msg: string; addresses: Address[] };
+
+  set((state) => {
+    if (!state.user) return;
+    state.user.addresses = addresses;
+  });
+
+  return { msg };
+};
+
+export const setDefaultAddress = async ({
+  set,
+  id,
+}: SetDefaultAddressAction) => {
+  const res = await userApiClient.post("default-address", { id });
+
+  const { msg, addresses } = res.data as { msg: string; addresses: Address[] };
+
+  set((state) => {
+    if (!state.user) return;
+    state.user.addresses = addresses;
+  });
 
   return { msg };
 };

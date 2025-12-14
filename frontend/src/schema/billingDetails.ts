@@ -7,7 +7,7 @@ const billingDetailsSchema = Yup.object({
   city: Yup.string().required("City is required!"),
   state: Yup.string().required("State is required!"),
   streetName: Yup.string().required("Street name is required!"),
-  apartment: Yup.string(),
+  apartment: Yup.string().default(""),
   zipCode: Yup.string()
     .matches(/^\d{5}(-\d{4})?$/, "Zip code is not valid!")
     .required("ZIP Code is required!"),

@@ -1,4 +1,4 @@
-import type { User } from "@/types/index.types";
+import type { Address, User } from "@/types/index.types";
 import type { WritableDraft } from "immer";
 
 export type UserSet = (
@@ -46,6 +46,11 @@ export type Actions = {
   updateAvatar: (avatar: File) => SuccessResponse;
   updateUsername: (username: string) => SuccessResponse;
   updatePassword: (oldPassword: string, newPassword: string) => SuccessResponse;
+
+  createAddress: (address: Omit<Address, "id">) => SuccessResponse;
+  updateAddress: (Address: Address) => SuccessResponse;
+  removeAddress: (id: string) => SuccessResponse;
+  setDefaultAddress: (id: string) => SuccessResponse;
 };
 
 export interface UserStoreState {
@@ -93,4 +98,24 @@ export interface UpdateUsernameAction {
 export interface UpdatePasswordAction {
   oldPassword: string;
   newPassword: string;
+}
+
+export interface CreateAddressAction {
+  set: UserSet;
+  address: Omit<Address, "id">;
+}
+
+export interface UpdateAddressAction {
+  set: UserSet;
+  address: Address;
+}
+
+export interface RemoveAddressAction {
+  set: UserSet;
+  id: string;
+}
+
+export interface SetDefaultAddressAction {
+  set: UserSet;
+  id: string;
 }

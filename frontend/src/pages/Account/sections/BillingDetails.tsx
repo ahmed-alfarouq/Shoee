@@ -1,30 +1,34 @@
 import { useState } from "react";
+import { useUser, useUserActions } from "@/stores/user";
 
 import { Modal } from "@components/Modal";
 import { Button } from "@components/Button";
 import { AddressCard } from "@features/AddressCard";
 import { BillingDetailsForm } from "@features/Settings/BillingDetailsForm";
 
-import { addresses } from "@/constants";
-
 const BillingDetails = () => {
-  const [id, setId] = useState("");
+  const user = useUser();
+  const { setDefaultAddress, removeAddress } = useUserActions();
+
+  const [id, setId] = useState<string | undefined>();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = (addressId?: string) => {
-    if (addressId) setId(addressId);
+    setId(addressId);
     setIsOpen((prev) => !prev);
   };
 
   return (
     <>
-      {addresses.length ? (
-        addresses.map((add) => (
+      {user?.addresses?.length ? (
+        user.addresses.map((add) => (
           <AddressCard
             editable
             key={add.id}
             address={add}
             onEdit={toggleModal}
+            remove={removeAddress}
+            setDefault={setDefaultAddress}
           />
         ))
       ) : (

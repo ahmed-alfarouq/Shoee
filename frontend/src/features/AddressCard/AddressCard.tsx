@@ -11,6 +11,7 @@ const AddressCard = ({
   selected = false,
   onSelect,
   onEdit,
+  remove,
   setDefault,
 }: AddressCardProps) => {
   return (
@@ -24,7 +25,7 @@ const AddressCard = ({
         <h3 className={styles.name}>
           {address.firstName} {address.lastName}
         </h3>
-        {address.default && <span className={styles.badge}>Default</span>}
+        {address.isDefault && <span className={styles.badge}>Default</span>}
       </div>
 
       <p className={styles.line}>
@@ -42,9 +43,14 @@ const AddressCard = ({
             Edit
           </Button>
 
-          {!address.default && setDefault && (
+          {!address.isDefault && setDefault && (
             <Button size="sm" onClick={() => setDefault(address.id)}>
               Set default
+            </Button>
+          )}
+          {remove && (
+            <Button size="sm" onClick={() => remove(address.id)}>
+              Remove
             </Button>
           )}
         </div>

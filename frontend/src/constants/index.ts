@@ -69,48 +69,6 @@ export const footerSocialMenu = [
   },
 ];
 
-export const addresses = [
-  {
-    id: "1",
-    default: true,
-    firstName: "Omar",
-    lastName: "Hassan",
-    country: "Egypt",
-    city: "Cairo",
-    state: "Cairo",
-    zipCode: "11511",
-    streetName: "Tahrir Street",
-    apartment: "12B",
-    phoneNumber: "+20 1001234567",
-  },
-  {
-    id: "2",
-    default: false,
-    firstName: "Omar",
-    lastName: "Hassan",
-    country: "Egypt",
-    city: "Giza",
-    state: "Giza",
-    zipCode: "12511",
-    streetName: "El Haram Street",
-    apartment: "5A",
-    phoneNumber: "+20 1009876543",
-  },
-  {
-    id: "3",
-    default: false,
-    firstName: "Omar",
-    lastName: "Hassan",
-    country: "UAE",
-    city: "Dubai",
-    state: "Dubai",
-    zipCode: "00000",
-    streetName: "Sheikh Zayed Road",
-    apartment: "21C",
-    phoneNumber: "+971 501237890",
-  },
-];
-
 export const countries = [
   { text: "United States", value: "United States" },
   { text: "Canada", value: "Canada" },

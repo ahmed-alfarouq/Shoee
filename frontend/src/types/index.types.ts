@@ -1,9 +1,9 @@
 // DATA
 export type ROLES = "admin" | "customer";
 
-export type BillingDetails = {
+export type Address = {
   id: string;
-  default: boolean;
+  isDefault: boolean;
   firstName: string;
   lastName: string;
   country: string;
@@ -23,7 +23,7 @@ export type User = {
   createdAt: string;
   isVerified: boolean;
   avatar: string | null;
-  billingDetails: BillingDetails;
+  addresses: Address[];
 };
 
 export type Product = {

@@ -1,10 +1,10 @@
-import type { User } from "@/types/index.types";
+import type { Address } from "@/types/index.types";
 
 export interface AddressCardProps {
   /**
    * REQUIRED: The user's billing address object
    */
-  address: User["billingDetails"];
+  address: Address;
 
   /**
    * OPTIONAL: Enables edit mode for the address card
@@ -27,6 +27,13 @@ export interface AddressCardProps {
    * @argument id - The ID of the address to set as default.
    */
   setDefault?: (id: string) => void;
+
+  /**
+   * OPTIONAL: Callback fired when the user clicks the remove address button.
+   *
+   * @argument id - The ID of the address to set as default.
+   */
+  remove?: (id: string) => void;
 
   /**
    * OPTIONAL: Makes the card selectable (for checkout or selection flows).

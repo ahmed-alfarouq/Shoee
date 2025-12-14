@@ -1,5 +1,5 @@
+import { Formik, Form, type FormikHelpers } from "formik";
 import { useState, useTransition } from "react";
-import { Formik, Form } from "formik";
 
 import styles from "./BillingDetailsForm.module.scss";
 
@@ -8,9 +8,9 @@ import { Button } from "@/components/Button";
 import { SelectInput } from "@/components/SelectInput";
 import { FormMessage } from "@/features/Auth/FormMessage";
 
-import { useUser } from "@/stores/user";
+import { useUser, useUserActions } from "@/stores/user";
 
-import { addresses, countries } from "@/constants";
+import { countries } from "@/constants";
 
 import billingDetailsSchema, {
   type BillingDetailsSchema,
@@ -27,8 +27,9 @@ const BillingDetailsForm = ({ id }: { id?: string }) => {
   }>({ type: "error", message: "" });
 
   const user = useUser();
+  const { createAddress, updateAddress } = useUserActions();
 
-  const addressToEdit = addresses.find((addr) => addr.id === id) || {
+  const addressToEdit = user?.addresses?.find((addr) => addr.id === id) || {
     firstName: "",
     lastName: "",
     country: countries[0].value,
@@ -39,22 +40,29 @@ const BillingDetailsForm = ({ id }: { id?: string }) => {
     apartment: "",
     phoneNumber: "",
   };
-  console.log(addressToEdit);
-  const submit = (values: BillingDetailsSchema) => {
-    startTransition(() => {
-      console.log(values);
-      // const [err, data] = id ? updateAddress({id, ...values}) : createAddress(values);
-      // if (err) {
-      //   setMessage({ type: "error", message: err.message });
-      //   return;
-      // }
 
-      // setMessage({
-      //   type: "success",
-      //   message:
-      //     data?.msg ||
-      //     `Address has been ${id ? "updated" : "added"} successfully`,
-      // });
+  const submit = (
+    values: BillingDetailsSchema,
+    { resetForm }: FormikHelpers<BillingDetailsSchema>
+  ) => {
+    startTransition(async () => {
+      const [err, data] = id
+        ? await updateAddress({ id, isDefault: false, ...values })
+        : await createAddress({ isDefault: false, ...values });
+
+      if (err) {
+        setMessage({ type: "error", message: err.message });
+        return;
+      }
+
+      setMessage({
+        type: "success",
+        message:
+          data?.msg ||
+          `Address has been ${id ? "updated" : "added"} successfully`,
+      });
+
+      if (!id) resetForm();
     });
   };
 
@@ -66,6 +74,7 @@ const BillingDetailsForm = ({ id }: { id?: string }) => {
     >
       {({ handleChange, initialValues }) => (
         <Form className={styles.form}>
+          <h2 className={styles.title}>{`${id ? "Update" : "Add"} Address`}</h2>
           <Input label="First Name" name="firstName" disabled={isPending} />
           <Input label="Last Name" name="lastName" disabled={isPending} />
           <SelectInput
