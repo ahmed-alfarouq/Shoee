@@ -101,13 +101,13 @@ export const createAddress = async (req, res) => {
 
     // If first address → make it default automatically
     if (!user.addresses.length) {
-      addressData.default = true;
+      addressData.isDefault = true;
     }
 
     // If client sets default = true → unset others
     if (addressData.default === true) {
       user.addresses.forEach((addr) => {
-        addr.default = false;
+        addr.isDefault = false;
       });
     }
 
@@ -131,6 +131,10 @@ export const updateAddress = async (req, res) => {
   try {
     const { id, ...updates } = req.body;
 
+    if (!id) {
+      return res.status(404).json({ msg: "Address id isn't valid!" });
+    }
+
     const user = req.user;
 
     const address = user.addresses.id(id);
@@ -145,6 +149,74 @@ export const updateAddress = async (req, res) => {
 
     return res.status(200).json({
       msg: "Billing details updated successfully.",
+      addresses: user.addresses,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Something went wrong!" });
+  }
+};
+
+export const removeAddress = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ msg: "Address ID is required!" });
+    }
+
+    const user = req.user;
+
+    const address = user.addresses.id(id);
+
+    if (!address) {
+      return res.status(404).json({ msg: "Address not found!" });
+    }
+
+    address.deleteOne();
+
+    if (address.isDefault && user.addresses.length > 0) {
+      user.addresses[0].isDefault = true;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      msg: "Address deleted successfully",
+      addresses: user.addresses,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Something went wrong!" });
+  }
+};
+
+export const updateDefaultAddress = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(404).json({ msg: "Address id isn't valid!" });
+    }
+
+    const user = req.user;
+
+    const address = user.addresses.id(id);
+
+    if (!address) {
+      return res.status(404).json({ msg: "Address not found!" });
+    }
+
+    user.addresses.forEach((addr) => {
+      addr.isDefault = false;
+    });
+
+    Object.assign(address, { isDefault: true });
+
+    await user.save();
+
+    return res.status(202).json({
+      msg: "Default address updated successfully",
       addresses: user.addresses,
     });
   } catch (error) {

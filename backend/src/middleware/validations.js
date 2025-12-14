@@ -34,8 +34,6 @@ const passwordValidation = [
 ];
 
 const addressValidation = [
-  body("id").trim().notEmpty().withMessage("ID is required").escape(),
-
   body("firstName")
     .trim()
     .notEmpty()

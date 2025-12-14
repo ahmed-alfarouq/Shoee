@@ -6,8 +6,10 @@ import {
   uploadAvatar,
   createAddress,
   updateAddress,
+  removeAddress,
   updateUsername,
   updatePassword,
+  updateDefaultAddress,
 } from "../controllers/userController.js";
 
 import {
@@ -38,5 +40,7 @@ router.post(
   addressValidation,
   createAddress
 );
+router.post("/remove-address", authMiddleware, removeAddress);
+router.post("/default-address", authMiddleware, updateDefaultAddress);
 
 export default router;
