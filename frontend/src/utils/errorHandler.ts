@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 
 const errorHandler = (error: unknown): Error => {
   if (error instanceof AxiosError) {
+    console.log(error);
     if (
       error.response &&
       error.response.data &&
@@ -10,6 +11,18 @@ const errorHandler = (error: unknown): Error => {
       typeof error.response.data.msg === "string"
     ) {
       return new Error(error.response.data.msg, {
+        cause: error.cause,
+      });
+    }
+
+    if (
+      error.response &&
+      error.response.data &&
+      typeof error.response.data === "object" &&
+      "errors" in error.response.data &&
+      error.response.data.errors.length
+    ) {
+      return new Error(error.response.data.errors[0].msg, {
         cause: error.cause,
       });
     }
