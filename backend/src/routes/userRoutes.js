@@ -4,12 +4,14 @@ import authMiddleware from "../middleware/authMiddleware.js";
 import { upload } from "../utils/storage.js";
 import {
   uploadAvatar,
+  createAddress,
+  updateAddress,
   updateUsername,
   updatePassword,
-  updateBillingDetails,
 } from "../controllers/userController.js";
+
 import {
-  billingDetailsValidation,
+  addressValidation,
   passwordValidation,
   usernameValidation,
 } from "../middleware/validations.js";
@@ -25,10 +27,16 @@ router.post(
 router.post("/username", authMiddleware, usernameValidation, updateUsername);
 router.post("/password", authMiddleware, passwordValidation, updatePassword);
 router.post(
-  "/billing-details",
+  "/update-address",
   authMiddleware,
-  billingDetailsValidation,
-  updateBillingDetails
+  addressValidation,
+  updateAddress
+);
+router.post(
+  "/create-address",
+  authMiddleware,
+  addressValidation,
+  createAddress
 );
 
 export default router;

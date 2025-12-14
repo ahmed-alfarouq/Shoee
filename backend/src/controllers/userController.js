@@ -77,7 +77,7 @@ export const updatePassword = async (req, res) => {
     const { oldPassword, newPassword } = req.body;
 
     const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
-    
+
     if (!isPasswordValid) {
       return res.status(401).json({ msg: "Invalid credentials!" });
     }
@@ -85,27 +85,70 @@ export const updatePassword = async (req, res) => {
     user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
 
-    return res.status(200).json({ msg: "Password has been updated successfully." });
+    return res
+      .status(200)
+      .json({ msg: "Password has been updated successfully." });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Something went wrong!" });
   }
 };
 
-export const updateBillingDetails = async (req, res) => {
+export const createAddress = async (req, res) => {
   try {
     const user = req.user;
-    const { billing_details } = req.body;
+    const addressData = req.body;
 
-    user.billing_details = billing_details;
+    // If first address → make it default automatically
+    if (!user.addresses.length) {
+      addressData.default = true;
+    }
+
+    // If client sets default = true → unset others
+    if (addressData.default === true) {
+      user.addresses.forEach((addr) => {
+        addr.default = false;
+      });
+    }
+
+    user.addresses.push(addressData);
+    await user.save();
+
+    const newAddress = user.addresses[user.addresses.length - 1];
+
+    return res.status(201).json({
+      msg: "Address created successfully",
+      addresses: user.addresses,
+      address: newAddress,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Something went wrong!" });
+  }
+};
+
+export const updateAddress = async (req, res) => {
+  try {
+    const { id, ...updates } = req.body;
+
+    const user = req.user;
+
+    const address = user.addresses.id(id);
+
+    if (!address) {
+      return res.status(404).json({ msg: "Address not found!" });
+    }
+
+    Object.assign(address, updates);
+
     await user.save();
 
     return res.status(200).json({
       msg: "Billing details updated successfully.",
-      billing_details: billing_details,
+      addresses: user.addresses,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ msg: "something went wrong!" });
+    console.error(error);
+    return res.status(500).json({ msg: "Something went wrong!" });
   }
 };

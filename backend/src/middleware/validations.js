@@ -33,53 +33,39 @@ const passwordValidation = [
   },
 ];
 
-const billingDetailsValidation = [
-  body("billing_details")
-    .isObject({ strict: true })
-    .withMessage("Billing details must be a valid object"),
+const addressValidation = [
+  body("id").trim().notEmpty().withMessage("ID is required").escape(),
 
-  body("billing_details.first_name")
+  body("firstName")
     .trim()
     .notEmpty()
     .withMessage("First name is required")
     .escape(),
 
-  body("billing_details.last_name")
+  body("lastName")
     .trim()
     .notEmpty()
     .withMessage("Last name is required")
     .escape(),
 
-  body("billing_details.country")
-    .trim()
-    .notEmpty()
-    .withMessage("Country is required")
-    .escape(),
+  body("country").trim().notEmpty().withMessage("Country is required").escape(),
 
-  body("billing_details.city")
-    .trim()
-    .notEmpty()
-    .withMessage("City is required")
-    .escape(),
+  body("city").trim().notEmpty().withMessage("City is required").escape(),
 
-  body("billing_details.state")
-    .trim()
-    .notEmpty()
-    .withMessage("State is required")
-    .escape(),
+  body("state").trim().notEmpty().withMessage("State is required").escape(),
 
-  body("billing_details.zip_code")
+  body("zipCode")
     .trim()
     .matches(/^\d{5}(-\d{4})?$/)
     .withMessage("Invalid ZIP code format. Use 12345 or 12345-6789"),
 
-  body("billing_details.street_name")
+  body("streetName")
     .trim()
     .notEmpty()
     .withMessage("Street name is required")
     .escape(),
 
-  body("billing_details.apartment").optional().trim().escape(),
+  body("apartment").optional().trim().escape(),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -90,4 +76,4 @@ const billingDetailsValidation = [
   },
 ];
 
-export { usernameValidation, passwordValidation, billingDetailsValidation };
+export { usernameValidation, passwordValidation, addressValidation };

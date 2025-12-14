@@ -1,22 +1,23 @@
 import { model, Schema } from "mongoose";
 
-const billingDetailsSchema = new Schema({
-  first_name: { type: String, default: "" },
-  last_name: { type: String, default: "" },
+const addressSchema = new Schema({
+  firstName: { type: String, default: "" },
+  lastName: { type: String, default: "" },
   country: { type: String, default: "" },
   city: { type: String, default: "" },
   state: { type: String, default: "" },
-  zip_code: {
+  zipCode: {
     type: String,
     match: [/^\d{5}(-\d{4})?$/, "Invalid ZIP code"],
   },
-  street_name: { type: String, default: "" },
+  streetName: { type: String, default: "" },
   apartment: { type: String, default: "" },
-  phone_number: {
+  phoneNumber: {
     type: String,
     match: [/^\+?[1-9]\d{1,3}(\s)?\d{1,14}$/, "Invalid Phone Number"],
     default: "",
   },
+  isDefault: { type: Boolean, default: false },
 });
 
 const userSchema = new Schema({
@@ -43,7 +44,10 @@ const userSchema = new Schema({
     enum: ["admin", "customer"],
     default: "customer",
   },
-  billing_details: { type: billingDetailsSchema },
+  addresses: {
+    type: [addressSchema],
+    default: [],
+  },
   isVerified: { type: Boolean, default: false },
 }, {
   timestamps: true,
