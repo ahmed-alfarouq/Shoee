@@ -55,4 +55,9 @@ export interface AddressCardProps {
    * @argument id - The ID of the selected address.
    */
   onSelect?: (id: string) => void;
+
+  /**
+   * OPTIONAL: ClassName for the article container
+   */
+  className?: string;
 }

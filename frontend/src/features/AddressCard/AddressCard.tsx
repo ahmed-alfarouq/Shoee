@@ -13,12 +13,13 @@ const AddressCard = ({
   onEdit,
   remove,
   setDefault,
+  className,
 }: AddressCardProps) => {
   return (
     <article
       className={`${styles.card} ${selectable ? styles.select : ""} ${
         selected ? styles.selected : ""
-      }`}
+      } ${className}`}
       onClick={() => selectable && onSelect?.(address.id)}
     >
       <div className={styles.header}>
