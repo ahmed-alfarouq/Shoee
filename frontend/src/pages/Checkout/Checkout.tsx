@@ -1,4 +1,5 @@
 import styles from "./Checkout.module.scss";
+import Addresses from "./sections/Addresses";
 
 import Sidebar from "./sections/Sidebar";
 import CheckoutProvider from "@/context/checkout";
@@ -13,6 +14,7 @@ const Checkout = () => {
       <section className={`${styles.checkout} container`}>
         <h1 className={styles.title}>Checkout</h1>
         <section className={styles.content}>
+          <Addresses />
           <Sidebar />
         </section>
       </section>
