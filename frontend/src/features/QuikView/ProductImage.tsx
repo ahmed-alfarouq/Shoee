@@ -1,6 +1,8 @@
 import { Badge } from "@/components/Badge";
 
-const ProductImage = ({ item }) => {
+import type { ProductImageProps } from "./QuickView.types";
+
+const ProductImage = ({ item }: ProductImageProps) => {
   const onSale = Math.round(item.discountPercentage) >= 10;
 
   return (

@@ -1,10 +1,10 @@
-import type { ProductProps } from "@/types/index.types";
+import type { Product } from "@/types/index.types";
 
 export interface QuickViewProps {
   /**
    * REQUIRED: The product object
    */
-  item: ProductProps;
+  item: Product;
 
   /**
    * OPTIONAL: If true, Sale! badge will be displayed
@@ -20,4 +20,11 @@ export interface QuickViewProps {
    * REQUIRED: Callback fired when clicking the BG overlay or the close icon.
    */
   close: () => void;
+}
+
+export interface ProductImageProps {
+  /**
+   * REQUIRED: The product object
+   */
+  item: Product;
 }
