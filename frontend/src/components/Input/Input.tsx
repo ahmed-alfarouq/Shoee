@@ -9,13 +9,20 @@ import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 import type { InputProps } from "./Input.types";
 
-const Input = ({ label, type, name, placeholder, ...props }: InputProps) => {
+const Input = ({
+  label,
+  type,
+  name,
+  placeholder,
+  className,
+  ...props
+}: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const isTextarea = type === "textarea";
 
   return (
-    <div className={styles.form_control}>
+    <div className={`${styles.form_control} ${className}`}>
       <Field
         id={name}
         as={isTextarea ? "textarea" : "input"}
