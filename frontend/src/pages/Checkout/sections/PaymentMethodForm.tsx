@@ -3,7 +3,8 @@ import { useCheckoutActions, useCheckoutState } from "@/stores/checkout";
 import styles from "../Checkout.module.scss";
 
 import type { ChangeEventHandler } from "react";
-import type { PaymentMethod } from "@/context/checkout/index.types";
+
+import type { PaymentMethod } from "@/stores/checkout/checkoutStore.types";
 
 const PaymentMethodForm = () => {
   const { paymentMethod } = useCheckoutState();
