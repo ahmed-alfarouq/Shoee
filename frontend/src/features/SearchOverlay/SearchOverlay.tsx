@@ -1,4 +1,4 @@
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import { Link } from "react-router-dom";
 import { Activity, useState, type ChangeEventHandler } from "react";
 

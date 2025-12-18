@@ -1,4 +1,4 @@
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import { useState, useRef, useCallback, type MouseEventHandler } from "react";
 
 import styles from "./ZoomImage.module.scss";

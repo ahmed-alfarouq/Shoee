@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { truncate } from "lodash";
+import truncate from "lodash/truncate";
 
 import styles from "../Checkout.module.scss";
 

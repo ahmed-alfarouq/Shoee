@@ -1,4 +1,6 @@
-import { debounce, truncate } from "lodash";
+import truncate from "lodash/truncate";
+import debounce from "lodash/debounce";
+
 import { useCartDispatch } from "@/hooks/useCart";
 
 import styles from "../Cart.module.scss";
