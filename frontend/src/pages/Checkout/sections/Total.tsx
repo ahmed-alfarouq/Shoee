@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+
 import styles from "../Checkout.module.scss";
 
 import { useCartState } from "@/hooks/useCart";
@@ -8,15 +9,20 @@ const Total = () => {
   const { items } = useCartState();
   const { discount, paymentMethod } = useCheckoutState();
 
+  const subtotal = useMemo(
+    () => items.reduce((PV, CV) => CV.price * CV.qty + PV, 0),
+    [items]
+  );
+
   const total = useMemo(() => {
-    const subtotal = items.reduce((PV, CV) => CV.price * CV.qty + PV, 0);
+    const extraFee = paymentMethod === "cash";
 
     if (discount) {
-      return subtotal - (discount / 100) * subtotal;
+      return (extraFee ? 10 : 0) + (subtotal - (discount / 100) * subtotal);
     }
 
-    return subtotal;
-  }, [discount, items]);
+    return (extraFee ? 10 : 0) + subtotal;
+  }, [discount, paymentMethod, subtotal]);
 
   return (
     <div className={styles.total}>

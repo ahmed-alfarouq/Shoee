@@ -1,34 +1,17 @@
-import type { ChangeEventHandler } from "react";
+import { useCheckoutActions, useCheckoutState } from "@/stores/checkout";
 
 import styles from "../Checkout.module.scss";
 
-import { useCheckoutDispatch, useCheckoutState } from "@/hooks/useCheckout";
-
+import type { ChangeEventHandler } from "react";
 import type { PaymentMethod } from "@/context/checkout/index.types";
 
 const PaymentMethodForm = () => {
-  const { total, paymentMethod } = useCheckoutState();
-  const dispatch = useCheckoutDispatch();
+  const { paymentMethod } = useCheckoutState();
+  const { setPaymentMethod } = useCheckoutActions();
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const val = e.target.value;
-    const isCash = paymentMethod === "cash";
-
-    if (isCash) {
-      dispatch({
-        type: "SET_TOTAL",
-        payload: { total: Number((total - 10).toFixed(2)) },
-      });
-    }
-
-    if (val === "cash") {
-      dispatch({
-        type: "SET_TOTAL",
-        payload: { total: Number((total + 10).toFixed(2)) },
-      });
-    }
-
-    dispatch({ type: "SET_PAYMENT_METHOD", payload: val as PaymentMethod });
+    const val = e.target.value as PaymentMethod;
+    setPaymentMethod(val);
   };
 
   return (
@@ -36,7 +19,13 @@ const PaymentMethodForm = () => {
       <h3 className={styles.title}>Payment Method</h3>
       <div className={styles.payments}>
         <label>
-          <input type="radio" name="payment" value="cash" onChange={onChange} />
+          <input
+            value="cash"
+            type="radio"
+            name="payment"
+            onChange={onChange}
+            defaultChecked={paymentMethod === "cash"}
+          />
           Cash on delivery
         </label>
         <label>
@@ -45,6 +34,7 @@ const PaymentMethodForm = () => {
             name="payment"
             value="stripe"
             onChange={onChange}
+            defaultChecked={paymentMethod === "stripe"}
           />
           Stripe
         </label>
