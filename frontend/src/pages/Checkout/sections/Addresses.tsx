@@ -4,9 +4,12 @@ import { useUser } from "@/stores/user";
 import styles from "../Checkout.module.scss";
 
 import { AddressCard } from "@/features/AddressCard";
+import { useCheckoutActions } from "@/stores/checkout";
 
 const Addresses = () => {
   const user = useUser();
+
+  const { setAddress } = useCheckoutActions();
 
   const [selectedAddress, setSelectedAddress] = useState("");
 
@@ -20,7 +23,7 @@ const Addresses = () => {
           address={add}
           className={styles.address}
           onSelect={setSelectedAddress}
-          selected={add.isDefault || selectedAddress === add.id}
+          selected={selectedAddress === add.id}
         />
       ))}
     </section>

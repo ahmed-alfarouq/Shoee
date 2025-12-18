@@ -18,6 +18,21 @@
   &.select:hover {
     border-color: variables.$third-color;
     cursor: pointer;
+
+    .radio {
+      background: variables.$third-color;
+    }
+  }
+
+  .radio {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 12px;
+    vertical-align: middle;
+    transition: border-color 0.2s, background-color 0.2s;
   }
 
   .header {

@@ -15,13 +15,30 @@ const AddressCard = ({
   setDefault,
   className,
 }: AddressCardProps) => {
+  const handleSelect = () => {
+    if (selectable) onSelect?.(address.id);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (!selectable) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onSelect?.(address.id);
+    }
+  };
+
   return (
     <article
+      tabIndex={selectable ? 0 : undefined}
+      role={selectable ? "button" : undefined}
+      aria-pressed={selectable ? selected : undefined}
       className={`${styles.card} ${selectable ? styles.select : ""} ${
         selected ? styles.selected : ""
       } ${className}`}
-      onClick={() => selectable && onSelect?.(address.id)}
+      onClick={handleSelect}
+      onKeyDown={handleKeyDown}
     >
+      {selectable && <span className={styles.radio} />}
       <div className={styles.header}>
         <h3 className={styles.name}>
           {address.firstName} {address.lastName}
@@ -40,17 +57,35 @@ const AddressCard = ({
 
       {editable && (
         <div className={styles.buttons}>
-          <Button size="sm" onClick={() => onEdit?.(address.id)}>
+          <Button
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit?.(address.id);
+            }}
+          >
             Edit
           </Button>
 
           {!address.isDefault && setDefault && (
-            <Button size="sm" onClick={() => setDefault(address.id)}>
+            <Button
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                setDefault(address.id);
+              }}
+            >
               Set default
             </Button>
           )}
           {remove && (
-            <Button size="sm" onClick={() => remove(address.id)}>
+            <Button
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                remove(address.id);
+              }}
+            >
               Remove
             </Button>
           )}
