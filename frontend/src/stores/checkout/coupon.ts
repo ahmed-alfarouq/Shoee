@@ -1,10 +1,14 @@
+import asyncCatch from "@/utils/asyncCatch";
+
+import { applyCoupon } from "./actions";
+
 import type { StateCreator } from "zustand";
 import type { CouponSlice } from "./checkoutStore.types";
 
 export const createCouponSlice: StateCreator<CouponSlice> = (set) => ({
-  code: null,
-  amount: null,
+  couponCode: null,
+  discount: null,
 
-  applyCoupon: (code, amount) => set({ code, amount }),
-  removeCoupon: () => set({ code: null, amount: null }),
+  applyCoupon: (coupon) => asyncCatch(() => applyCoupon({ set, coupon })),
+  removeCoupon: () => set({ couponCode: null, discount: null }),
 });

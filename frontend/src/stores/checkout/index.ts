@@ -18,6 +18,8 @@ export const useCheckoutStore = create<CheckoutStore>()(
   )
 );
 
+export const useCheckoutState = () => useCheckoutStore((state) => state);
+
 export const useCheckoutActions = (): Pick<
   CheckoutStore,
   | "setAddress"
@@ -27,12 +29,19 @@ export const useCheckoutActions = (): Pick<
   | "resetCustomer"
   | "setPaymentMethod"
 > => {
-  return useCheckoutStore((state) => ({
-    setAddress: state.setAddress,
-    setCustomer: state.setCustomer,
-    applyCoupon: state.applyCoupon,
-    removeCoupon: state.removeCoupon,
-    resetCustomer: state.resetCustomer,
-    setPaymentMethod: state.setPaymentMethod,
-  }));
+  const applyCoupon = useCheckoutStore((state) => state.applyCoupon);
+  const removeCoupon = useCheckoutStore((state) => state.removeCoupon);
+  const setCustomer = useCheckoutStore((state) => state.setCustomer);
+  const setAddress = useCheckoutStore((state) => state.setAddress);
+  const resetCustomer = useCheckoutStore((state) => state.resetCustomer);
+  const setPaymentMethod = useCheckoutStore((state) => state.setPaymentMethod);
+
+  return {
+    applyCoupon,
+    removeCoupon,
+    setCustomer,
+    setAddress,
+    resetCustomer,
+    setPaymentMethod,
+  };
 };

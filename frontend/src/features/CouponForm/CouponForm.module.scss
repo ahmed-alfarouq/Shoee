@@ -1,6 +1,39 @@
+@use "@/styles/base/variables";
+
 .coupon_form {
   display: flex;
-  gap: 5px;
+  flex-wrap: wrap;
 
   margin-block: 15px;
+
+  .input {
+    width: 75%;
+
+    input[id="coupon"] {
+      border-right-width: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .btn {
+    width: 25%;
+    max-height: 49px;
+
+    font-size: 14px;
+    text-transform: capitalize;
+
+
+    color: #fff;
+    background-color: variables.$hover-font-color;
+
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .error {
+    width: 100%;
+    flex-shrink: 0;
+  }
 }

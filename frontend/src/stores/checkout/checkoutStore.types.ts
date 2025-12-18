@@ -1,3 +1,5 @@
+type ErrorSuccessMessage = Promise<[Error | null, { msg: string } | null]>;
+
 export interface CustomerState {
   email: string;
   name: string;
@@ -28,11 +30,22 @@ export interface PaymentSlice {
 }
 
 export interface CouponSlice {
-  code: string | null;
-  amount: number | null;
+  couponCode: string | null;
+  discount: number | null;
 
-  applyCoupon: (code: string, amount: number) => void;
+  applyCoupon: (couponCode: string) => ErrorSuccessMessage;
   removeCoupon: () => void;
 }
 
 export type CheckoutStore = PaymentSlice & CouponSlice & CustomerSlice;
+
+export type CheckoutSet = (
+  nextStateOrUpdater: CheckoutStore | Partial<CheckoutStore>,
+  shouldReplace?: false
+) => void;
+
+// Actions
+export interface ApplyCouponAction {
+  coupon: string;
+  set: CheckoutSet;
+}
