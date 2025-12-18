@@ -9,4 +9,9 @@ export interface FormMessageProps {
    * OPTIONAL: The message to be displayed
    */
   message?: string | null;
+
+  /**
+   * OPTIONAL: ClassName for external styling
+   */
+  className?: string;
 }
