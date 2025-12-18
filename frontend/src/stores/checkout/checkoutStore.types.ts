@@ -1,8 +1,6 @@
 type ErrorSuccessMessage = Promise<[Error | null, { msg: string } | null]>;
 
 export interface CustomerState {
-  email: string;
-  name: string;
   address: {
     city: string;
     street: string;
@@ -14,9 +12,7 @@ export interface CustomerState {
 }
 
 export interface CustomerActions {
-  setCustomer(data: CustomerState): void;
   setAddress(address: CustomerState["address"]): void;
-  resetCustomer(): void;
 }
 
 export type CustomerSlice = CustomerState & CustomerActions;
