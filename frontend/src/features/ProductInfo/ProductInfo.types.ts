@@ -1,5 +1,8 @@
-import type { ProductProps } from "@/types/index.types";
+import type { Product } from "@/types/index.types";
 
 export interface ProductInfoProps {
-  item: ProductProps;
+  /**
+   * REQUIRED: The product item whose information will be displayed
+   */
+  item: Product;
 }

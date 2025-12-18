@@ -1,13 +1,13 @@
-import type { ProductProps } from "@/types/index.types";
+import type { Product } from "@/types/index.types";
 
 export interface AddToCartProps {
   /**
-   * The item to add to the cart
+   * REQUIRED: The item to add to the cart
    */
-  product: ProductProps;
+  product: Product;
 
   /**
-   * The quantity of this product to add to the cart
+   * REQUIRED: The quantity of this product to add to the cart
    */
   quantity: number;
   /**
