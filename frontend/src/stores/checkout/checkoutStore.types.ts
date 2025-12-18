@@ -1,21 +1,11 @@
+import type { Address } from "@/types/index.types";
+
 type ErrorSuccessMessage = Promise<[Error | null, { msg: string } | null]>;
 
-export interface CustomerState {
-  address: {
-    city: string;
-    street: string;
-    zipCode: string;
-    country: string;
-    apartment?: string;
-    phoneNumber: string;
-  } | null;
+export interface CustomerSlice {
+  address: Address | null;
+  setAddress(address: Address): void;
 }
-
-export interface CustomerActions {
-  setAddress(address: CustomerState["address"]): void;
-}
-
-export type CustomerSlice = CustomerState & CustomerActions;
 
 export type PaymentMethod = "cash" | "stripe" | null;
 

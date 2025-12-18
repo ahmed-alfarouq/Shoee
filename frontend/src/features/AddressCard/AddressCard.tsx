@@ -16,14 +16,14 @@ const AddressCard = ({
   className,
 }: AddressCardProps) => {
   const handleSelect = () => {
-    if (selectable) onSelect?.(address.id);
+    if (selectable) onSelect?.(address);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (!selectable) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      onSelect?.(address.id);
+      onSelect?.(address);
     }
   };
 

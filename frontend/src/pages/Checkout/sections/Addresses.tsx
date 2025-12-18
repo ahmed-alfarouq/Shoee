@@ -1,17 +1,15 @@
-import { useState } from "react";
 import { useUser } from "@/stores/user";
 
 import styles from "../Checkout.module.scss";
 
 import { AddressCard } from "@/features/AddressCard";
-import { useCheckoutActions } from "@/stores/checkout";
+import { useCheckoutActions, useCheckoutState } from "@/stores/checkout";
 
 const Addresses = () => {
   const user = useUser();
 
+  const { address } = useCheckoutState();
   const { setAddress } = useCheckoutActions();
-
-  const [selectedAddress, setSelectedAddress] = useState("");
 
   return (
     <section className={styles.addresses}>
@@ -22,8 +20,8 @@ const Addresses = () => {
           key={add.id}
           address={add}
           className={styles.address}
-          onSelect={setSelectedAddress}
-          selected={selectedAddress === add.id}
+          onSelect={setAddress}
+          selected={address?.id === add.id}
         />
       ))}
     </section>
