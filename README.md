@@ -1,89 +1,116 @@
-# **Shoee - Modern Ecommerce Platform**
+# **Shoee — Modern E-commerce Platform**
 
-> **Shoee** is a modern **Ecommerce platform** specializing in **men's clothing, watches, and shoes**.  
-> Built for **performance, security, and a seamless shopping experience**.
+> **Shoee** is a modern, full-stack **e-commerce platform** focused on **men’s clothing, watches, and shoes**, built with scalability, performance, and clean architecture in mind.
 
 ---
 
 ## **📸 Screenshots**
-| **Desktop View** | **Mobile View** |
-|-----------------|----------------|
-| ![screenshot](./screenshot.jpg) | ![screenshot-sm-screen](./screenshot-sm-screen.png) |
+
+| Desktop View                            | Mobile View                                      |
+| --------------------------------------- | ------------------------------------------------ |
+| ![Desktop Screenshot](./screenshot.jpg) | ![Mobile Screenshot](./screenshot-sm-screen.png) |
 
 ---
 
 ## **🚀 Live Demo**
-🔗 **[Visit Shoee Live](https://shoee.pages.dev)**  
+
+🔗 **[Visit Shoee Live](https://shoee-rho.vercel.app/)**
 
 ---
 
 ## **🛠️ Tech Stack**
+
 ### **Frontend**
-- **React.js** (Hooks, Context API)  
-- **React Router Dom** (Navigation)  
-- **Redux Toolkit** (State Management)  
-- **Redux Persist** (Persistent State)  
-- **Formik & Yup** (Form Handling & Validation)  
-- **Axios** (API Requests)  
-- **SCSS (SASS)** (Responsive & Modern Styling)  
-- **Swiper.js** (Interactive Product Carousels)  
-- **React Icons** (Stylish Icons)  
+
+* **React** (Functional Components & Hooks)
+* **TypeScript** (Type Safety)
+* **Zustand** (Client State Management)
+* **TanStack Query** (Server State & Caching)
+* **React Router DOM** (Routing)
+* **Axios** (HTTP Client)
+* **SCSS / SASS** (Responsive Styling)
+* **Swiper.js** (Product Carousels)
+* **React Icons**
 
 ### **Backend**
-- **Node.js & Express.js** (Server)  
-- **MongoDB & Mongoose** (Database)  
-- **JWT Authentication** (Secure Login System)  
-- **bcrypt.js** (Password Encryption)  
-- **Multer** (File Uploads - Profile Avatars)  
-- **Express Validator** (Form Data Validation)  
-- **Nodemailer (OAuth)** (Email Verification & Password Reset)  
+
+* **Node.js**
+* **Express.js**
+* **MongoDB & Mongoose**
+* **JWT Authentication** (Access & Refresh Tokens)
+* **bcrypt** (Password Hashing)
+* **Multer** (File Uploads)
+* **Express Validator**
+* **Nodemailer** (Email Verification & Password Reset)
 
 ---
 
-## **🔧 Features**
-✅ **Fully Responsive** - Works on all devices  
-✅ **Authentication & Authorization** (Login, Signup, Email Verification)  
-✅ **Password Reset via Email**  
-✅ **Redux State Management** for Cart & Authentication  
-✅ **Floating Alerts & Notifications**  
-✅ **Optimized Performance with Redux Persist**  
-✅ **Secure API with JWT Authentication & Refresh Tokens**  
-✅ **Profile & Billing Details Management**  
+## **✨ Features**
+
+* ✅ Fully responsive (desktop, tablet, mobile)
+* ✅ Authentication & authorization (signup, login, email verification)
+* ✅ Password reset via email
+* ✅ Product listing, filtering, and cart management
+* ✅ Optimized data fetching with **TanStack Query**
+* ✅ Lightweight global state with **Zustand**
+* ✅ Secure APIs with JWT & refresh tokens
+* ✅ User profile & billing details management
+* ✅ Clean, scalable project structure
 
 ---
 
-## **🖥️ Installation Guide**
-### **🔹 Prerequisites**
-Ensure you have the following installed:
-- [Node.js](https://nodejs.org/)  
-- [MongoDB](https://www.mongodb.com/)  
-- Basic knowledge of React, Redux, and Node.js  
+## **🖥️ Installation**
 
-### **🔹 Clone the Repository**
-```sh
+### **Prerequisites**
+
+Make sure you have:
+
+* [Node.js](https://nodejs.org/)
+* [MongoDB](https://www.mongodb.com/)
+* Basic knowledge of React, TypeScript, and Express
+
+---
+
+### **Clone the Repository**
+
+```bash
 git clone https://github.com/ahmed-al-farouq/Shoee.git
 cd Shoee
 ```
-### **🔹 Install Dependencies**
-```
+
+### **Install Dependencies**
+
+```bash
 npm install
 ```
 
-### **👨‍💻 Author**
+### **Run the Project**
 
-:bearded_person: **Ahmed Al-Farouq**
-  - Github: [@Ahmed-Alfarouq](https://github.com/ahmed-al-farouq)
-  - LinkedIn: [LinkedIn](https://www.linkedin.com/in/ahmed-al-farouq/)
+```bash
+npm run dev
+```
 
-### **🤝 Contributing**
+> Configure environment variables (`.env`) for MongoDB, JWT secrets, and email services before running.
 
-Contributions, issues, and feature requests are welcome!
+---
 
-Feel free to check the [issues page](../../issues/).
+## **👨‍💻 Author**
 
-### **⭐ Show Your Support**
+**Ahmed Al-Farouq**
 
-**If you like this project, give it a star! ⭐**\
-**🚀 Let's build an amazing Ecommerce experience together!**
+* GitHub: [@ahmed-alfarouq](https://github.com/ahmed-alfarouq)
+* LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/ahmed-alfarouq)
 
+---
 
+## **🤝 Contributing**
+
+Contributions, issues, and feature requests are welcome.
+Check the [issues page](../../issues).
+
+---
+
+## **⭐ Support**
+
+If you find this project useful, **give it a star ⭐**
+It helps a lot and keeps the project moving forward 🚀
