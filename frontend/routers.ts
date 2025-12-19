@@ -1,22 +1,59 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import { ShopLayout } from "@/layouts/Shop";
 import { DashboardLayout } from "@/layouts/Dashboard";
 
-import { Home } from "@pages/Home";
-import { Cart } from "@/pages/Cart";
-import { Account } from "@/pages/Account";
-import { Checkout } from "@/pages/Checkout";
-import { Products } from "@/pages/Products";
-import { NotFound } from "@/pages/NotFound";
-import { ContactUs } from "@/pages/ContactUs";
-import { SingleProduct } from "@/pages/SingleProduct";
+const Home = lazy(() =>
+  import("@/pages/Home").then((module) => ({ default: module.Home }))
+);
+const Cart = lazy(() =>
+  import("@/pages/Cart").then((module) => ({ default: module.Cart }))
+);
+const Account = lazy(() =>
+  import("@/pages/Account").then((module) => ({ default: module.Account }))
+);
+const Checkout = lazy(() =>
+  import("@/pages/Checkout").then((module) => ({ default: module.Checkout }))
+);
+const Products = lazy(() =>
+  import("@/pages/Products").then((module) => ({ default: module.Products }))
+);
+const NotFound = lazy(() =>
+  import("@/pages/NotFound").then((module) => ({ default: module.NotFound }))
+);
+const ContactUs = lazy(() =>
+  import("@/pages/ContactUs").then((module) => ({ default: module.ContactUs }))
+);
+const SingleProduct = lazy(() =>
+  import("@/pages/SingleProduct").then((module) => ({
+    default: module.SingleProduct,
+  }))
+);
 
-import { SignUp } from "@/pages/SignUp";
-import { SignIn } from "@/pages/SignIn";
-import { VerifyEmail } from "@/pages/VerifyEmail";
-import { ResetPassword } from "@/pages/ResetPassword";
-import { ForgotPassword } from "@/pages/ForgotPassword";
+const SignUp = lazy(() =>
+  import("@/pages/SignUp").then((module) => ({ default: module.SignUp }))
+);
+const SignIn = lazy(() =>
+  import("@/pages/SignIn").then((module) => ({ default: module.SignIn }))
+);
+const VerifyEmail = lazy(() =>
+  import("@/pages/VerifyEmail").then((module) => ({
+    default: module.VerifyEmail,
+  }))
+);
+const ResetPassword = lazy(() =>
+  import("@/pages/ResetPassword").then((module) => ({
+    default: module.ResetPassword,
+  }))
+);
+const ForgotPassword = lazy(() =>
+  import("@/pages/ForgotPassword").then((module) => ({
+    default: module.ForgotPassword,
+  }))
+);
+
+import { LazyLoad } from "@/features/LazyLoad";
 
 import authLoader from "@/loaders/authLoader";
 
@@ -38,57 +75,57 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component: Home,
+            Component: LazyLoad(Home),
           },
           {
             path: "/products",
-            Component: Products,
+            Component: LazyLoad(Products),
           },
           {
             path: "/products/:id",
-            Component: SingleProduct,
+            Component: LazyLoad(SingleProduct),
           },
           {
             path: "/cart",
-            Component: Cart,
+            Component: LazyLoad(Cart),
           },
           {
             path: "/checkout",
 
-            Component: Checkout,
+            Component: LazyLoad(Checkout),
           },
           {
             path: "/contactus",
-            Component: ContactUs,
+            Component: LazyLoad(ContactUs),
           },
           {
             path: "/account",
 
-            Component: Account,
+            Component: LazyLoad(Account),
           },
           {
             path: "/sign-in",
-            Component: SignIn,
+            Component: LazyLoad(SignIn),
           },
           {
             path: "/sign-up",
-            Component: SignUp,
+            Component: LazyLoad(SignUp),
           },
           {
             path: "/forgot-password",
-            Component: ForgotPassword,
+            Component: LazyLoad(ForgotPassword),
           },
           {
             path: "/reset-password",
-            Component: ResetPassword,
+            Component: LazyLoad(ResetPassword),
           },
           {
             path: "/verify-email",
-            Component: VerifyEmail,
+            Component: LazyLoad(VerifyEmail),
           },
           {
             path: "*",
-            Component: NotFound,
+            Component: LazyLoad(NotFound),
           },
         ],
       },
