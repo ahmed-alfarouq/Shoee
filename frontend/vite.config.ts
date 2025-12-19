@@ -16,4 +16,31 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "src/components"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (
+              id.includes("react") ||
+              id.includes("react-dom") ||
+              id.includes("react-router-dom")
+            ) {
+              return "react-vendor";
+            }
+
+            if (id.includes("swiper") || id.includes("rc-slider")) {
+              return "ui-vendor";
+            }
+
+            if (id.includes("lodash") || id.includes("axios")) {
+              return "utils-vendor";
+            }
+
+            return "vendor";
+          }
+        },
+      },
+    },
+  },
 });
