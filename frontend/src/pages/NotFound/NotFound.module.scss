@@ -1,0 +1,45 @@
+@use "@/styles/base/variables";
+
+.not_found {
+  background-color: variables.$primary-color;
+  height: 80vh;
+  text-align: center;
+  padding: 80px 0;
+
+  .content {
+    padding: 20px;
+    background-color: #fff;
+
+    border-radius: 5px;
+
+    .title {
+      font-size: 55px;
+      color: variables.$hover-font-color;
+    }
+
+    .sub_title {
+      font-size: 20px;
+    }
+
+    .link {
+      width: fit-content;
+
+      margin-top: 10px;
+      margin-inline: auto;
+      padding: 10px 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .not_found {
+    .content {
+      .title {
+        font-size: 35px;
+      }
+      .sub_title {
+        font-size: 15px;
+      }
+    }
+  }
+}

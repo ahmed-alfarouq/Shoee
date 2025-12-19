@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://shoee.pages.dev/sitemap.xml

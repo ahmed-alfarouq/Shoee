@@ -78,6 +78,8 @@ export const productSchema = new Schema(
       },
     ],
     thumbnail: { type: String, required: true },
+    stripePriceId: { type: String, required: true },
+    stripeProductId: { type: String, required: true },
   },
   {
     timestamps: true,

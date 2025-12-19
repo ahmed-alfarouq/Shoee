@@ -1,3 +1,5 @@
+@use "variables";
+
 * {
   margin: 0;
   padding: 0;
@@ -5,44 +7,10 @@
 }
 
 body {
-  font-family: $primary-font;
+  font-family: variables.$primary-font;
   line-height: 1.6;
-  color: $primary-font-color;
+  color: variables.$primary-font-color;
   overflow-x: hidden;
-}
-
-address,
-blockquote,
-body,
-dd,
-dl,
-dt,
-fieldset,
-figure,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-html,
-iframe,
-legend,
-li,
-ol,
-p,
-pre,
-textarea,
-ul {
-  border: 0;
-  font-size: 100%;
-  font-style: inherit;
-  font-weight: inherit;
-  margin: 0;
-  outline: 0;
-  padding: 0;
-  vertical-align: baseline;
 }
 
 ul,
@@ -84,5 +52,5 @@ h4,
 h5,
 h6,
 h1 a {
-  font-family: $secondary-font;
+  font-family: variables.$secondary-font;
 }

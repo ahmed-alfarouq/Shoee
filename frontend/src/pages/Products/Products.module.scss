@@ -1,0 +1,17 @@
+@use "@/styles/base/variables";
+
+.products {
+  min-height: calc(100svh - 200px);
+
+  background-color: variables.$primary-color;
+  padding-block: 30px;
+
+  .result_count {
+    font-family: 15px;
+    font-weight: 500;
+
+    margin-block: 15px;
+
+    color: variables.$secondary-font-color;
+  }
+}

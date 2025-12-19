@@ -1,0 +1,11 @@
+@use "@/styles/base/variables";
+
+.rc_slider_handle {
+  background-color: variables.$third-color;
+  border-color: variables.$third-color;
+}
+
+.rc_slider_track,
+.rc_slider_tracks {
+  background-color: variables.$third-color;
+}

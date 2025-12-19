@@ -1,3 +1,5 @@
+@use "../base/variables";
+
 .review-card {
   position: relative;
   width: 100%;
@@ -25,6 +27,6 @@
   }
 
   .review-rating {
-    color: $hover-font-color;
+    color: variables.$hover-font-color;
   }
 }

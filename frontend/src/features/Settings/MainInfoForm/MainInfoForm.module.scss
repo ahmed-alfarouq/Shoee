@@ -1,0 +1,15 @@
+.form {
+  margin-block: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  .form_input {
+    display: none;
+  }
+}
+
+.avatar_label {
+  font-weight: 500;
+}

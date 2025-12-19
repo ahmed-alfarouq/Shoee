@@ -1,0 +1,27 @@
+@use "@/styles/base/variables";
+
+.thumbnail {
+  position: relative;
+
+  width: 100%;
+  margin-bottom: 10px;
+
+  background: variables.$primary-product-bg;
+
+  .quick_view {
+    position: absolute;
+    bottom: 0;
+
+    border-radius: 0;
+
+    text-transform: capitalize;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .thumbnail {
+    .quick_view {
+      opacity: 1;
+    }
+  }
+}

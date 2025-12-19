@@ -1,0 +1,64 @@
+@use "@/styles/base/variables";
+
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 5px;
+
+  position: absolute;
+
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.onsale {
+  color: #fff;
+  background: variables.$third-color;
+}
+
+// Position
+.tr {
+  top: 0;
+  right: 0;
+  border-bottom-left-radius: 5px;
+}
+
+.tl {
+  top: 0;
+  left: 0;
+  border-bottom-right-radius: 5px;
+}
+
+.br {
+  bottom: 0;
+  right: 0;
+  border-top-left-radius: 5px;
+}
+
+.bl {
+  bottom: 0;
+  left: 0;
+  border-top-right-radius: 5px;
+}
+
+.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+// Sizes
+.sm {
+  width: 40px;
+  height: 40px;
+  font-size: 12px;
+}
+
+.md {
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+}

@@ -1,0 +1,70 @@
+@use "@/styles/base/variables";
+
+.auth {
+  min-height: calc(100svh - 200px);
+
+  background: variables.$primary-color;
+  padding-block: 30px;
+
+  .title {
+    text-align: left;
+    font-size: 30px;
+    line-height: 1.1;
+  }
+
+  .error,
+  .message,
+  .description {
+    width: 60%;
+    margin: auto;
+
+    font-size: 17px;
+    font-weight: 500;
+    text-align: center;
+
+    padding-block: 20px;
+  }
+
+  .message {
+    color: #b3b303;
+    font-weight: 500;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .error {
+    color: #666;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border: 1px solid variables.$primary-border-color;
+    border-radius: 5px;
+
+    padding: 20px;
+    margin: 10px auto;
+    max-width: 460px;
+
+    .form_title {
+      font-size: 42px;
+    }
+
+    .bottom_links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .bottom_link {
+        font-size: 18px;
+        color: variables.$secondary-font-color;
+      }
+    }
+  }
+}

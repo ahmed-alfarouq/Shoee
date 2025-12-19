@@ -1,0 +1,10 @@
+@use "@/styles/base/variables";
+
+.contact_form {
+  max-width: 600px;
+
+  .title {
+    font-size: 30px;
+    align-self: baseline;
+  }
+}

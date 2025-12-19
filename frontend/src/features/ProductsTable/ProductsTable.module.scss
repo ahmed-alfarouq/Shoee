@@ -1,0 +1,73 @@
+@use "@/styles/base/variables";
+
+.table {
+  width: 100%;
+
+  &,
+  thead,
+  tbody {
+    border: 1px solid variables.$primary-border-color;
+  }
+
+  thead,
+  th {
+    padding: 12px;
+    text-align: left;
+    background: #fff;
+  }
+
+  td {
+    padding: 10px;
+  }
+
+  tr:nth-child(even) {
+    background: #fbfbfb;
+  }
+
+  .product {
+    .remove {
+      font-size: 22px;
+      opacity: 0.6;
+    }
+    .thumbnail {
+      width: 130px;
+      height: 130px;
+    }
+  }
+}
+
+@media screen and (max-width: 921px) {
+  .table {
+    thead {
+      display: none;
+    }
+    .product {
+      display: grid;
+      grid-template-columns: 1fr;
+      td {
+        border-bottom: 1px solid variables.$primary-border-color;
+        .remove {
+          float: right;
+          &::after {
+            clear: both;
+          }
+        }
+      }
+
+      td:not(:first-child) {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        &:not(:nth-child(2))::before {
+          content: attr(data-title) ": ";
+          font-weight: 700;
+        }
+      }
+
+      td:nth-child(2) {
+        justify-content: center;
+      }
+    }
+  }
+}

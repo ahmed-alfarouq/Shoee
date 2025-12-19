@@ -1,0 +1,12 @@
+@use "@/styles/base/variables";
+
+.rating_container {
+  color: variables.$secondary-font-color;
+
+  font-size: 16px;
+
+  .full,
+  .half {
+    fill: variables.$primary-font-color;
+  }
+}

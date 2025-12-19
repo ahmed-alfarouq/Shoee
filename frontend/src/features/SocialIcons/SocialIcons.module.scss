@@ -1,0 +1,29 @@
+@use "@/styles/base/_variables";
+
+.nav_menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  .item {
+    font-size: 22px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    background: #fff;
+    color: variables.$primary-font-color;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: #fff;
+      background: variables.$hover-font-color;
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .nav_menu {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,67 @@
+@use "@/styles/base/variables";
+
+.form_control {
+  position: relative;
+  width: 100%;
+
+  .form_label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    pointer-events: none;
+
+    transition: all 0.3s ease;
+  }
+
+  .form_input {
+    background-color: transparent;
+
+    border: 1px solid variables.$primary-border-color;
+    border-radius: 4px;
+    outline: none;
+
+    width: 100%;
+
+    font-size: 17px;
+    font-weight: 500;
+
+    padding: 13px 12px;
+
+    &:focus + .form_label,
+    &:focus + .error + .form_label,
+    &:not(:placeholder-shown) + .error + .form_label,
+    &:not(:placeholder-shown) + .form_label {
+      top: -1px;
+      left: 10px;
+      font-size: 12px;
+    }
+  }
+
+  .error {
+    font-size: 14px;
+    color: variables.$hover-font-color;
+    margin: 5px 0;
+    align-self: baseline;
+    min-height: 10px;
+
+    & + .form_label {
+      top: 30%;
+    }
+  }
+
+  .toggle_password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+
+  .error ~ .toggle_password {
+    top: 35%;
+  }
+}

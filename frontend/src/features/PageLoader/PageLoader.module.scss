@@ -1,0 +1,12 @@
+.page_loader {
+  position: absolute;
+  inset: 0;
+
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}

@@ -1,4 +1,5 @@
 import cors from "cors";
+import Stripe from "stripe";
 import helmet from "helmet";
 import express from "express";
 import compression from "compression";
@@ -6,10 +7,13 @@ import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import stripeRoutes from "./routes/stripeRoutes.js";
 import productsRoutes from "./routes/productsRoutes.js";
 
 import AppError from "./utils/error/appError.js";
 import handleError from "./middleware/handleError.js";
+
+export const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
@@ -51,7 +55,9 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/checkout", stripeRoutes);
 app.use("/products", productsRoutes);
+
 
 // Catch all undefined routes
 app.all("*", (req, res, next) => next(new AppError(`Can't find ${req.originalUrl} on this server`, 404)))

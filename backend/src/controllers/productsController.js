@@ -3,24 +3,40 @@ import Product from "../models/ProductModel.js";
 import AppError from "../utils/error/appError.js";
 
 export const getProducts = async (req, res, next) => {
-  const { s, category, rating, minPrice, maxPrice, discountPercentage, limit = 10, cursor } = req.query;
+  const { s, exclude, category, rating, price, discountPercentage, limit = 10, cursor } = req.query;
 
   const filter = {};
 
   // Name filter
   if (s) filter.title = { $regex: s, $options: "i" };
 
-  // Category filter
-  if (category) filter.category = category;
+  // Categories filter
+  if (category) {
+    const categories = Array.isArray(category) ? category : [category];
+    filter.category = { $in: categories };
+  }
 
   // Rating filter
-  if (rating) filter.rating = { $gte: Number(rating) };
+  if (rating) {
+    const ratings = Array.isArray(rating) ? rating : [rating];
+    const minRating = Math.min(...ratings.map(Number));
+
+    filter.rating = { $gte: minRating }
+  };
 
   // Price range filter
-  if (minPrice || maxPrice) {
-    filter.price = {};
-    if (minPrice) filter.price.$gte = Number(minPrice);
-    if (maxPrice) filter.price.$lte = Number(maxPrice);
+  if (price?.length) {
+    filter.price = {
+      $gte: Number(price[0]),
+      $lte: Number(price[1]),
+    };
+  }
+
+  // Exclude
+  if (exclude?.length) {
+    filter._id = {
+      $nin: exclude,
+    }
   }
 
   // On Sale

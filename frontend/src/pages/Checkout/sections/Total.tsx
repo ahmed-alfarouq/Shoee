@@ -1,0 +1,43 @@
+import { useMemo } from "react";
+import { useCartState } from "@/stores/cart";
+
+import styles from "../Checkout.module.scss";
+
+import { useCheckoutState } from "@/stores/checkout";
+
+const Total = () => {
+  const { items } = useCartState();
+  const { discount, paymentMethod } = useCheckoutState();
+
+  const subtotal = useMemo(
+    () => items.reduce((PV, CV) => CV.price * CV.qty + PV, 0),
+    [items]
+  );
+
+  const total = useMemo(() => {
+    const extraFee = paymentMethod === "cash";
+
+    if (discount) {
+      return (extraFee ? 10 : 0) + (subtotal - (discount / 100) * subtotal);
+    }
+
+    return (extraFee ? 10 : 0) + subtotal;
+  }, [discount, paymentMethod, subtotal]);
+
+  return (
+    <div className={styles.total}>
+      <strong className={styles.price}>Total: ${total}</strong>
+      {paymentMethod === "cash" && (
+        <span className={styles.note}>
+          A $10 fee applies for cash on delivery.
+        </span>
+      )}
+
+      {discount && (
+        <span className={styles.note}>A {discount}% discount applied.</span>
+      )}
+    </div>
+  );
+};
+
+export default Total;

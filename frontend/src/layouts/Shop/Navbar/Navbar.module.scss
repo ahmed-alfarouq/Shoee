@@ -1,0 +1,146 @@
+@use "@/styles/base/variables";
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  padding-block: 30px;
+
+  .logo {
+    color: variables.$secondary-color;
+    font: normal small-caps 600 40px/ 40px variables.$primary-font;
+  }
+
+  .menu_collapse {
+    .close_menu {
+      display: none;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 35px;
+
+      .nav_item {
+        font-weight: 500;
+        font-family: variables.$primary-font;
+        text-transform: uppercase;
+        color: variables.$primary-font-color;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          color: variables.$hover-font-color;
+        }
+
+        .nav_link {
+          display: block;
+
+          &.active {
+            border-bottom: 2px solid variables.$secondary-color;
+            color: variables.$hover-font-color;
+          }
+        }
+      }
+    }
+  }
+
+  .icons_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    line-height: 0;
+  }
+
+  .toggle_icon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    font-size: 23px;
+    color: #fff;
+
+    background: variables.$third-color;
+
+    padding: 8px;
+  }
+}
+
+// Start Media
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding-block: 30px;
+    align-items: baseline;
+
+    .menu_collapse {
+      flex-direction: column;
+      justify-content: flex-start;
+
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: -100%;
+
+      width: 90%;
+
+      z-index: 101;
+
+      background: #fff;
+
+      transition: all 0.2s linear;
+
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+      &.open {
+        right: 0;
+      }
+
+      .close_menu {
+        display: block;
+
+        font-size: 25px;
+
+        padding: 20px;
+        margin-left: auto;
+      }
+
+      .menu {
+        display: block;
+        gap: 0;
+
+        .nav_item {
+          background: variables.$primary-color;
+
+          width: 100%;
+
+          border-bottom: 1px solid variables.$primary-border-color;
+
+          &:first-child {
+            border-top: 1px solid variables.$primary-border-color;
+          }
+
+          .nav_link {
+            padding: 25px;
+
+            &.active {
+              background-color: variables.$secondary-color;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+
+    .toggle_icon {
+      display: flex;
+    }
+  }
+}
