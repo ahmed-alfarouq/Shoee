@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCartDispatch } from "@/hooks/useCart";
+import { useCartActions } from "@/stores/cart";
 
 import styles from "./AddToCart.module.scss";
 
@@ -10,7 +10,7 @@ import { MdBookmarkAdded } from "react-icons/md";
 import type { AddToCartProps } from "./AddToCart.types";
 
 const AddToCart = ({ product, quantity, callback }: AddToCartProps) => {
-  const dispatch = useCartDispatch();
+  const { addItem } = useCartActions();
 
   const [text, setText] = useState("add to cart");
   const [added, setAdded] = useState(false);
@@ -20,7 +20,7 @@ const AddToCart = ({ product, quantity, callback }: AddToCartProps) => {
       return;
     }
 
-    dispatch({ type: "ADD_ITEM", payload: { item: product, qty: quantity } });
+    addItem(product, quantity);
 
     callback?.();
 

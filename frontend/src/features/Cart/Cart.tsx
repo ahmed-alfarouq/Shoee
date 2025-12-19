@@ -1,5 +1,5 @@
+import { useCartState } from "@/stores/cart";
 import { useCallback, useMemo, useState } from "react";
-import { useCartState } from "@/hooks/useCart";
 
 import styles from "./Cart.module.scss";
 
@@ -17,7 +17,7 @@ const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const switchCart = useCallback(() => setIsOpen((prev) => !prev), []);
-  
+
   const itemsCount = useMemo(
     () => items.reduce((PV, CV) => PV + CV.qty, 0),
     [items]

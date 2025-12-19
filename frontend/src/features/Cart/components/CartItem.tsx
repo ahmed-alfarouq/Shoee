@@ -1,7 +1,6 @@
 import truncate from "lodash/truncate";
 import debounce from "lodash/debounce";
-
-import { useCartDispatch } from "@/hooks/useCart";
+import { useCartActions } from "@/stores/cart";
 
 import styles from "../Cart.module.scss";
 
@@ -13,27 +12,13 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import type { Product } from "@/types/index.types";
 
 const CartItem = ({ item }: { item: Product }) => {
-  const dispatch = useCartDispatch();
+  const { updateQty, removeItem } = useCartActions();
 
-  const increment = () =>
-    dispatch({
-      type: "UPDATE_QTY",
-      payload: { id: item.id, qty: item.qty + 1 },
-    });
+  const increment = debounce(() => updateQty(item.id, item.qty + 1), 50);
 
-  const decrement = debounce(
-    () =>
-      dispatch({
-        type: "UPDATE_QTY",
-        payload: { id: item.id, qty: item.qty - 1 },
-      }),
-    50
-  );
+  const decrement = debounce(() => updateQty(item.id, item.qty - 1), 50);
 
-  const removeItem = debounce(
-    () => dispatch({ type: "REMOVE_ITEM", payload: { id: item.id } }),
-    50
-  );
+  const handleRemoveItem = debounce(() => removeItem(item.id), 50);
 
   return (
     <li className={styles.cart_item}>
@@ -58,7 +43,7 @@ const CartItem = ({ item }: { item: Product }) => {
         variant="ghost"
         size="icon"
         className={styles.remove}
-        onClick={removeItem}
+        onClick={handleRemoveItem}
       >
         <span className="sr-only">Close Cart</span>
         <IoCloseCircleOutline aria-hidden="true" />

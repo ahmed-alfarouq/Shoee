@@ -1,11 +1,10 @@
 import { useMemo } from "react";
 import truncate from "lodash/truncate";
+import { useCartState } from "@/stores/cart";
 
 import styles from "../Checkout.module.scss";
 
 import { Image } from "@/features/Image";
-
-import { useCartState } from "@/hooks/useCart";
 
 const OrderSummary = () => {
   const { items } = useCartState();

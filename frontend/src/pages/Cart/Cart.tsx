@@ -1,11 +1,11 @@
+import { useCartState } from "@/stores/cart";
+
 import styles from "./Cart.module.scss";
 
 import CartTotals from "./sections/CartTotals";
 import { EmptyCart } from "@/features/EmptyCart";
 
 import { ProductsTable } from "@/features/ProductsTable";
-
-import { useCartState } from "@/hooks/useCart";
 
 const Cart = () => {
   const { items } = useCartState();

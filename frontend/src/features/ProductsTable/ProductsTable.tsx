@@ -1,3 +1,5 @@
+import { useCartActions } from "@/stores/cart";
+
 import styles from "./ProductsTable.module.scss";
 
 import { Image } from "@features/Image";
@@ -5,12 +7,11 @@ import { QtySelector } from "@features/QtySelector";
 
 import { IoCloseCircleOutline } from "react-icons/io5";
 
-import { useCartActions } from "@/hooks/useCart";
-
 import type { ProductsTableProps } from "./ProductsTable.types";
 
 const ProductsTable = ({ products }: ProductsTableProps) => {
   const { updateQty, removeItem } = useCartActions();
+
   return (
     <table className={styles.table}>
       <thead>

@@ -1,12 +1,11 @@
 import { useEffect } from "react";
+import { useCartState } from "@/stores/cart";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./Checkout.module.scss";
 
 import Sidebar from "./sections/Sidebar";
 import Addresses from "./sections/Addresses";
-
-import { useCartState } from "@/hooks/useCart";
 
 const Checkout = () => {
   const { items } = useCartState();

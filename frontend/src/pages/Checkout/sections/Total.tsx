@@ -1,8 +1,8 @@
 import { useMemo } from "react";
+import { useCartState } from "@/stores/cart";
 
 import styles from "../Checkout.module.scss";
 
-import { useCartState } from "@/hooks/useCart";
 import { useCheckoutState } from "@/stores/checkout";
 
 const Total = () => {

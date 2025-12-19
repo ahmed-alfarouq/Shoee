@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
+import { useCartState } from "@/stores/cart";
 
 import styles from "../Cart.module.scss";
 
 import { Button } from "@/components/Button";
-
-import { useCartState } from "@/hooks/useCart";
 
 const CartTotals = () => {
   const { total } = useCartState();
