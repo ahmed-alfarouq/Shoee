@@ -15,6 +15,7 @@ export default defineConfig({
       "@features": path.resolve(__dirname, "src/features"),
       "@components": path.resolve(__dirname, "src/components"),
     },
+    dedupe: ["react", "react-dom"],
   },
   build: {
     rollupOptions: {
@@ -28,15 +29,13 @@ export default defineConfig({
             ) {
               return "react-vendor";
             }
-
-            if (id.includes("swiper") || id.includes("rc-slider")) {
+            if (
+              id.includes("swiper") ||
+              id.includes("rc-slider") ||
+              id.includes("@radix-ui")
+            ) {
               return "ui-vendor";
             }
-
-            if (id.includes("lodash") || id.includes("axios")) {
-              return "utils-vendor";
-            }
-
             return "vendor";
           }
         },
