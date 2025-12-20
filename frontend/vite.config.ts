@@ -17,29 +17,4 @@ export default defineConfig({
     },
     dedupe: ["react", "react-dom"],
   },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            if (
-              id.includes("react") ||
-              id.includes("react-dom") ||
-              id.includes("react-router-dom")
-            ) {
-              return "react-vendor";
-            }
-            if (
-              id.includes("swiper") ||
-              id.includes("rc-slider") ||
-              id.includes("@radix-ui")
-            ) {
-              return "ui-vendor";
-            }
-            return "vendor";
-          }
-        },
-      },
-    },
-  },
 });
