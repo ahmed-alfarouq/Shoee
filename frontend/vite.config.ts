@@ -21,12 +21,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes("commonjsHelpers")) return "commonjsHelpers";
           if (id.includes("node_modules")) {
             if (
               id.includes("react") ||
               id.includes("react-dom") ||
-              id.includes("react-router") ||
-              id.includes("formik")
+              id.includes("react-router")
             ) {
               return "react-vendor";
             }
