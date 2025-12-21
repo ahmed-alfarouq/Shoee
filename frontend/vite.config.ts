@@ -23,15 +23,6 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes("commonjsHelpers")) return "commonjsHelpers";
           if (id.includes("node_modules")) {
-            if (
-              id.includes("react") ||
-              id.includes("react-dom") ||
-              id.includes("react-router") ||
-              id.includes("formik")
-            ) {
-              return "react-vendor";
-            }
-
             if (id.includes("swiper") || id.includes("rc-slider")) {
               return "swiper-vendor";
             }
