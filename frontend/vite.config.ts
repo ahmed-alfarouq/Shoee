@@ -17,4 +17,20 @@ export default defineConfig({
     },
     dedupe: ["react", "react-dom"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("commonjsHelpers")) return "commonjsHelpers";
+          if (id.includes("node_modules")) {
+            if (id.includes("swiper") || id.includes("rc-slider")) {
+              return "swiper-vendor";
+            }
+
+            return "vendor";
+          }
+        },
+      },
+    },
+  },
 });
