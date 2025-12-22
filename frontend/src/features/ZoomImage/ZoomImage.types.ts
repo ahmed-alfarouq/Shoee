@@ -26,13 +26,19 @@ export interface ZoomImageProps {
 
   /**
    * OPTIONAL: Zoom scale factor when hovering.
-   * @default 2 (200% zoom).
+   * @default 1.5 (150% zoom).
    */
   zoomScale?: number;
 
   /**
-   * OPTIONAL: Duration of the zoom transition in milliseconds.
-   * @default 300 (300ms)
+   * OPTIONAL: Zoom lens size
+   * @default 20 (20px).
    */
-  transitionDuration?: number;
+  baseLens?: number;
+
+  /**
+   * OPTIONAL: Duration of the zoom transition
+   * @default 0.15
+   */
+  ease?: number;
 }
