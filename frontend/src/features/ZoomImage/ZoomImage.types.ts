@@ -26,7 +26,7 @@ export interface ZoomImageProps {
 
   /**
    * OPTIONAL: Zoom scale factor when hovering.
-   * @default 1.3 (130% zoom).
+   * @default 1.5 (150% zoom).
    */
   zoomScale?: number;
 

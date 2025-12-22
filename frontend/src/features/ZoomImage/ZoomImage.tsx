@@ -14,7 +14,7 @@ const ZoomImage = ({
   onError,
   ease = 0.15,
   baseLens = 20,
-  zoomScale = 2,
+  zoomScale = 1.5,
   className = "",
 }: ZoomImageProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
