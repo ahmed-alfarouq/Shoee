@@ -92,6 +92,8 @@ const ZoomImage = ({
       ref={containerRef}
       onMouseMove={handleMouseMove}
       className={`${styles.zoom_container} ${className}`}
+      role="img"
+      aria-label={`Image magnifier: ${alt}`}
     >
       <img
         src={src}
@@ -103,8 +105,9 @@ const ZoomImage = ({
       />
       <img
         src={src}
-        alt={alt}
+        alt=""
         ref={zoomRef}
+        aria-hidden="true"
         draggable={false}
         onError={onError}
         className={styles.zoom_image}
@@ -112,7 +115,7 @@ const ZoomImage = ({
           transform: `scale(${zoomScale})`,
         }}
       />
-      <div ref={borderRef} className={styles.lens_border} />
+      <div ref={borderRef} className={styles.lens_border} aria-hidden="true" />
     </div>
   );
 };
