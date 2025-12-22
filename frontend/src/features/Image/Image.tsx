@@ -30,18 +30,18 @@ const Image = ({
         <img
           src={src}
           alt={alt}
-          className={`${styles.main_image} ${isLoaded ? "visible" : "hidden"}`}
           onLoad={handleLoad}
           onError={handleError}
+          className={`${styles.main_image} ${isLoaded ? "visible" : "hidden"}`}
         />
       )}
       {!hasError && zoomImage && (
         <ZoomImage
           src={src}
           alt={alt}
-          className={`${styles.main_image} ${isLoaded ? "visible" : "hidden"}`}
           onLoad={handleLoad}
           onError={handleError}
+          className={`${styles.main_image} ${isLoaded ? "visible" : "hidden"}`}
         />
       )}
     </div>
