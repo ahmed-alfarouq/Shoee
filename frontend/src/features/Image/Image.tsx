@@ -23,7 +23,8 @@ const Image = ({
   const handleError = () => setHasError(true);
 
   useEffect(() => {
-    if (!imageRef.current) return;
+    const img = imageRef.current;
+    if (!img) return;
 
     const observer = new IntersectionObserver(
       (entries, observer) => {
@@ -36,10 +37,10 @@ const Image = ({
           }
         });
       },
-      { rootMargin: "100px" }
+      { rootMargin: "200px" }
     );
 
-    observer.observe(imageRef.current);
+    observer.observe(img);
 
     return () => observer.disconnect();
   }, [src]);
