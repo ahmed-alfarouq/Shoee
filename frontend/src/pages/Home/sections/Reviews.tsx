@@ -7,7 +7,7 @@ import { useTopRatedReviews } from "@/query/products/useTopRatedReviews";
 const Reviews = () => {
   const { data: reviews } = useTopRatedReviews();
 
-  if (!reviews) return;
+  if (!reviews?.length) return;
 
   return (
     <section className={`${styles.reviews} container`}>
@@ -18,7 +18,7 @@ const Reviews = () => {
             key={review.id}
             rating={review.rating}
             comment={review.comment}
-            reviewerName={`${review.user.username}`}
+            reviewerName={`${review.user?.username || "Customer"}`}
           />
         ))}
       </div>
