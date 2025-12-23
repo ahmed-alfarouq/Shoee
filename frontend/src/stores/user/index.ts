@@ -38,19 +38,18 @@ const useUserStore = create<UserStoreState>()(
         verifyEmail: (token) => asyncCatch(() => verifyEmail({ token })),
 
         updateAvatar: (avatar) =>
-          asyncCatch(() => updateAvatar({ set, file: avatar })),
+          asyncCatch(() => updateAvatar({ file: avatar })),
         updateUsername: (username) =>
-          asyncCatch(() => updateUsername({ set, newUsername: username })),
+          asyncCatch(() => updateUsername({ newUsername: username })),
         updatePassword: (oldPassword, newPassword) =>
           asyncCatch(() => updatePassword({ oldPassword, newPassword })),
 
         createAddress: (address) =>
-          asyncCatch(() => createAddress({ set, address })),
+          asyncCatch(() => createAddress({ address })),
         updateAddress: (address) =>
-          asyncCatch(() => updateAddress({ set, address })),
-        removeAddress: (id) => asyncCatch(() => removeAddress({ set, id })),
-        setDefaultAddress: (id) =>
-          asyncCatch(() => setDefaultAddress({ set, id })),
+          asyncCatch(() => updateAddress({ address })),
+        removeAddress: (id) => asyncCatch(() => removeAddress({ id })),
+        setDefaultAddress: (id) => asyncCatch(() => setDefaultAddress({ id })),
       },
     })),
     {

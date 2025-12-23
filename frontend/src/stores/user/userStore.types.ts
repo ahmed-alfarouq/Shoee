@@ -12,9 +12,8 @@ export type UserSet = (
 type SuccessResponse = Promise<[Error | null, { msg: string } | null]>;
 
 type SuccessAddressResponse = Promise<
-  [Error | null, { msg: string; addresses: Address[] | null }]
+  [Error | null, { msg: string; addresses: Address[] } | null]
 >;
-
 export type Actions = {
   logout: () => void;
   setToken: (token: string | null) => void;

@@ -26,7 +26,7 @@ const BillingDetails = () => {
   const handleRemoveAddress = async (id: string) => {
     const [, data] = await removeAddress(id);
 
-    if (data.addresses) {
+    if (data?.addresses) {
       setAddresses(data.addresses);
     }
   };
@@ -34,7 +34,7 @@ const BillingDetails = () => {
   const handleSetDefaultAddress = async (id: string) => {
     const [, data] = await setDefaultAddress(id);
 
-    if (data.addresses) {
+    if (data?.addresses) {
       setAddresses(data.addresses);
     }
   };
