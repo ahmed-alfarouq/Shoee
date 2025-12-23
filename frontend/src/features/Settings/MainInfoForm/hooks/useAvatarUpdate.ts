@@ -1,11 +1,15 @@
+import { useUserActions } from "@/stores/user";
 import { useState, useTransition } from "react";
-import { useUser, useUserActions } from "@/stores/user";
+
+import useUser from "@/query/user/useUser";
+
 import type { FormMessageProps } from "@/features/Auth/FormMessage/FormMessage.types";
 
 export const useAvatarUpdate = () => {
   const [isPending, startTransition] = useTransition();
   const { updateAvatar } = useUserActions();
-  const user = useUser();
+
+  const { data: user, isLoading } = useUser();
 
   const [preview, setPreview] = useState<string | null | undefined>(
     user?.avatar
@@ -36,5 +40,5 @@ export const useAvatarUpdate = () => {
     });
   };
 
-  return { isPending, preview, message, upload };
+  return { isPending, isLoading, preview, message, upload };
 };

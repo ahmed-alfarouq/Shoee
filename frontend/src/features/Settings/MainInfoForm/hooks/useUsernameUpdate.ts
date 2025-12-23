@@ -1,11 +1,15 @@
+import { useUserActions } from "@/stores/user";
 import { useState, useTransition } from "react";
-import { useUser, useUserActions } from "@/stores/user";
+
+import useUser from "@/query/user/useUser";
+
 import type { FormMessageProps } from "@/features/Auth/FormMessage/FormMessage.types";
 
 export const useUsernameUpdate = () => {
   const [isPending, startTransition] = useTransition();
 
-  const user = useUser();
+  const { data: user, isLoading } = useUser();
+
   const { updateUsername } = useUserActions();
 
   const [message, setMessage] = useState<{
@@ -33,5 +37,5 @@ export const useUsernameUpdate = () => {
     });
   };
 
-  return { username: user?.username, message, update, isPending };
+  return { username: user?.username, message, update, isLoading, isPending };
 };

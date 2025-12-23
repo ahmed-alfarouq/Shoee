@@ -4,7 +4,7 @@ import BillingDetails from "@/pages/Account/sections/BillingDetails";
 
 import useUserStore from "@/stores/user";
 
-const user = useUserStore.getState().user;
+const token = useUserStore.getState().token;
 
 import {
   FaGoogle,
@@ -36,8 +36,8 @@ export const footerFirstMenu = [
     to: "/contact",
   },
   {
-    name: user ? "My Account" : "Sign In",
-    to: user ? "/account" : "/sign-in",
+    name: token ? "My Account" : "Sign In",
+    to: token ? "/account" : "/sign-in",
   },
 ];
 

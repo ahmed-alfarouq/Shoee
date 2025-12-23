@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { useUser, useUserActions } from "@/stores/user";
+import { useUserActions } from "@/stores/user";
 
 import { Modal } from "@components/Modal";
 import { Button } from "@components/Button";
 import { AddressCard } from "@features/AddressCard";
 import { BillingDetailsForm } from "@features/Settings/BillingDetailsForm";
 
+import useUser from "@/query/user/useUser";
+
 const BillingDetails = () => {
-  const user = useUser();
+  const { data: user } = useUser();
+
   const { setDefaultAddress, removeAddress } = useUserActions();
 
   const [id, setId] = useState<string | undefined>();

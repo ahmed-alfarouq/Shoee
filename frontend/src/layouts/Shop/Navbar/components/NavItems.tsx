@@ -1,4 +1,4 @@
-import { useUser } from "@/stores/user";
+import { useUserToken } from "@/stores/user";
 import { Link, useLocation } from "react-router-dom";
 
 import styles from "../Navbar.module.scss";
@@ -6,7 +6,7 @@ import styles from "../Navbar.module.scss";
 const NavItems = () => {
   const pathname = useLocation().pathname;
 
-  const user = useUser();
+  const token = useUserToken();
 
   return (
     <ul className={styles.menu}>
@@ -41,7 +41,7 @@ const NavItems = () => {
         </Link>
       </li>
 
-      {user && (
+      {token && (
         <li className={styles.nav_item}>
           <Link
             to="/account"
@@ -54,7 +54,7 @@ const NavItems = () => {
         </li>
       )}
 
-      {!user && (
+      {!token && (
         <li className={styles.nav_item}>
           <Link
             to="/sign-in"

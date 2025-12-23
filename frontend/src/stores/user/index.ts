@@ -24,10 +24,9 @@ import type { UserStoreState } from "./userStore.types";
 const useUserStore = create<UserStoreState>()(
   persist(
     immer((set) => ({
-      user: null,
       token: null,
       actions: {
-        logout: () => set({ token: null, user: null }),
+        logout: () => set({ token: null }),
         setToken: (token) => set({ token }),
         signIn: (email, password) =>
           asyncCatch(() => signIn({ set, email, password })),
@@ -57,14 +56,11 @@ const useUserStore = create<UserStoreState>()(
     {
       name: "user-storage",
       partialize: (state) => ({
-        user: state.user,
         token: state.token,
       }),
     }
   )
 );
-
-export const useUser = () => useUserStore((state) => state.user);
 
 export const useUserToken = () => useUserStore((state) => state.token);
 

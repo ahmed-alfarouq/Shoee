@@ -1,4 +1,4 @@
-import type { Address, User } from "@/types/index.types";
+import type { Address } from "@/types/index.types";
 import type { WritableDraft } from "immer";
 
 export type UserSet = (
@@ -22,7 +22,6 @@ export type Actions = {
       Error | null,
       {
         token: string;
-        user: User;
       } | null
     ]
   >;
@@ -35,7 +34,6 @@ export type Actions = {
       Error | null,
       {
         token: string;
-        user: User;
       } | null
     ]
   >;
@@ -54,7 +52,6 @@ export type Actions = {
 };
 
 export interface UserStoreState {
-  user: User | null;
   token: string | null;
   actions: Actions;
 }
