@@ -5,7 +5,7 @@ import useUserStore from "@/stores/user";
 import { AUTH_ROUTES, PRIVATE_ROUTES } from "@/constants/routes";
 
 const authLoader = ({ request }: LoaderFunctionArgs) => {
-  const user = useUserStore.getState().user;
+  const token = useUserStore.getState().token;
   const pathname = new URL(request.url).pathname;
 
   const isAdminRoute = pathname.startsWith("/admin");
@@ -14,21 +14,17 @@ const authLoader = ({ request }: LoaderFunctionArgs) => {
 
   const isCheckoutPage = request.url.includes("/checkout");
 
-  if (isAuthRoute && user) {
+  if (isAuthRoute && token) {
     return redirect("/");
   }
 
-  if ((isAdminRoute || isPrivateRoute) && !user) {
+  if ((isAdminRoute || isPrivateRoute) && !token) {
     if (isCheckoutPage)
       return redirect(
         "/sign-in?message=Please sign in to checkout&redirectTo=/checkout"
       );
 
     return redirect("/sign-in");
-  }
-
-  if (isAdminRoute && user?.role !== "admin") {
-    return redirect("/");
   }
 
   return null;

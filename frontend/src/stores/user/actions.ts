@@ -20,13 +20,12 @@ import type {
 
 export const signIn = async ({ set, email, password }: SignInAction) => {
   const res = await authApiClient.post("login", { email, password });
-  const { token, user } = res.data as { token: string; user: User };
 
-  if (!user.isVerified) return { token, user };
+  const { token } = res.data as { token: string };
 
-  set({ token, user });
+  set({ token });
 
-  return { token, user };
+  return { token };
 };
 
 export const signUp = async ({ email, password, username }: SignUpAction) => {
@@ -71,7 +70,7 @@ export const resetPassword = async ({
 };
 
 // User Settings
-export const updateAvatar = async ({ set, file }: UpdateAvatarAction) => {
+export const updateAvatar = async ({ file }: UpdateAvatarAction) => {
   const data = new FormData();
   data.append("avatar", file);
 
@@ -81,28 +80,15 @@ export const updateAvatar = async ({ set, file }: UpdateAvatarAction) => {
     },
   });
 
-  const { msg, avatar } = res.data as { msg: string; avatar: string };
-
-  set((state) => {
-    if (!state.user) return;
-    state.user.avatar = avatar;
-  });
+  const { msg } = res.data as { msg: string };
 
   return { msg };
 };
 
-export const updateUsername = async ({
-  set,
-  newUsername,
-}: UpdateUsernameAction) => {
+export const updateUsername = async ({ newUsername }: UpdateUsernameAction) => {
   const res = await userApiClient.post("username", { newUsername });
 
-  const { msg, username } = res.data as { msg: string; username: string };
-
-  set((state) => {
-    if (!state.user) return;
-    state.user.username = username;
-  });
+  const { msg } = res.data as { msg: string };
 
   return { msg };
 };
@@ -121,57 +107,34 @@ export const updatePassword = async ({
   return { msg };
 };
 
-export const createAddress = async ({ set, address }: CreateAddressAction) => {
+export const createAddress = async ({ address }: CreateAddressAction) => {
   const res = await userApiClient.post("create-address", address);
 
   const { msg, addresses } = res.data as { msg: string; addresses: Address[] };
 
-  set((state) => {
-    if (!state.user) return;
-    state.user.addresses = addresses;
-  });
-
-  return { msg };
+  return { msg, addresses };
 };
 
-export const updateAddress = async ({ set, address }: UpdateAddressAction) => {
+export const updateAddress = async ({ address }: UpdateAddressAction) => {
   const res = await userApiClient.post("update-address", address);
 
   const { msg, addresses } = res.data as { msg: string; addresses: Address[] };
 
-  set((state) => {
-    if (!state.user) return;
-    state.user.addresses = addresses;
-  });
-
-  return { msg };
+  return { msg, addresses };
 };
 
-export const removeAddress = async ({ set, id }: RemoveAddressAction) => {
+export const removeAddress = async ({ id }: RemoveAddressAction) => {
   const res = await userApiClient.post("remove-address", { id });
 
   const { msg, addresses } = res.data as { msg: string; addresses: Address[] };
 
-  set((state) => {
-    if (!state.user) return;
-    state.user.addresses = addresses;
-  });
-
-  return { msg };
+  return { msg, addresses };
 };
 
-export const setDefaultAddress = async ({
-  set,
-  id,
-}: SetDefaultAddressAction) => {
+export const setDefaultAddress = async ({ id }: SetDefaultAddressAction) => {
   const res = await userApiClient.post("default-address", { id });
 
   const { msg, addresses } = res.data as { msg: string; addresses: Address[] };
 
-  set((state) => {
-    if (!state.user) return;
-    state.user.addresses = addresses;
-  });
-
-  return { msg };
+  return { msg, addresses };
 };

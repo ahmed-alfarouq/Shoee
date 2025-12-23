@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { useUser, useUserActions } from "@/stores/user";
+import { useUserActions } from "@/stores/user";
 
 import { Modal } from "@components/Modal";
 import { Button } from "@components/Button";
 import { AddressCard } from "@features/AddressCard";
 import { BillingDetailsForm } from "@features/Settings/BillingDetailsForm";
 
+import useUser from "@/query/user/useUser";
+
 const BillingDetails = () => {
-  const user = useUser();
+  const { data: user } = useUser();
+
+  const [addresses, setAddresses] = useState(user?.addresses);
+
   const { setDefaultAddress, removeAddress } = useUserActions();
 
   const [id, setId] = useState<string | undefined>();
@@ -18,17 +23,33 @@ const BillingDetails = () => {
     setIsOpen((prev) => !prev);
   };
 
+  const handleRemoveAddress = async (id: string) => {
+    const [, data] = await removeAddress(id);
+
+    if (data?.addresses) {
+      setAddresses(data.addresses);
+    }
+  };
+
+  const handleSetDefaultAddress = async (id: string) => {
+    const [, data] = await setDefaultAddress(id);
+
+    if (data?.addresses) {
+      setAddresses(data.addresses);
+    }
+  };
+
   return (
     <>
-      {user?.addresses?.length ? (
-        user.addresses.map((add) => (
+      {addresses?.length ? (
+        addresses.map((add) => (
           <AddressCard
             editable
             key={add.id}
             address={add}
             onEdit={toggleModal}
-            remove={removeAddress}
-            setDefault={setDefaultAddress}
+            remove={handleRemoveAddress}
+            setDefault={handleSetDefaultAddress}
           />
         ))
       ) : (

@@ -1,11 +1,21 @@
 import sharp from "sharp";
 import bcrypt from "bcrypt";
-import { del, put } from "@vercel/blob";
+import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
+import { del, put } from "@vercel/blob";
 
 import User from "../models/userModel.js";
+import AppError from "../utils/error/appError.js";
 
 const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
+
+export const getUserData = async (req, res, next) => {
+  const user = req.user;
+
+  if (!user) return next(new AppError("No token, authorization denied", 401));
+
+  return res.json({ user });
+};
 
 export const uploadAvatar = async (req, res) => {
   try {

@@ -2,9 +2,10 @@
 @use "base/variables";
 @use "base/typography";
 
-@use "base/animations";
+
 @use "base/reset";
 @use "base/globals";
+@use "base/animations";
 
 // Utilities
 @use "utilities/helpers";
@@ -13,8 +14,6 @@
 @use "swiper/css";
 @use "swiper/css/navigation";
 
-// Components
-@use "components/review_card";
 
 .swiper {
   .swiper-button-next,

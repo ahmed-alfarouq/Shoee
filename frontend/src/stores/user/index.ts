@@ -24,10 +24,9 @@ import type { UserStoreState } from "./userStore.types";
 const useUserStore = create<UserStoreState>()(
   persist(
     immer((set) => ({
-      user: null,
       token: null,
       actions: {
-        logout: () => set({ token: null, user: null }),
+        logout: () => set({ token: null }),
         setToken: (token) => set({ token }),
         signIn: (email, password) =>
           asyncCatch(() => signIn({ set, email, password })),
@@ -39,32 +38,28 @@ const useUserStore = create<UserStoreState>()(
         verifyEmail: (token) => asyncCatch(() => verifyEmail({ token })),
 
         updateAvatar: (avatar) =>
-          asyncCatch(() => updateAvatar({ set, file: avatar })),
+          asyncCatch(() => updateAvatar({ file: avatar })),
         updateUsername: (username) =>
-          asyncCatch(() => updateUsername({ set, newUsername: username })),
+          asyncCatch(() => updateUsername({ newUsername: username })),
         updatePassword: (oldPassword, newPassword) =>
           asyncCatch(() => updatePassword({ oldPassword, newPassword })),
 
         createAddress: (address) =>
-          asyncCatch(() => createAddress({ set, address })),
+          asyncCatch(() => createAddress({ address })),
         updateAddress: (address) =>
-          asyncCatch(() => updateAddress({ set, address })),
-        removeAddress: (id) => asyncCatch(() => removeAddress({ set, id })),
-        setDefaultAddress: (id) =>
-          asyncCatch(() => setDefaultAddress({ set, id })),
+          asyncCatch(() => updateAddress({ address })),
+        removeAddress: (id) => asyncCatch(() => removeAddress({ id })),
+        setDefaultAddress: (id) => asyncCatch(() => setDefaultAddress({ id })),
       },
     })),
     {
       name: "user-storage",
       partialize: (state) => ({
-        user: state.user,
         token: state.token,
       }),
     }
   )
 );
-
-export const useUser = () => useUserStore((state) => state.user);
 
 export const useUserToken = () => useUserStore((state) => state.token);
 

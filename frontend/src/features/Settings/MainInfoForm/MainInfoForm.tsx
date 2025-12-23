@@ -15,10 +15,10 @@ import { useUsernameUpdate } from "./hooks/useUsernameUpdate";
 
 const MainInfoForm = () => {
   const {
-    isPending: isAvatarPending,
     preview,
-    message: avatarMessage,
     upload: uploadAvatar,
+    message: avatarMessage,
+    isPending: isAvatarPending,
   } = useAvatarUpdate();
 
   const {

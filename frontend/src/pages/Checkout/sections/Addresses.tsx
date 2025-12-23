@@ -1,12 +1,13 @@
-import { useUser } from "@/stores/user";
-
 import styles from "../Checkout.module.scss";
 
 import { AddressCard } from "@/features/AddressCard";
+
 import { useCheckoutActions, useCheckoutState } from "@/stores/checkout";
 
+import useUser from "@/query/user/useUser";
+
 const Addresses = () => {
-  const user = useUser();
+  const { data: user } = useUser();
 
   const { address } = useCheckoutState();
   const { setAddress } = useCheckoutActions();

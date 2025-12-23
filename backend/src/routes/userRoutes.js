@@ -3,6 +3,7 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 import { upload } from "../utils/storage.js";
 import {
+  getUserData,
   uploadAvatar,
   createAddress,
   updateAddress,
@@ -18,8 +19,11 @@ import {
   usernameValidation,
 } from "../middleware/validations.js";
 
+import catchAsync from "../utils/error/catchAsync.js";
+
 const router = Router();
 
+router.get("/user", authMiddleware, catchAsync(getUserData));
 router.post(
   "/upload-avatar",
   authMiddleware,

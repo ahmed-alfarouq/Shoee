@@ -8,7 +8,9 @@ import { Button } from "@/components/Button";
 import { SelectInput } from "@/components/SelectInput";
 import { FormMessage } from "@/features/Auth/FormMessage";
 
-import { useUser, useUserActions } from "@/stores/user";
+import { useUserActions } from "@/stores/user";
+
+import useUser from "@/query/user/useUser";
 
 import { countries } from "@/constants";
 
@@ -26,7 +28,8 @@ const BillingDetailsForm = ({ id }: { id?: string }) => {
     message: string;
   }>({ type: "error", message: "" });
 
-  const user = useUser();
+  const { data: user } = useUser();
+
   const { createAddress, updateAddress } = useUserActions();
 
   const addressToEdit = user?.addresses?.find((addr) => addr.id === id) || {

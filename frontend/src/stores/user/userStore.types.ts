@@ -1,4 +1,4 @@
-import type { Address, User } from "@/types/index.types";
+import type { Address } from "@/types/index.types";
 import type { WritableDraft } from "immer";
 
 export type UserSet = (
@@ -11,6 +11,9 @@ export type UserSet = (
 
 type SuccessResponse = Promise<[Error | null, { msg: string } | null]>;
 
+type SuccessAddressResponse = Promise<
+  [Error | null, { msg: string; addresses: Address[] } | null]
+>;
 export type Actions = {
   logout: () => void;
   setToken: (token: string | null) => void;
@@ -22,7 +25,6 @@ export type Actions = {
       Error | null,
       {
         token: string;
-        user: User;
       } | null
     ]
   >;
@@ -35,7 +37,6 @@ export type Actions = {
       Error | null,
       {
         token: string;
-        user: User;
       } | null
     ]
   >;
@@ -47,14 +48,13 @@ export type Actions = {
   updateUsername: (username: string) => SuccessResponse;
   updatePassword: (oldPassword: string, newPassword: string) => SuccessResponse;
 
-  createAddress: (address: Omit<Address, "id">) => SuccessResponse;
-  updateAddress: (Address: Address) => SuccessResponse;
-  removeAddress: (id: string) => SuccessResponse;
-  setDefaultAddress: (id: string) => SuccessResponse;
+  createAddress: (address: Omit<Address, "id">) => SuccessAddressResponse;
+  updateAddress: (Address: Address) => SuccessAddressResponse;
+  removeAddress: (id: string) => SuccessAddressResponse;
+  setDefaultAddress: (id: string) => SuccessAddressResponse;
 };
 
 export interface UserStoreState {
-  user: User | null;
   token: string | null;
   actions: Actions;
 }
@@ -86,12 +86,10 @@ export interface ResetPasswordAction {
 }
 
 export interface UpdateAvatarAction {
-  set: UserSet;
   file: File;
 }
 
 export interface UpdateUsernameAction {
-  set: UserSet;
   newUsername: string;
 }
 
@@ -101,21 +99,17 @@ export interface UpdatePasswordAction {
 }
 
 export interface CreateAddressAction {
-  set: UserSet;
   address: Omit<Address, "id">;
 }
 
 export interface UpdateAddressAction {
-  set: UserSet;
   address: Address;
 }
 
 export interface RemoveAddressAction {
-  set: UserSet;
   id: string;
 }
 
 export interface SetDefaultAddressAction {
-  set: UserSet;
   id: string;
 }
